@@ -6,7 +6,7 @@ When an artist releases stems, they're saying: this is not finished. This is sta
 
 The "final" mix is just one arrangement. The stems contain infinite others. Releasing them is an invitation to find those arrangements.
 
-## The Fan Mix as Artifact
+## The Remix as Artifact
 
 A fan remix is not a cover. It's not karaoke. It's not a lesser version of the original.
 
@@ -32,7 +32,6 @@ You can:
 - Release your remix
 - Sell your remix
 - Never credit the original
-- Pretend you made it yourself
 
 All of this is permitted. All of this was intended.
 
@@ -52,11 +51,11 @@ Future listeners with different tools, different tastes, different contexts will
 
 Releasing stems is releasing the future versions of the song, not just the present one.
 
-## Why This Approach is Rare
+## Why This Approach
 
 Stems expose the construction. They reveal the tricks. They make the magic legible.
 
-This is uncomfortable for artists who trade on mystique. It's dangerous for industries built on scarcity. It's unusual for cultures that equate ownership with value.
+It's dangerous for industries built on scarcity. It's unusual for cultures that equate ownership with value.
 
 But the music was always made of parts. The stems just make that visible.
 

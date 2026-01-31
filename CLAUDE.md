@@ -60,7 +60,7 @@ src/
 └── track-colors.html                # Preview track colors
 ```
 
-**standalone-mixer/index.html**: Fully self-contained stem mixer with no external dependencies. Users can drag-and-drop their own audio files (M4A, MP3, WAV, FLAC, OGG). Includes FX modal (with filter rolloff), holograph visualizer, and help system - all inline. No share URL (not applicable for user-provided files).
+**standalone-mixer/index.html**: Fully self-contained stem mixer with no external dependencies. Users can drag-and-drop their own audio files (M4A, MP3, MP4, WAV, FLAC, OGG). Includes FX modal (with filter rolloff), holograph visualizer, and help system - all inline. No share URL (not applicable for user-provided files).
 
 ## Common Commands
 

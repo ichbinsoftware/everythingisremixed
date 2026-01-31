@@ -45,7 +45,7 @@ src/
 Self-contained stem mixer for user-provided audio files. No external dependencies, no share URL functionality (not applicable for local files).
 
 **Features:**
-- Drag-and-drop audio files (M4A, MP3, WAV, FLAC, OGG)
+- Drag-and-drop audio files (M4A, MP3, MP4, WAV, FLAC, OGG)
 - Full FX chain with filter rolloff (-12/-24 dB/oct)
 - Holograph visualizer
 - Help system

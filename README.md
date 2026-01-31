@@ -1,10 +1,24 @@
-# Everything is Remixed
+# 🎚️ Everything is Remixed
 
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg?style=flat-square)](http://creativecommons.org/publicdomain/zero/1.0/)
 [![Status: Public Infrastructure](https://img.shields.io/badge/Status-Public_Infrastructure-2ecc71.svg?style=flat-square)](https://mixer.ichbinsoftware.com)
 [![Stems Included](https://img.shields.io/badge/Stems-Included-yellow.svg?style=flat-square)](https://evr.ichbinsoftware.com/)
 
+<div align="center">
+  <img src="src/images/EVR-Hydrogen.png" width="640" alt="Software-Entwicklungskit - Everything is Remixed">
+  <br/>
+</div>  
+
+
 Interactive stem mixer for the [Everything is Free](https://github.com/ichbinsoftware/everythingisfree) album by Software-Entwicklungskit.
+
+All audio stems, artwork, code, artifacts and information in this repository are released under **Creative Commons Zero v1.0 Universal (CC0 1.0)**.
+
+> **"The mixer is not a playback device. It's a creative tool."**
+>
+> **"Music should circulate like electricity."**
+>
+> **"This work is not a product. It is not content. It is not owned."**
 
 ## About
 

@@ -268,9 +268,11 @@ function serveApp(track, trackId, searchParams, allStems) {
       <footer>
         <p><strong>Everything is Free</strong> · CC0 1.0 Universal · Zero Restrictions</p>
         <p class="footer-links">
-          <a href="https://github.com/ichbinsoftware/everythingisfree" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://github.com/ichbinsoftware/everythingisremixed" target="_blank" rel="noopener noreferrer">GitHub</a>
           &nbsp;·&nbsp;
-          <a href="https://software-entwicklungskit.bandcamp.com" target="_blank" rel="noopener noreferrer">Bandcamp</a>
+          <a href="https://software-entwicklungskit.bandcamp.com/album/everything-is-free" target="_blank" rel="noopener noreferrer">Bandcamp</a>
+          &nbsp;·&nbsp;
+          <a target="_blank" href="https://www.instagram.com/ichbinsoftware">@ichbinsoftware</a>
         </p>
       </footer>
     </div>
@@ -315,9 +317,11 @@ function serveApp(track, trackId, searchParams, allStems) {
     ${track ? `<footer id="mixerFooter" style="display: none;">
       <p><strong>Everything is Free</strong> · CC0 1.0 Universal · Zero Restrictions</p>
       <p class="footer-links">
-        <a href="https://github.com/ichbinsoftware/everythingisfree" target="_blank" rel="noopener noreferrer">GitHub</a>
-        &nbsp;·&nbsp;
-        <a href="https://software-entwicklungskit.bandcamp.com/album/everything-is-free" target="_blank" rel="noopener noreferrer">Bandcamp</a>
+          <a href="https://github.com/ichbinsoftware/everythingisremixed" target="_blank" rel="noopener noreferrer">GitHub</a>
+          &nbsp;·&nbsp;
+          <a href="https://software-entwicklungskit.bandcamp.com/album/everything-is-free" target="_blank" rel="noopener noreferrer">Bandcamp</a>
+          &nbsp;·&nbsp;
+          <a target="_blank" href="https://www.instagram.com/ichbinsoftware">@ichbinsoftware</a>
       </p>
     </footer>` : ''}
   </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Everything is Remixed | Software-Entwicklungskit</title>
+  <title>Everything is Remixed | ichbinsoftware</title>
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('evr-theme') || 'dark');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -299,7 +299,7 @@
 
     .drop-btn {
       display: inline-block;
-      padding: 16px 32px;
+      padding: 48px 80px;
       border: 2px dashed var(--accent-cyan);
       border-radius: 12px;
       color: var(--accent-cyan);
@@ -883,11 +883,11 @@
 
     /* Footer */
     footer {
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
+      padding: 24px 20px;
       text-align: center;
       font-size: 12px;
       color: var(--text-muted);
+      margin-top: auto;
     }
 
     footer a {
@@ -1801,10 +1801,10 @@
 
       <div class="upload-overlay" id="dropZone">
         <h3>Your mixer awaits</h3>
-        <p>Add stems to bring it to life</p>
-        <button class="drop-btn">+ Drop audio files</button>
-        <div class="drop-formats">M4A · MP3 · WAV · FLAC · OGG</div>
-        <input type="file" id="fileInput" multiple accept="audio/*,.m4a">
+        <p>Add stems/tracks to bring it to life</p>
+        <button class="drop-btn">+ Upload or drop audio files</button>
+        <div class="drop-formats">M4A · MP3 · MP4 · WAV · FLAC · OGG</div>
+        <input type="file" id="fileInput" multiple accept="audio/*,.m4a,.mp4">
         <div class="file-list" id="fileList"></div>
       </div>
     </div>
@@ -1881,9 +1881,9 @@
     <footer>
       <p><strong>Everything is Free</strong> · CC0 1.0 Universal · Zero Restrictions</p>
       <p style="margin-top: 8px;">
-        <a href="https://github.com/ichbinsoftware/everythingisfree">GitHub</a>
+        <a target="_blank" href="https://github.com/ichbinsoftware/everythingisremixed">GitHub</a>
         &nbsp;·&nbsp;
-        <a href="https://software-entwicklungskit.bandcamp.com">Bandcamp</a>
+        <a target="_blank" href="https://www.instagram.com/ichbinsoftware">@ichbinsoftware</a>
       </p>
     </footer>
   </div>
@@ -2132,9 +2132,9 @@
 
     function handleFiles(files) {
       const audioFiles = Array.from(files).filter(f =>
-        f.type.startsWith('audio/') || /\.(mp3|wav|flac|ogg|m4a|aac)$/i.test(f.name)
+        f.type.startsWith('audio/') || /\.(mp3|wav|flac|ogg|m4a|mp4|aac)$/i.test(f.name)
       );
-      if (!audioFiles.length) return alert('Please drop audio files');
+      if (!audioFiles.length) return alert('Please select audio files');
       loadAudioFiles(audioFiles);
     }
 
@@ -2928,6 +2928,7 @@
       let height = 0;
       let colorMap = [];
       let themeColorRgb = null;
+      let isLightMode = false;
 
       const GRID_ROWS = 40;
       const GRID_COLS = 24;
@@ -2949,13 +2950,21 @@
           case 'init': init(payload); break;
           case 'resize': resize(payload); break;
           case 'draw': draw(payload); break;
+          case 'theme':
+            isLightMode = payload.isLight;
+            if (ctx && width && height) {
+              ctx.fillStyle = isLightMode ? '#e0e0e0' : '#0a0a0a';
+              ctx.fillRect(0, 0, width, height);
+            }
+            break;
         }
       };
 
-      function init({ canvas: c, themeColor: color }) {
+      function init({ canvas: c, themeColor: color, isLight }) {
         canvas = c;
         ctx = canvas.getContext('2d', { alpha: false });
         const baseColor = color || '#4ECDC4';
+        isLightMode = isLight || false;
 
         themeColorRgb = hexToRgb(baseColor);
         glowColor = 'rgb(' + themeColorRgb.r + ',' + themeColorRgb.g + ',' + themeColorRgb.b + ')';
@@ -2965,6 +2974,11 @@
         points = Array(GRID_ROWS).fill(null).map(() =>
           Array(GRID_COLS).fill(null).map(() => ({ x: 0, y: 0, visible: false }))
         );
+
+        if (ctx) {
+          ctx.fillStyle = isLightMode ? '#e0e0e0' : '#0a0a0a';
+          ctx.fillRect(0, 0, width, height);
+        }
       }
 
       function resize({ width: w, height: h }) {
@@ -2974,6 +2988,10 @@
         canvas.height = height;
         centerX = width / 2;
         centerY = height / 2 - 40;
+        if (ctx) {
+          ctx.fillStyle = isLightMode ? '#e0e0e0' : '#0a0a0a';
+          ctx.fillRect(0, 0, width, height);
+        }
       }
 
       function draw({ frequency }) {
@@ -2997,7 +3015,7 @@
         gridData.unshift(newRow);
         newRow = recycledRow;
 
-        ctx.fillStyle = '#0a0a0a';
+        ctx.fillStyle = isLightMode ? '#e0e0e0' : '#0a0a0a';
         ctx.fillRect(0, 0, width, height);
 
         for (let r = 0; r < GRID_ROWS; r++) {
@@ -3163,7 +3181,7 @@
 
         holographWorker.postMessage({
           type: 'init',
-          payload: { canvas: offscreen, themeColor: '#4ECDC4' }
+          payload: { canvas: offscreen, themeColor: '#4ECDC4', isLight: document.documentElement.getAttribute('data-theme') === 'light' }
         }, [offscreen]);
 
         holographDataBuffer = new Uint8Array(masterMeter.frequencyBinCount);
@@ -3439,6 +3457,9 @@
       const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('evr-theme', newTheme);
+      if (holographWorker) {
+        holographWorker.postMessage({ type: 'theme', payload: { isLight: newTheme === 'light' } });
+      }
     });
 
     // Event listeners
