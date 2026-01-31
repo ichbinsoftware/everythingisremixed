@@ -9,8 +9,10 @@
   <br/>
 </div>  
 
+"Everything Is Remixed" (EVR) is a web-based interactive music album and stem mixer. Users can remix tracks by manipulating individual audio stems (drums, vocals, synths, etc.) directly in the browser using the Web Audio API.
 
-Interactive stem mixer for the [Everything is Free](https://github.com/ichbinsoftware/everythingisfree) album by Software-Entwicklungskit.
+
+Features a remixer for the [Everything is Free](https://github.com/ichbinsoftware/everythingisfree) album by Software-Entwicklungskit and a stand alone mixer allowing mixing of uploaded files.
 
 All audio stems, artwork, code, artifacts and information in this repository are released under **Creative Commons Zero v1.0 Universal (CC0 1.0)**.
 
