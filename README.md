@@ -18,21 +18,21 @@ A browser-based mixing console for the 7 tracks and 148 stems of "Everything is 
 - Light/dark theme
 - Mobile support
 
-## The Tracks
-
-| # | Track | BPM | Key | Stems |
 ## 🎵 Tracks
 
 | # | Track | Symbol | BPM | Key | Stems | Link |
 |:---|:---|:---:|:---:|:---:|:---:|:---|
-| 1 | Hydrogen | <img src="src/1.Hydrogen/artwork/Hydrogen-Symbol-1000x1000.png" width="50" height="50" alt="Hydrogen symbol"> | 132 | D Major | 12 | [Mix](https://evr.ichbinsoftware.com/hydrogen) • |
+| 1 | Hydrogen | <img src="src/1.Hydrogen/artwork/Hydrogen-Symbol-1000x1000.png" width="50" height="50" alt="Hydrogen symbol"> | 132 | D Major | 12 | [Mix](https://evr.ichbinsoftware.com/hydrogen) |
 | 2 | Lithium | <img src="src/2.Lithium/artwork/Lithium-Symbol-1000x1000.png" width="50" height="50" alt="Lithium symbol"> | 124 | G minor | 38 | [Mix](https://evr.ichbinsoftware.com/lithium) |
 | 3 | Sodium | <img src="src/3.Sodium/artwork/Sodium-Symbol-1000x1000.png" width="50" height="50" alt="Sodium symbol"> | 140 | G minor | 28 | [Mix](https://evr.ichbinsoftware.com/sodium) |
 | 4 | Potassium | <img src="src/4.Potassium/artwork/Potassium-Symbol-1000x1000.png" width="50" height="50" alt="Potassium symbol"> | 90 | C Major | 19 | [Mix](https://evr.ichbinsoftware.com/potassium) |
 | 5 | Rubidium | <img src="src/5.Rubidium/artwork/Rubidium-Symbol-1000x1000.png" width="50" height="50" alt="Rubidium symbol"> | 132 | G Major | 9 | [Mix](https://evr.ichbinsoftware.com/rubidium)  |
 | 6 | Caesium | <img src="src/6.Caesium/artwork/Caesium-Symbol-1000x1000.png" width="50" height="50" alt="Caesium symbol"> | 130 | C Major | 16 | [Mix](https://evr.ichbinsoftware.com/caesium) |
-| 7 | Francium | <img src="src/7.Francium/artwork/Francium-Symbol-1000x1000.png" width="50" height="50" alt="Francium symbol"> | 128 | B flat | 26 | [Interactive](https://evr.ichbinsoftware.com/francium) |
+| 7 | Francium | <img src="src/7.Francium/artwork/Francium-Symbol-1000x1000.png" width="50" height="50" alt="Francium symbol"> | 128 | B flat | 26 | [Mix](https://evr.ichbinsoftware.com/francium) |
 
+## 🎨 Artwork
+
+Digital artwork by **Maubere**.
 
 ## Related
 
@@ -49,6 +49,16 @@ See `docs/` for technical documentation:
 - `MIXER_SYSTEM.md` — Effects reference, state encoding, UI components
 - `PERFORMANCE.md` — Animation loop, memory, and rendering optimizations
 
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/awesome-feature`)
+3. Commit your changes (`git commit -m 'Add awesome feature'`)
+4. Push to the branch (`git push origin feature/awesome-feature`)
+5. Open a Pull Request
 
 ## 📜 Manifesto
 
@@ -115,11 +125,11 @@ But the music was always made of parts. The stems just make that visible.
 —
 **Software-Entwicklungskit**
 
-## Credits
+## 👥 Credits
 
 - **Music:** Software-Entwicklungskit
 - **Artwork:** Maubere
 
-## License
+## ⚖️ License
 
 CC0 1.0 Universal (public domain)
