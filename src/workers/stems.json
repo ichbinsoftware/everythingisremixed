@@ -1,0 +1,1200 @@
+{
+    "hydrogen": [
+        {
+            "filename": "1.Hydrogen_Stem_BEEPS.m4a",
+            "name": "BEEPS",
+            "description": "Beeps/electronic sounds",
+            "color": "#f024d9",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "1.Hydrogen_Stem_BGVOX AAHH.m4a",
+            "name": "BGVOX AAHH",
+            "description": "Background vocals \"aahh\"",
+            "color": "#daf024",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_BGVOX ECHO.m4a",
+            "name": "BGVOX ECHO",
+            "description": "Background vocals with echo",
+            "color": "#f02474",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_BGVOX HARMONY.m4a",
+            "name": "BGVOX HARMONY",
+            "description": "Background vocals harmony",
+            "color": "#f0a024",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_DRUMS BREAK 1.m4a",
+            "name": "DRUMS BREAK 1",
+            "description": "Drum break pattern 1",
+            "color": "#2474f0",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_DRUMS BREAK 2.m4a",
+            "name": "DRUMS BREAK 2",
+            "description": "Drum break pattern 2",
+            "color": "#24f0a0",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_HH.m4a",
+            "name": "HH",
+            "description": "Hi-hat percussion",
+            "color": "#3825d3",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "1.Hydrogen_Stem_MAIN DRUMS.m4a",
+            "name": "MAIN DRUMS",
+            "description": "Main drum pattern",
+            "color": "#e422a8",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_MICROCOSM EFFECT.m4a",
+            "name": "MICROCOSM",
+            "description": "Microcosm granular effect",
+            "color": "#f08c24",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_MINILOGUE SYNTH.m4a",
+            "name": "MINILOGUE",
+            "description": "Minilogue synthesizer",
+            "color": "#71dd45",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_SWEEPS.m4a",
+            "name": "SWEEPS",
+            "description": "Sweep/riser effects",
+            "color": "#1adecc",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "1.Hydrogen_Stem_VOX LEAD.m4a",
+            "name": "VOX LEAD",
+            "description": "Lead vocals",
+            "color": "#25daf0",
+            "downSample": false,
+            "mono": false
+        }
+    ],
+    "lithium": [
+        {
+            "filename": "2.Lithium_Stem_ALT HH.m4a",
+            "name": "ALT HH",
+            "description": "Alternate hi-hat",
+            "color": "#39cf27",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_ARP DIST.m4a",
+            "name": "ARP DIST",
+            "description": "Distorted arpeggiator",
+            "color": "#2739cf",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BEEP.m4a",
+            "name": "BEEP",
+            "description": "Beep sound",
+            "color": "#27cf69",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BGVOX 1.m4a",
+            "name": "BGVOX 1",
+            "description": "Background vocals 1",
+            "color": "#278ccf",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BGVOX 2.m4a",
+            "name": "BGVOX 2",
+            "description": "Background vocals 2",
+            "color": "#cf6927",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BGVOX 3.m4a",
+            "name": "BGVOX 3",
+            "description": "Background vocals 3",
+            "color": "#cf278c",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BGVOX AAAAAHHHH.m4a",
+            "name": "BGVOX AHHH",
+            "description": "Background vocals extended",
+            "color": "#ab9e32",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BGVOX HARMONY GLITCH.m4a",
+            "name": "BGVOX HARMONY",
+            "description": "BG vocals harmony glitch",
+            "color": "#b1bc2d",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BGVOX ICK ICK.m4a",
+            "name": "BGVOX ICK",
+            "description": "Background vocals \"ick ick\"",
+            "color": "#a3cf27",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BGVOX MAIN.m4a",
+            "name": "BGVOX MAIN",
+            "description": "Main background vocals",
+            "color": "#89c53c",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BGVOX REVERSE.m4a",
+            "name": "BGVOX REV",
+            "description": "BG vocals reverse",
+            "color": "#5db22a",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_BREAK BEAT.m4a",
+            "name": "BREAK BEAT",
+            "description": "Breakbeat pattern",
+            "color": "#43c425",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_CRASH FADE.m4a",
+            "name": "CRASH FADE",
+            "description": "Crash cymbal fade",
+            "color": "#38be37",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_CRASH INTRO.m4a",
+            "name": "CRASH INTRO",
+            "description": "Crash intro",
+            "color": "#33ce4f",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_CRUSH BREAK.m4a",
+            "name": "CRUSH BREAK",
+            "description": "Bit-crush break",
+            "color": "#23ba59",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_ECHO PAD.m4a",
+            "name": "ECHO PAD",
+            "description": "Echo pad texture",
+            "color": "#35b47a",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_EDM BUILD.m4a",
+            "name": "EDM BUILD",
+            "description": "EDM build-up",
+            "color": "#2fc69d",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_FILL PIANO.m4a",
+            "name": "FILL PIANO",
+            "description": "Piano fill",
+            "color": "#2bd7c7",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_GLITCH HH.m4a",
+            "name": "GLITCH HH",
+            "description": "Glitchy hi-hat",
+            "color": "#329fab",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_HAT FILL.m4a",
+            "name": "HAT FILL",
+            "description": "Hi-hat fill",
+            "color": "#2d94bc",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_HATS.m4a",
+            "name": "HATS",
+            "description": "Main hi-hats",
+            "color": "#2781cf",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_HH GLITCH.m4a",
+            "name": "HH GLITCH",
+            "description": "Hi-hat glitch",
+            "color": "#3c6dc5",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_HOUSE BEAT.m4a",
+            "name": "HOUSE BEAT",
+            "description": "House beat",
+            "color": "#2a42b2",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "2.Lithium_Stem_INTRO DRUMS.m4a",
+            "name": "INTRO DRUMS",
+            "description": "Intro drums",
+            "color": "#2625c4",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "2.Lithium_Stem_KICK.m4a",
+            "name": "KICK",
+            "description": "Main kick",
+            "color": "#5137be",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_MELODY PAD.m4a",
+            "name": "MELODY PAD",
+            "description": "Melodic pad",
+            "color": "#6d33ce",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_MINILOGUE_SYNTH.m4a",
+            "name": "MINILOGUE",
+            "description": "Minilogue synth",
+            "color": "#7723ba",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "2.Lithium_Stem_OFF KICK.m4a",
+            "name": "OFF KICK",
+            "description": "Off-beat kick",
+            "color": "#9335b4",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_ORGAN SWEEP EFFECT.m4a",
+            "name": "ORGAN SWEEP",
+            "description": "Organ sweep",
+            "color": "#bb2fc6",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "2.Lithium_Stem_PAD INTRO.m4a",
+            "name": "PAD INTRO",
+            "description": "Pad intro",
+            "color": "#d72bc4",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "2.Lithium_Stem_PLUCK.m4a",
+            "name": "PLUCK",
+            "description": "Plucked synth",
+            "color": "#ab3287",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_SLOW BEAT.m4a",
+            "name": "SLOW BEAT",
+            "description": "Slow beat",
+            "color": "#bc2d78",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "2.Lithium_Stem_SNARE BUILD.m4a",
+            "name": "SNARE BUILD",
+            "description": "Snare build-up",
+            "color": "#cf2760",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_SY BASS.m4a",
+            "name": "SY BASS",
+            "description": "Synth bass",
+            "color": "#c53c52",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_TOM BREAK.m4a",
+            "name": "TOM BREAK",
+            "description": "Tom drum break",
+            "color": "#b22e2a",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_TOMS.m4a",
+            "name": "TOMS",
+            "description": "Tom drums",
+            "color": "#c44625",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "2.Lithium_Stem_VOX ECHO.m4a",
+            "name": "VOX ECHO",
+            "description": "Vocals with echo",
+            "color": "#be6c37",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "2.Lithium_Stem_VOX LEAD.m4a",
+            "name": "VOX LEAD",
+            "description": "Lead vocals",
+            "color": "#cf2739",
+            "downSample": true,
+            "mono": true
+        }
+    ],
+    "sodium": [
+        {
+            "filename": "3.Sodium_Stem_ALT HATS.m4a",
+            "name": "ALT HATS",
+            "description": "Alternate hi-hats",
+            "color": "#46f7ca",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_BASS STAB.m4a",
+            "name": "BASS STAB",
+            "description": "Bass stab",
+            "color": "#ca46f7",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_BGVOX BUILD.m4a",
+            "name": "BGVOX BUILD",
+            "description": "BG vocals build",
+            "color": "#46cbf7",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "3.Sodium_Stem_BGVOX OOH.m4a",
+            "name": "BGVOX OOH",
+            "description": "BG vocals \"ooh\"",
+            "color": "#7246f7",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "3.Sodium_Stem_BGVOX OUTRO.m4a",
+            "name": "BGVOX OUTRO",
+            "description": "BG vocals outro",
+            "color": "#ccf746",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "3.Sodium_Stem_BUILD PRC.m4a",
+            "name": "BUILD PRC",
+            "description": "Build percussion",
+            "color": "#f77146",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_CLAP.m4a",
+            "name": "CLAP",
+            "description": "Handclap",
+            "color": "#67e13d",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_FAST HATS.m4a",
+            "name": "FAST HATS",
+            "description": "Fast hi-hats",
+            "color": "#41ec46",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_FILL BUILD.m4a",
+            "name": "FILL BUILD",
+            "description": "Fill build-up",
+            "color": "#46f77d",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_GLITCH HH.m4a",
+            "name": "GLITCH HH",
+            "description": "Glitchy hi-hat",
+            "color": "#66e7b3",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_HH BUILD.m4a",
+            "name": "HH BUILD",
+            "description": "Hi-hat build",
+            "color": "#32ebd4",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_HH.m4a",
+            "name": "HH",
+            "description": "Main hi-hats",
+            "color": "#37d7f6",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_HIGH STABS.m4a",
+            "name": "HIGH STABS",
+            "description": "High stabs",
+            "color": "#58a6e5",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_HVY KICK.m4a",
+            "name": "HVY KICK",
+            "description": "Heavy kick",
+            "color": "#5e85ef",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_K & SN.m4a",
+            "name": "K & SN",
+            "description": "Kick and snare",
+            "color": "#2a28f5",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_KICK.m4a",
+            "name": "KICK",
+            "description": "Main kick",
+            "color": "#774ae3",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_MICROCOSM_EFFECT.m4a",
+            "name": "MICROCOSM",
+            "description": "Microcosm effect",
+            "color": "#ab4fee",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "3.Sodium_Stem_MINILOGUE_SYNTH.m4a",
+            "name": "MINILOGUE",
+            "description": "Minilogue synth",
+            "color": "#e156f7",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "3.Sodium_Stem_PLUCK.m4a",
+            "name": "PLUCK",
+            "description": "Plucked synth",
+            "color": "#e13dc9",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "3.Sodium_Stem_REVERSE SWEEP.m4a",
+            "name": "REV SWEEP",
+            "description": "Reverse sweep",
+            "color": "#ec41a3",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_RISE.m4a",
+            "name": "RISE",
+            "description": "Riser effect",
+            "color": "#f74679",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_SLIDE.m4a",
+            "name": "SLIDE",
+            "description": "Slide/portamento",
+            "color": "#e76667",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_SLOW BEAT.m4a",
+            "name": "SLOW BEAT",
+            "description": "Slow beat",
+            "color": "#eb6632",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_SWEEPS.m4a",
+            "name": "SWEEPS",
+            "description": "Sweep effects",
+            "color": "#f6a237",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "3.Sodium_Stem_SY BASS.m4a",
+            "name": "SY BASS",
+            "description": "Synth bass",
+            "color": "#e5cf58",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_TOPS.m4a",
+            "name": "TOPS",
+            "description": "Top-end elements",
+            "color": "#ddef5e",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "3.Sodium_Stem_TRANSISTION.m4a",
+            "name": "TRANSITION",
+            "description": "Transition effect",
+            "color": "#a1f528",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "3.Sodium_Stem_VOX LEAD.m4a",
+            "name": "VOX LEAD",
+            "description": "Lead vocals",
+            "color": "#f7ca47",
+            "downSample": false,
+            "mono": true
+        }
+    ],
+    "potassium": [
+        {
+            "filename": "4.Potassium_Stem_BGVOX ALT.m4a",
+            "name": "BGVOX ALT",
+            "description": "Alternate BG vocals",
+            "color": "#ff8e00",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_BGVOX ECHO.m4a",
+            "name": "BGVOX ECHO",
+            "description": "BG vocals with echo",
+            "color": "#00ff8e",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_BREAKBEAT.m4a",
+            "name": "BREAKBEAT",
+            "description": "Breakbeat pattern",
+            "color": "#efff00",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "4.Potassium_Stem_BUILD.m4a",
+            "name": "BUILD",
+            "description": "Build-up section",
+            "color": "#00ff10",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_END DRUMS.m4a",
+            "name": "END DRUMS",
+            "description": "Ending drums",
+            "color": "#ff00ef",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_HAT FILL.m4a",
+            "name": "HAT FILL",
+            "description": "Hi-hat fill",
+            "color": "#0f00ff",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_HATS.m4a",
+            "name": "HATS",
+            "description": "Main hi-hats",
+            "color": "#cf1768",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_KEYS.m4a",
+            "name": "KEYS",
+            "description": "Keyboard/piano",
+            "color": "#e7190c",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "4.Potassium_Stem_KICK HATS.m4a",
+            "name": "KICK HATS",
+            "description": "Kick with hi-hats",
+            "color": "#ff8e00",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_KICK.m4a",
+            "name": "KICK",
+            "description": "Main kick",
+            "color": "#dbe625",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_MALLET.m4a",
+            "name": "MALLET",
+            "description": "Mallet percussion",
+            "color": "#66da0b",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_MICROCOSM_EFFECT.m4a",
+            "name": "MICROCOSM",
+            "description": "Microcosm effect",
+            "color": "#00f30e",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "4.Potassium_Stem_MINILOGUE_SYNTH.m4a",
+            "name": "MINILOGUE",
+            "description": "Minilogue synth",
+            "color": "#1ae58b",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "4.Potassium_Stem_OUTRO DRUM.m4a",
+            "name": "OUTRO DRUM",
+            "description": "Outro drums",
+            "color": "#19e6f2",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "4.Potassium_Stem_PAD + BASS.m4a",
+            "name": "PAD + BASS",
+            "description": "Pad and bass",
+            "color": "#0065e6",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_SNARE.m4a",
+            "name": "SNARE",
+            "description": "Snare drum",
+            "color": "#2318da",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "4.Potassium_Stem_SWEEP.m4a",
+            "name": "SWEEP",
+            "description": "Sweep effect",
+            "color": "#8d0df2",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "4.Potassium_Stem_TRAP BEAT.m4a",
+            "name": "TRAP BEAT",
+            "description": "Trap-style beat",
+            "color": "#ff0df0",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "4.Potassium_Stem_VOX LEAD.m4a",
+            "name": "VOX LEAD",
+            "description": "Lead vocals",
+            "color": "#8f01ff",
+            "downSample": true,
+            "mono": true
+        }
+    ],
+    "rubidium": [
+        {
+            "filename": "5.Rubidium_Stem_BGVOX.m4a",
+            "name": "BGVOX",
+            "description": "Background vocals",
+            "color": "#85c715",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "5.Rubidium_Stem_BUILD.m4a",
+            "name": "BUILD",
+            "description": "Build-up section",
+            "color": "#1584c7",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "5.Rubidium_Stem_DRUMS 2.m4a",
+            "name": "DRUMS 2",
+            "description": "Drum pattern 2",
+            "color": "#2cc715",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "5.Rubidium_Stem_DRUMS MAIN.m4a",
+            "name": "DRUMS MAIN",
+            "description": "Main drums",
+            "color": "#15c7af",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "5.Rubidium_Stem_DRUMS OUTRO.m4a",
+            "name": "DRUMS OUTRO",
+            "description": "Outro drums",
+            "color": "#c7152c",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "5.Rubidium_Stem_MELODY BREAK.m4a",
+            "name": "MELODY BREAK",
+            "description": "Melodic break",
+            "color": "#af15c7",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "5.Rubidium_Stem_MINILOGUE_SYNTH.m4a",
+            "name": "MINILOGUE",
+            "description": "Minilogue synth",
+            "color": "#a35222",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "5.Rubidium_Stem_PLUCK.m4a",
+            "name": "PLUCK",
+            "description": "Plucked synth",
+            "color": "#1c7cb4",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "5.Rubidium_Stem_VOX LEAD.m4a",
+            "name": "VOX LEAD",
+            "description": "Lead vocals",
+            "color": "#c71585",
+            "downSample": true,
+            "mono": true
+        }
+    ],
+    "caesium": [
+        {
+            "filename": "6.Caesium_Stem_ALT HATS.m4a",
+            "name": "ALT HATS",
+            "description": "Alternate hi-hats",
+            "color": "#efae9f",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_BGVOX ALT.m4a",
+            "name": "BGVOX ALT",
+            "description": "Alternate BG vocals",
+            "color": "#9fefae",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_BGVOX ECHO.m4a",
+            "name": "BGVOX ECHO",
+            "description": "BG vocals with echo",
+            "color": "#efd69f",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "6.Caesium_Stem_BGVOX HARMONY.m4a",
+            "name": "BGVOX HARMONY",
+            "description": "BG vocals harmony",
+            "color": "#b8ef9f",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_BGVOX HIGH.m4a",
+            "name": "BGVOX HIGH",
+            "description": "BG vocals high",
+            "color": "#d69fef",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_BGVOX MAIN.m4a",
+            "name": "BGVOX MAIN",
+            "description": "Main BG vocals",
+            "color": "#9fb8ef",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_BREAK.m4a",
+            "name": "BREAK",
+            "description": "Break section",
+            "color": "#de88ce",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_BUILD.m4a",
+            "name": "BUILD",
+            "description": "Build-up section",
+            "color": "#e7939f",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_FILL SCRATCH.m4a",
+            "name": "FILL SCRATCH",
+            "description": "Fill with scratch",
+            "color": "#efc99f",
+            "downSample": true,
+            "mono": false
+        },
+        {
+            "filename": "6.Caesium_Stem_GARAGE BEAT.m4a",
+            "name": "GARAGE BEAT",
+            "description": "Garage beat",
+            "color": "#e1ebb7",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_HATS.m4a",
+            "name": "HATS",
+            "description": "Main hi-hats",
+            "color": "#91e383",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_KICK.m4a",
+            "name": "KICK",
+            "description": "Kick drum",
+            "color": "#8eecbf",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_MICROCOSM_EFFECT.m4a",
+            "name": "MICROCOSM",
+            "description": "Microcosm effect",
+            "color": "#a7dbe7",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "6.Caesium_Stem_MINILOGUE_SYNTH.m4a",
+            "name": "MINILOGUE",
+            "description": "Minilogue synth",
+            "color": "#b4bcee",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "6.Caesium_Stem_SCRATCH HATS.m4a",
+            "name": "SCRATCH HATS",
+            "description": "Scratch hi-hats",
+            "color": "#b67de9",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "6.Caesium_Stem_VOX LEAD.m4a",
+            "name": "VOX LEAD",
+            "description": "Lead vocals",
+            "color": "#afa0ef",
+            "downSample": true,
+            "mono": true
+        }
+    ],
+    "francium": [
+        {
+            "filename": "7.Francium_Stem_BGVOX ALT OUTRO.m4a",
+            "name": "BGVOX ALT OUTRO",
+            "description": "Alt BG vocals outro",
+            "color": "#bdaca7",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_BGVOX BOP.m4a",
+            "name": "BGVOX BOP",
+            "description": "BG vocals bop",
+            "color": "#cbbeb2",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_BGVOX BUILD.m4a",
+            "name": "BGVOX BUILD",
+            "description": "BG vocals build",
+            "color": "#d8d1bf",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_BGVOX ECHO.m4a",
+            "name": "BGVOX ECHO",
+            "description": "BG vocals with echo",
+            "color": "#dcdcd4",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "7.Francium_Stem_BGVOX OUTRO.m4a",
+            "name": "BGVOX OUTRO",
+            "description": "BG vocals outro",
+            "color": "#e7e9e1",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_BGVOX SCATTER OUTRO.m4a",
+            "name": "BGVOX SCATTER",
+            "description": "BG vocals scatter",
+            "color": "#a7b793",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_BIG BEAT.m4a",
+            "name": "BIG BEAT",
+            "description": "Big beat pattern",
+            "color": "#abc59f",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "7.Francium_Stem_BREAK.m4a",
+            "name": "BREAK",
+            "description": "Break section",
+            "color": "#b9c5b8",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_CLAPS.m4a",
+            "name": "CLAPS",
+            "description": "Handclaps",
+            "color": "#c4d3c6",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_CRASH.m4a",
+            "name": "CRASH",
+            "description": "Crash cymbal",
+            "color": "#d1e0d7",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "7.Francium_Stem_CYMBALS.m4a",
+            "name": "CYMBALS",
+            "description": "Cymbal elements",
+            "color": "#dfebe7",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_FILL BEAT.m4a",
+            "name": "FILL BEAT",
+            "description": "Fill beat",
+            "color": "#9caeac",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_FILL BUILD.m4a",
+            "name": "FILL BUILD",
+            "description": "Fill with build",
+            "color": "#a7bbbd",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "7.Francium_Stem_FILL SCRATCH.m4a",
+            "name": "FILL SCRATCH",
+            "description": "Fill with scratch",
+            "color": "#b2c2cb",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_GARAGE BEAT.m4a",
+            "name": "GARAGE BEAT",
+            "description": "Garage beat",
+            "color": "#bfc9d8",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_HATS.m4a",
+            "name": "HATS",
+            "description": "Main hi-hats",
+            "color": "#d4d6dc",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_KICK.m4a",
+            "name": "KICK",
+            "description": "Kick drum",
+            "color": "#e2e1e9",
+            "downSample": true,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_MELODY GLITCH.m4a",
+            "name": "MELODY GLITCH",
+            "description": "Melody with glitch",
+            "color": "#9f93b7",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_MICROCOSM_EFFECT.m4a",
+            "name": "MICROCOSM",
+            "description": "Microcosm effect",
+            "color": "#b49fc5",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "7.Francium_Stem_MINILOGUE_SYNTH.m4a",
+            "name": "MINILOGUE",
+            "description": "Minilogue synth",
+            "color": "#c3b8c5",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "7.Francium_Stem_OPEN HATS.m4a",
+            "name": "OPEN HATS",
+            "description": "Open hi-hats",
+            "color": "#d3c4d3",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_PERC BUILD.m4a",
+            "name": "PERC BUILD",
+            "description": "Percussion build",
+            "color": "#e0d1dc",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_SCRATCH BEAT.m4a",
+            "name": "SCRATCH BEAT",
+            "description": "Scratch beat",
+            "color": "#ebdfe5",
+            "downSample": false,
+            "mono": true
+        },
+        {
+            "filename": "7.Francium_Stem_SINE.m4a",
+            "name": "SINE",
+            "description": "Sine wave/sub bass",
+            "color": "#ae9ca1",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "7.Francium_Stem_TEXTURE.m4a",
+            "name": "TEXTURE",
+            "description": "Texture/atmosphere",
+            "color": "#bda7a7",
+            "downSample": false,
+            "mono": false
+        },
+        {
+            "filename": "7.Francium_Stem_VOX LEAD.m4a",
+            "name": "VOX LEAD",
+            "description": "Lead vocals",
+            "color": "#c1c1c1",
+            "downSample": true,
+            "mono": true
+        }
+    ]
+}
