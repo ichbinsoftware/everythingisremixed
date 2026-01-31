@@ -1,5 +1,9 @@
 # Everything is Remixed
 
+[![License: CC0-1.0](https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg?style=flat-square)](http://creativecommons.org/publicdomain/zero/1.0/)
+[![Status: Public Infrastructure](https://img.shields.io/badge/Status-Public_Infrastructure-2ecc71.svg?style=flat-square)](https://mixer.ichbinsoftware.com)
+[![Stems Included](https://img.shields.io/badge/Stems-Included-yellow.svg?style=flat-square)](https://evr.ichbinsoftware.com/)
+
 Interactive stem mixer for the [Everything is Free](https://github.com/ichbinsoftware/everythingisfree) album by Software-Entwicklungskit.
 
 ## About
@@ -17,14 +21,18 @@ A browser-based mixing console for the 7 tracks and 148 stems of "Everything is 
 ## The Tracks
 
 | # | Track | BPM | Key | Stems |
-|---|-------|-----|-----|-------|
-| 1 | Hydrogen | 132 | D Major | 12 |
-| 2 | Lithium | 124 | G minor | 38 |
-| 3 | Sodium | 140 | G minor | 28 |
-| 4 | Potassium | 90 | C Major | 19 |
-| 5 | Rubidium | 132 | G Major | 9 |
-| 6 | Caesium | 130 | C Major | 16 |
-| 7 | Francium | 128 | B♭ Major | 26 |
+## 🎵 Tracks
+
+| # | Track | Symbol | BPM | Key | Stems | Link |
+|:---|:---|:---:|:---:|:---:|:---:|:---|
+| 1 | Hydrogen | <img src="src/1.Hydrogen/artwork/Hydrogen-Symbol-1000x1000.png" width="50" height="50" alt="Hydrogen symbol"> | 132 | D Major | 12 | [Mix](https://evr.ichbinsoftware.com/hydrogen) • |
+| 2 | Lithium | <img src="src/2.Lithium/artwork/Lithium-Symbol-1000x1000.png" width="50" height="50" alt="Lithium symbol"> | 124 | G minor | 38 | [Mix](https://evr.ichbinsoftware.com/lithium) |
+| 3 | Sodium | <img src="src/3.Sodium/artwork/Sodium-Symbol-1000x1000.png" width="50" height="50" alt="Sodium symbol"> | 140 | G minor | 28 | [Mix](https://evr.ichbinsoftware.com/sodium) |
+| 4 | Potassium | <img src="src/4.Potassium/artwork/Potassium-Symbol-1000x1000.png" width="50" height="50" alt="Potassium symbol"> | 90 | C Major | 19 | [Mix](https://evr.ichbinsoftware.com/potassium) |
+| 5 | Rubidium | <img src="src/5.Rubidium/artwork/Rubidium-Symbol-1000x1000.png" width="50" height="50" alt="Rubidium symbol"> | 132 | G Major | 9 | [Mix](https://evr.ichbinsoftware.com/rubidium)  |
+| 6 | Caesium | <img src="src/6.Caesium/artwork/Caesium-Symbol-1000x1000.png" width="50" height="50" alt="Caesium symbol"> | 130 | C Major | 16 | [Mix](https://evr.ichbinsoftware.com/caesium) |
+| 7 | Francium | <img src="src/7.Francium/artwork/Francium-Symbol-1000x1000.png" width="50" height="50" alt="Francium symbol"> | 128 | B flat | 26 | [Interactive](https://evr.ichbinsoftware.com/francium) |
+
 
 ## Related
 
@@ -40,6 +48,72 @@ See `docs/` for technical documentation:
 - `SERVER_WORKER.md` — Routing, R2, caching, CORS
 - `MIXER_SYSTEM.md` — Effects reference, state encoding, UI components
 - `PERFORMANCE.md` — Animation loop, memory, and rendering optimizations
+
+
+## 📜 Manifesto
+
+### Stems as Invitation
+
+When an artist releases stems, they're saying: this is not finished. This is starting material.
+
+The "final" mix is just one arrangement. The stems contain infinite others. Releasing them is an invitation to find those arrangements.
+
+### The Fan Mix as Artifact
+
+A fan remix is not a cover. It's not karaoke. It's not a lesser version of the original.
+
+It's a new work made from shared material. It has its own intentions. Its own decisions. Its own validity.
+
+The person who mutes the vocals and loops the bridge has created something. The person who solos the drums and studies the pattern has learned something. Both are legitimate uses.
+
+### Copyright as Barrier
+
+Traditional music release is one-directional. Artist to listener. Master recording to passive consumption.
+
+Copyright enforces this direction. The listener cannot legally extract, modify, redistribute. The recording is final. The relationship is fixed.
+
+This serves commerce. It does not serve culture.
+
+### CC0 as Bridge
+
+Public domain dedication removes the barrier. The listener becomes a collaborator. The relationship becomes bidirectional.
+
+You can:
+- Download the stems
+- Remix them
+- Release your remix
+- Sell your remix
+- Never credit the original
+- Pretend you made it yourself
+
+All of this is permitted. All of this was intended.
+
+### From Consumer to Collaborator
+
+The mixer is not a playback device. It's a creative tool.
+
+When you adjust a fader, you're not consuming—you're producing. When you share your mix URL, you're not sharing a link to the song—you're sharing your arrangement of the song.
+
+The distinction matters. Consumers receive. Collaborators contribute.
+
+### The Stems Will Outlast the Mix
+
+The "official" mix is a snapshot. The stems are the source.
+
+Future listeners with different tools, different tastes, different contexts will make different mixes. The stems enable this. The original mix does not.
+
+Releasing stems is releasing the future versions of the song, not just the present one.
+
+### Why This Approach
+
+Stems expose the construction. They reveal the tricks. They make the magic legible.
+
+It's dangerous for industries built on scarcity. It's unusual for cultures that equate ownership with value.
+
+But the music was always made of parts. The stems just make that visible.
+
+—
+**Software-Entwicklungskit**
 
 ## Credits
 
