@@ -125,11 +125,15 @@ But the music was always made of parts. The stems just make that visible.
 —
 **Software-Entwicklungskit**
 
-## 👥 Credits
-
-- **Music:** Software-Entwicklungskit
-- **Artwork:** Maubere
-
 ## ⚖️ License
 
-CC0 1.0 Universal (public domain)
+This work is dedicated to the public domain under  
+**Creative Commons Zero v1.0 Universal (CC0 1.0)**.
+
+You may copy, modify, distribute, perform, remix, sample, or commercialize this work  
+**without permission, credit, or restriction**.
+
+
+## 👥 Credits
+- **Music & Production:** Software-Entwicklungskit | [@ichbinsoftware](https://www.instagram.com/ichbinsoftware/)
+- **Artwork:** Maubere
