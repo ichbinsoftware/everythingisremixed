@@ -1,8 +1,9 @@
-# 🎚️ Everything is Remixed
+# Everything is Remixed
 
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg?style=flat-square)](http://creativecommons.org/publicdomain/zero/1.0/)
 [![Status: Public Infrastructure](https://img.shields.io/badge/Status-Public_Infrastructure-2ecc71.svg?style=flat-square)](https://mixer.ichbinsoftware.com)
-[![Stems Included](https://img.shields.io/badge/Stems-Included-yellow.svg?style=flat-square)](https://evr.ichbinsoftware.com/)
+![Stems: 148](https://img.shields.io/badge/Stems-148-yellow.svg?style=flat-square)
+
 
 <div align="center">
   <img src="src/images/EVR-Hydrogen.png" width="640" alt="Software-Entwicklungskit - Everything is Remixed">
