@@ -44,14 +44,6 @@ The palette generation uses **HSL color space** manipulation to create:
 | `src/stem_palettes.json` | Generated palette data (JSON) |
 | `src/workers/stems.json` | Stem configuration with embedded colors |
 
-### Preview Tools
-
-| File | Description |
-|------|-------------|
-| `src/stem-palettes.html` | Visual palette preview with all tracks |
-| `src/track-colors.html` | Track primary color overview |
-
-## Technical Implementation
 
 ### Palette Generation Algorithm
 
@@ -171,16 +163,6 @@ Each stem's color is applied to:
 - Base + two colors adjacent to complement
 - Softer than full complementary
 - Example: Blue + Yellow-orange + Red-orange
-
-## Preview Tool Features
-
-The `stem-palettes.html` preview tool provides:
-
-- **Visual grid**: All palette colors as clickable swatches
-- **Primary badge**: VOX LEAD marked with special indicator
-- **Copy-to-clipboard**: Click any swatch to copy hex code
-- **Track metadata**: BPM, key, stem count for each track
-- **Responsive layout**: Works on desktop and mobile
 
 ## Benefits
 
