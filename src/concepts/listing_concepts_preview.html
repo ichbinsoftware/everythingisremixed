@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVR Listing Concepts - All 7 Tracks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=Space+Mono:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; background: #111; color: #fff; }
+    
+    .presentation-container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding: 40px;
+      align-items: center;
+    }
+
+    .concept-wrapper {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .concept-header {
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .concept-title { font-family: 'Space Mono', monospace; font-size: 24px; color: #888; }
+    .concept-desc { font-family: 'Space Mono', monospace; font-size: 14px; color: #555; }
+
+    /* =========================================
+       CONCEPT 1: SWISS LAB
+       ========================================= */
+    .c1-list-frame {
+      background: #f0f0f0; color: #000; font-family: 'Inter', sans-serif;
+      padding: 60px; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      min-height: 500px; display: flex; flex-direction: column;
+    }
+    .c1-list-header { border-bottom: 4px solid #000; margin-bottom: 40px; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .c1-logo { font-weight: 900; font-size: 32px; letter-spacing: -1px; }
+    .c1-sub { font-family: 'Space Mono', monospace; font-size: 12px; }
+    .c1-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 2px; background: #000; border: 2px solid #000; }
+    .c1-card { background: #fff; padding: 20px; aspect-ratio: 1/1; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.2s; cursor: pointer; position: relative; }
+    .c1-card:hover { background: #000; color: #fff; }
+    .c1-card:hover .c1-num { color: #fff; }
+    .c1-card:hover .c1-sym { -webkit-text-stroke: 1px #fff; color: transparent; }
+    .c1-card-top { display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; }
+    .c1-num { color: #666; }
+    .c1-sym { font-size: 60px; font-weight: 900; line-height: 1; letter-spacing: -2px; margin-left: -4px; }
+    .c1-name { font-weight: 700; font-size: 14px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+    .c1-stems-badge { font-size: 10px; border: 1px solid currentColor; padding: 2px 4px; border-radius: 2px; }
+    .c1-strip { position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: var(--c); opacity: 0; transition: opacity 0.2s; }
+    .c1-card:hover .c1-strip { opacity: 1; }
+
+    /* =========================================
+       CONCEPT 2: ANALOG RACK
+       ========================================= */
+    .c2-list-frame {
+      background: #1a1a1a;
+      background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
+      background-size: 50px 50px; padding: 60px; border-radius: 12px; box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+    }
+    .c2-rack { background: #0a0a0a; padding: 15px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 4px solid #333; border-top-color: #444; border-bottom-color: #222; width: 100%; display: flex; flex-direction: column; gap: 2px; }
+    .c2-unit { height: 60px; background: #252525; border-top: 1px solid #383838; border-bottom: 1px solid #111; display: flex; align-items: center; padding: 0 20px; justify-content: space-between; position: relative; cursor: pointer; transition: filter 0.2s; }
+    .c2-unit:hover { filter: brightness(1.1); }
+    .c2-ear { width: 20px; height: 100%; background: #181818; position: absolute; top: 0; display: flex; align-items: center; justify-content: center; }
+    .c2-ear.left { left: 0; border-right: 1px solid #000; }
+    .c2-ear.right { right: 0; border-left: 1px solid #000; }
+    .c2-screw { width: 8px; height: 8px; background: #555; border-radius: 50%; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); position: relative; }
+    .c2-screw::after { content: ''; position: absolute; top: 3px; left: 1px; right: 1px; height: 2px; background: #333; transform: rotate(45deg); }
+    .c2-faceplate { margin: 0 30px; flex-grow: 1; display: flex; align-items: center; gap: 20px; }
+    .c2-tape-label { background: #eee; color: #000; font-family: 'Permanent Marker', cursive; font-size: 16px; padding: 2px 10px; transform: rotate(-1deg); box-shadow: 0 2px 4px rgba(0,0,0,0.3); width: 140px; text-align: center; }
+    .c2-lights { display: flex; gap: 4px; }
+    .c2-led { width: 8px; height: 8px; background: #333; border-radius: 50%; box-shadow: inset 0 1px 1px rgba(0,0,0,1); }
+    .c2-led.on { background: #00ff00; box-shadow: 0 0 5px #00ff00; }
+    .c2-info { font-family: 'Space Mono', monospace; font-size: 10px; color: #888; text-transform: uppercase; }
+    .c2-color-strip { width: 60px; height: 4px; background: var(--c); border-radius: 2px; box-shadow: 0 0 5px var(--c); }
+
+    /* =========================================
+       CONCEPT 3: NEBULA
+       ========================================= */
+    .c3-list-frame { background: #050508; height: 600px; border-radius: 20px; position: relative; overflow: hidden; font-family: 'Inter', sans-serif; box-shadow: 0 20px 50px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
+    .c3-bg { position: absolute; top: -50%; left: -50%; right: -50%; bottom: -50%; background: radial-gradient(circle at 20% 30%, #4ECDC4 0%, transparent 20%), radial-gradient(circle at 80% 70%, #8f01ff 0%, transparent 20%), radial-gradient(circle at 50% 50%, #cf2739 0%, transparent 20%); filter: blur(100px); opacity: 0.3; animation: pulseBG 10s infinite alternate; }
+    @keyframes pulseBG { 0% { transform: scale(1); opacity: 0.2; } 100% { transform: scale(1.1); opacity: 0.4; } }
+    .c3-gallery { position: relative; z-index: 10; display: flex; gap: 20px; padding: 0 40px; overflow-x: auto; width: 100%; align-items: center; scrollbar-width: none; }
+    .c3-glass-card { width: 220px; height: 320px; flex-shrink: 0; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 30px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; }
+    .c3-glass-card:hover { transform: translateY(-20px) scale(1.05); background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px var(--glow); }
+    .c3-symbol-orb { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent), var(--c); display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; color: rgba(0,0,0,0.7); box-shadow: 0 10px 30px var(--glow); position: relative; }
+    .c3-card-info { text-align: center; }
+    .c3-card-title { font-size: 18px; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px; }
+    .c3-card-meta { font-size: 12px; color: rgba(255,255,255,0.5); font-family: 'Space Mono', monospace; }
+    .c3-play-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(10px); transition: all 0.3s; }
+    .c3-glass-card:hover .c3-play-btn { opacity: 1; transform: translateY(0); }
+
+    /* =========================================
+       CONCEPT 4: SCHEMATIC
+       ========================================= */
+    .c5-list-frame { background: #0a192f; background-image: linear-gradient(rgba(100, 255, 218, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 255, 218, 0.1) 1px, transparent 1px); background-size: 40px 40px; color: #64ffda; font-family: 'Courier New', monospace; padding: 40px; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
+    .c5-table { width: 100%; border-collapse: collapse; border: 2px solid #64ffda; }
+    .c5-table th { text-align: left; border-bottom: 2px solid #64ffda; padding: 10px; background: rgba(100, 255, 218, 0.1); }
+    .c5-table td { border-bottom: 1px solid rgba(100, 255, 218, 0.3); padding: 10px; border-right: 1px solid rgba(100, 255, 218, 0.3); }
+    .c5-row:hover td { background: rgba(100, 255, 218, 0.2); cursor: pointer; color: #fff; }
+    .c5-status { width: 10px; height: 10px; background: #64ffda; display: inline-block; margin-right: 8px; box-shadow: 0 0 5px #64ffda; }
+    .c5-btn-load { background: transparent; border: 1px solid #64ffda; color: #64ffda; padding: 4px 8px; cursor: pointer; font-family: inherit; text-transform: uppercase; font-size: 10px; }
+    .c5-row:hover .c5-btn-load { background: #64ffda; color: #0a192f; }
+
+    /* =========================================
+       CONCEPT 5: PLAYGROUND
+       ========================================= */
+    .c6-list-frame { background: #fff8e1; padding: 40px; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: 'Inter', sans-serif; border: 4px solid #000; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+    .c6-card { background: #fff; border: 3px solid #000; box-shadow: 8px 8px 0px #000; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s; cursor: pointer; position: relative; overflow: hidden; }
+    .c6-card:hover { transform: translate(-4px, -4px); box-shadow: 12px 12px 0px #000; }
+    .c6-card-bg { position: absolute; top:0; left:0; right:0; height: 80px; background: var(--c); border-bottom: 3px solid #000; z-index: 0; }
+    .c6-avatar { width: 60px; height: 60px; background: #fff; border: 3px solid #000; border-radius: 50%; z-index: 1; margin-top: 40px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 24px; }
+    .c6-title { font-weight: 900; font-size: 18px; margin-top: 10px; text-transform: uppercase; z-index: 1; }
+    .c6-pill { background: #000; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-top: 8px; z-index: 1; }
+    .c6-card:hover .c6-pill { background: var(--c); color: #000; }
+
+    /* =========================================
+       CONCEPT 6: INDUSTRIAL
+       ========================================= */
+    .c7-list-frame { background: #e6e6e6; padding: 60px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; color: #333; }
+    .c7-shelf { display: flex; gap: 2px; padding-bottom: 20px; align-items: flex-end; height: 100%; border-bottom: 10px solid #ccc; overflow-x: auto; }
+    .c7-spine { width: 45px; height: 350px; background: #f5f5f5; border: 1px solid #dcdcdc; border-radius: 2px 4px 4px 2px; box-shadow: 2px 0 5px rgba(0,0,0,0.05); position: relative; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .c7-spine:hover { transform: translateY(-30px); box-shadow: 5px 5px 15px rgba(0,0,0,0.1); z-index: 10; background: #fff; border-color: #aaa; }
+    .c7-spine-text { transform: rotate(-90deg); font-weight: 700; font-size: 14px; letter-spacing: 1px; white-space: nowrap; text-transform: uppercase; color: #333; }
+    .c7-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); position: absolute; bottom: 20px; box-shadow: 0 0 5px var(--c); }
+
+    /* =========================================
+       CONCEPT 7: BIOLUMINESCENT
+       ========================================= */
+    .c8-list-frame {
+      background: radial-gradient(circle at 50% 50%, #021a24 0%, #000 100%);
+      height: 600px; padding: 40px; border-radius: 20px;
+      position: relative; overflow: hidden;
+      font-family: 'Inter', sans-serif; color: #fff;
+    }
+    .c8-list-frame::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 136, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 60%, rgba(0, 153, 255, 0.15) 0%, transparent 40%);
+      animation: bio-pulse 10s infinite alternate ease-in-out;
+    }
+    @keyframes bio-pulse {
+      0% { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 0.8; transform: scale(1.1); }
+    }
+    .c8-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; }
+    .c8-header { text-align: center; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0,255,136,0.5); }
+    .c8-title { font-size: 24px; font-weight: 200; letter-spacing: 2px; }
+    .c8-gallery { display: flex; gap: 20px; justify-content: center; flex-grow: 1; align-items: flex-end; }
+    .c8-organism {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      width: 80px; height: 100%; cursor: pointer;
+    }
+    .c8-organism:hover .c8-tentacle-track { box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 15px var(--c); }
+    .c8-organism:hover .c8-node { transform: translateX(-50%) scale(1.2); }
+    .c8-tentacle-track {
+      flex-grow: 1; width: 8px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      position: relative;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .c8-tentacle-fill {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, var(--c), transparent);
+      border-radius: 10px;
+      filter: blur(2px);
+      opacity: 0.7;
+    }
+    .c8-node {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent), var(--c);
+      position: absolute; left: 50%; transform: translateX(-50%);
+      box-shadow: 0 0 20px var(--c), 0 0 8px #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 11px; color: rgba(0,0,0,0.8);
+      transition: transform 0.3s;
+    }
+    .c8-spore {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s;
+    }
+    .c8-organism:hover .c8-spore { background: var(--c); box-shadow: 0 0 15px var(--c); border-color: transparent; }
+    .c8-info { text-align: center; }
+    .c8-name { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-shadow: 0 0 5px var(--c); margin-bottom: 2px; }
+    .c8-meta { font-size: 9px; color: rgba(255,255,255,0.5); font-family: 'Space Mono', monospace; }
+  </style>
+</head>
+<body>
+
+  <div class="presentation-container">
+    
+    <!-- CONCEPT 1: SWISS LAB (7 Tracks) -->
+    <div class="concept-wrapper">
+      <div class="concept-header"><div class="concept-title">01. SWISS LAB</div><div class="concept-desc">Periodic Grid</div></div>
+      <div class="c1-list-frame">
+        <div class="c1-list-header"><div class="c1-logo">EVR.LAB</div><div class="c1-sub">PROJECT: EVERYTHING IS FREE</div></div>
+        <div class="c1-grid">
+          <div class="c1-card" style="--c: #25daf0"><div class="c1-strip"></div><div class="c1-card-top"><span class="c1-num">01</span><span class="c1-num">12 CH</span></div><div class="c1-sym">H</div><div class="c1-name">Hydrogen <span class="c1-stems-badge">132</span></div></div>
+          <div class="c1-card" style="--c: #cf2739"><div class="c1-strip"></div><div class="c1-card-top"><span class="c1-num">02</span><span class="c1-num">38 CH</span></div><div class="c1-sym">Li</div><div class="c1-name">Lithium <span class="c1-stems-badge">124</span></div></div>
+          <div class="c1-card" style="--c: #f7ca47"><div class="c1-strip"></div><div class="c1-card-top"><span class="c1-num">03</span><span class="c1-num">28 CH</span></div><div class="c1-sym">Na</div><div class="c1-name">Sodium <span class="c1-stems-badge">140</span></div></div>
+          <div class="c1-card" style="--c: #8f01ff"><div class="c1-strip"></div><div class="c1-card-top"><span class="c1-num">04</span><span class="c1-num">19 CH</span></div><div class="c1-sym">K</div><div class="c1-name">Potassium <span class="c1-stems-badge">90</span></div></div>
+          <div class="c1-card" style="--c: #c71585"><div class="c1-strip"></div><div class="c1-card-top"><span class="c1-num">05</span><span class="c1-num">9 CH</span></div><div class="c1-sym">Rb</div><div class="c1-name">Rubidium <span class="c1-stems-badge">132</span></div></div>
+          <div class="c1-card" style="--c: #afa0ef"><div class="c1-strip"></div><div class="c1-card-top"><span class="c1-num">06</span><span class="c1-num">16 CH</span></div><div class="c1-sym">Cs</div><div class="c1-name">Caesium <span class="c1-stems-badge">130</span></div></div>
+          <div class="c1-card" style="--c: #c1c1c1"><div class="c1-strip"></div><div class="c1-card-top"><span class="c1-num">07</span><span class="c1-num">26 CH</span></div><div class="c1-sym">Fr</div><div class="c1-name">Francium <span class="c1-stems-badge">128</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 2: ANALOG RACK (7 Tracks) -->
+    <div class="concept-wrapper">
+      <div class="concept-header"><div class="concept-title">02. ANALOG RACK</div><div class="concept-desc">Studio Modules</div></div>
+      <div class="c2-list-frame"><div class="c2-rack">
+        <div class="c2-unit" style="--c: #25daf0"><div class="c2-ear left"><div class="c2-screw"></div></div><div class="c2-faceplate"><div class="c2-lights"><div class="c2-led on"></div><div class="c2-led"></div></div><div class="c2-color-strip"></div><div class="c2-tape-label">HYDROGEN</div><div class="c2-info">132 BPM // D MAJ</div><div style="flex-grow:1"></div><div class="c2-info">12 CH</div></div><div class="c2-ear right"><div class="c2-screw"></div></div></div>
+        <div class="c2-unit" style="--c: #cf2739"><div class="c2-ear left"><div class="c2-screw"></div></div><div class="c2-faceplate"><div class="c2-lights"><div class="c2-led on"></div><div class="c2-led on"></div></div><div class="c2-color-strip"></div><div class="c2-tape-label">LITHIUM</div><div class="c2-info">124 BPM // G MIN</div><div style="flex-grow:1"></div><div class="c2-info">38 CH</div></div><div class="c2-ear right"><div class="c2-screw"></div></div></div>
+        <div class="c2-unit" style="--c: #f7ca47"><div class="c2-ear left"><div class="c2-screw"></div></div><div class="c2-faceplate"><div class="c2-lights"><div class="c2-led"></div><div class="c2-led"></div></div><div class="c2-color-strip"></div><div class="c2-tape-label">SODIUM</div><div class="c2-info">140 BPM // G MIN</div><div style="flex-grow:1"></div><div class="c2-info">28 CH</div></div><div class="c2-ear right"><div class="c2-screw"></div></div></div>
+        <div class="c2-unit" style="--c: #8f01ff"><div class="c2-ear left"><div class="c2-screw"></div></div><div class="c2-faceplate"><div class="c2-lights"><div class="c2-led on"></div><div class="c2-led"></div></div><div class="c2-color-strip"></div><div class="c2-tape-label">POTASSIUM</div><div class="c2-info">90 BPM // C MAJ</div><div style="flex-grow:1"></div><div class="c2-info">19 CH</div></div><div class="c2-ear right"><div class="c2-screw"></div></div></div>
+        <div class="c2-unit" style="--c: #c71585"><div class="c2-ear left"><div class="c2-screw"></div></div><div class="c2-faceplate"><div class="c2-lights"><div class="c2-led"></div><div class="c2-led on"></div></div><div class="c2-color-strip"></div><div class="c2-tape-label">RUBIDIUM</div><div class="c2-info">132 BPM // G MAJ</div><div style="flex-grow:1"></div><div class="c2-info">9 CH</div></div><div class="c2-ear right"><div class="c2-screw"></div></div></div>
+        <div class="c2-unit" style="--c: #afa0ef"><div class="c2-ear left"><div class="c2-screw"></div></div><div class="c2-faceplate"><div class="c2-lights"><div class="c2-led on"></div><div class="c2-led"></div></div><div class="c2-color-strip"></div><div class="c2-tape-label">CAESIUM</div><div class="c2-info">130 BPM // C MAJ</div><div style="flex-grow:1"></div><div class="c2-info">16 CH</div></div><div class="c2-ear right"><div class="c2-screw"></div></div></div>
+        <div class="c2-unit" style="--c: #c1c1c1"><div class="c2-ear left"><div class="c2-screw"></div></div><div class="c2-faceplate"><div class="c2-lights"><div class="c2-led"></div><div class="c2-led"></div></div><div class="c2-color-strip"></div><div class="c2-tape-label">FRANCIUM</div><div class="c2-info">128 BPM // Bb MAJ</div><div style="flex-grow:1"></div><div class="c2-info">26 CH</div></div><div class="c2-ear right"><div class="c2-screw"></div></div></div>
+      </div></div>
+    </div>
+
+    <!-- CONCEPT 3: NEBULA (7 Tracks) -->
+    <div class="concept-wrapper">
+      <div class="concept-header"><div class="concept-title">03. NEBULA</div><div class="concept-desc">Glass Gallery</div></div>
+      <div class="c3-list-frame"><div class="c3-bg"></div><div class="c3-gallery">
+        <div class="c3-glass-card" style="--c: #25daf0; --glow: rgba(37, 218, 240, 0.4)"><div class="c3-symbol-orb">H</div><div class="c3-card-info"><div class="c3-card-title">HYDROGEN</div><div class="c3-card-meta">12 STEMS • 132 BPM</div></div><div class="c3-play-btn">▶</div></div>
+        <div class="c3-glass-card" style="--c: #cf2739; --glow: rgba(207, 39, 57, 0.4)"><div class="c3-symbol-orb">Li</div><div class="c3-card-info"><div class="c3-card-title">LITHIUM</div><div class="c3-card-meta">38 STEMS • 124 BPM</div></div><div class="c3-play-btn">▶</div></div>
+        <div class="c3-glass-card" style="--c: #f7ca47; --glow: rgba(247, 202, 71, 0.4)"><div class="c3-symbol-orb">Na</div><div class="c3-card-info"><div class="c3-card-title">SODIUM</div><div class="c3-card-meta">28 STEMS • 140 BPM</div></div><div class="c3-play-btn">▶</div></div>
+        <div class="c3-glass-card" style="--c: #8f01ff; --glow: rgba(143, 1, 255, 0.4)"><div class="c3-symbol-orb">K</div><div class="c3-card-info"><div class="c3-card-title">POTASSIUM</div><div class="c3-card-meta">19 STEMS • 90 BPM</div></div><div class="c3-play-btn">▶</div></div>
+        <div class="c3-glass-card" style="--c: #c71585; --glow: rgba(199, 21, 133, 0.4)"><div class="c3-symbol-orb">Rb</div><div class="c3-card-info"><div class="c3-card-title">RUBIDIUM</div><div class="c3-card-meta">9 STEMS • 132 BPM</div></div><div class="c3-play-btn">▶</div></div>
+        <div class="c3-glass-card" style="--c: #afa0ef; --glow: rgba(175, 160, 239, 0.4)"><div class="c3-symbol-orb">Cs</div><div class="c3-card-info"><div class="c3-card-title">CAESIUM</div><div class="c3-card-meta">16 STEMS • 130 BPM</div></div><div class="c3-play-btn">▶</div></div>
+        <div class="c3-glass-card" style="--c: #c1c1c1; --glow: rgba(193, 193, 193, 0.4)"><div class="c3-symbol-orb">Fr</div><div class="c3-card-info"><div class="c3-card-title">FRANCIUM</div><div class="c3-card-meta">26 STEMS • 128 BPM</div></div><div class="c3-play-btn">▶</div></div>
+      </div></div>
+    </div>
+
+    <!-- CONCEPT 4: SCHEMATIC (7 Tracks) -->
+    <div class="concept-wrapper">
+      <div class="concept-header"><div class="concept-title">04. SCHEMATIC</div><div class="concept-desc">Data Table</div></div>
+      <div class="c5-list-frame">
+        <div class="c5-header"><span>INDEX: PROJECT_EVR</span><span>REV: 2.0</span></div>
+        <table class="c5-table">
+          <thead><tr><th>ID</th><th>ELEMENT</th><th>STEMS</th><th>BPM</th><th>KEY</th><th>ACTION</th></tr></thead>
+          <tbody>
+            <tr class="c5-row"><td>001</td><td><span class="c5-status"></span>HYDROGEN</td><td>12</td><td>132</td><td>D MAJ</td><td><button class="c5-btn-load">INIT</button></td></tr>
+            <tr class="c5-row"><td>002</td><td><span class="c5-status"></span>LITHIUM</td><td>38</td><td>124</td><td>G MIN</td><td><button class="c5-btn-load">INIT</button></td></tr>
+            <tr class="c5-row"><td>003</td><td><span class="c5-status"></span>SODIUM</td><td>28</td><td>140</td><td>G MIN</td><td><button class="c5-btn-load">INIT</button></td></tr>
+            <tr class="c5-row"><td>004</td><td><span class="c5-status"></span>POTASSIUM</td><td>19</td><td>90</td><td>C MAJ</td><td><button class="c5-btn-load">INIT</button></td></tr>
+            <tr class="c5-row"><td>005</td><td><span class="c5-status"></span>RUBIDIUM</td><td>9</td><td>132</td><td>G MAJ</td><td><button class="c5-btn-load">INIT</button></td></tr>
+            <tr class="c5-row"><td>006</td><td><span class="c5-status"></span>CAESIUM</td><td>16</td><td>130</td><td>C MAJ</td><td><button class="c5-btn-load">INIT</button></td></tr>
+            <tr class="c5-row"><td>007</td><td><span class="c5-status"></span>FRANCIUM</td><td>26</td><td>128</td><td>Bb MAJ</td><td><button class="c5-btn-load">INIT</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CONCEPT 5: PLAYGROUND (7 Tracks) -->
+    <div class="concept-wrapper">
+      <div class="concept-header"><div class="concept-title">05. PLAYGROUND</div><div class="concept-desc">Memphis</div></div>
+      <div class="c6-list-frame">
+        <div class="c6-card" style="--c: #4ecdc4"><div class="c6-card-bg"></div><div class="c6-avatar">H</div><div class="c6-title">Hydrogen</div><div class="c6-pill">12 Stems</div></div>
+        <div class="c6-card" style="--c: #ff9ff3"><div class="c6-card-bg"></div><div class="c6-avatar">Li</div><div class="c6-title">Lithium</div><div class="c6-pill">38 Stems</div></div>
+        <div class="c6-card" style="--c: #feca57"><div class="c6-card-bg"></div><div class="c6-avatar">Na</div><div class="c6-title">Sodium</div><div class="c6-pill">28 Stems</div></div>
+        <div class="c6-card" style="--c: #54a0ff"><div class="c6-card-bg"></div><div class="c6-avatar">K</div><div class="c6-title">Potassium</div><div class="c6-pill">19 Stems</div></div>
+        <div class="c6-card" style="--c: #ff6b6b"><div class="c6-card-bg"></div><div class="c6-avatar">Rb</div><div class="c6-title">Rubidium</div><div class="c6-pill">9 Stems</div></div>
+        <div class="c6-card" style="--c: #afa0ef"><div class="c6-card-bg"></div><div class="c6-avatar">Cs</div><div class="c6-title">Caesium</div><div class="c6-pill">16 Stems</div></div>
+        <div class="c6-card" style="--c: #c1c1c1"><div class="c6-card-bg"></div><div class="c6-avatar">Fr</div><div class="c6-title">Francium</div><div class="c6-pill">26 Stems</div></div>
+      </div>
+    </div>
+
+    <!-- CONCEPT 6: INDUSTRIAL (7 Tracks) -->
+    <div class="concept-wrapper">
+      <div class="concept-header"><div class="concept-title">06. INDUSTRIAL</div><div class="concept-desc">Shelf Archive</div></div>
+      <div class="c7-list-frame"><div class="c7-shelf">
+        <div class="c7-spine" style="--c: #25daf0"><div class="c7-spine-text">Hydrogen</div><div class="c7-dot"></div></div>
+        <div class="c7-spine" style="--c: #cf2739"><div class="c7-spine-text">Lithium</div><div class="c7-dot"></div></div>
+        <div class="c7-spine" style="--c: #f7ca47"><div class="c7-spine-text">Sodium</div><div class="c7-dot"></div></div>
+        <div class="c7-spine" style="--c: #8f01ff"><div class="c7-spine-text">Potassium</div><div class="c7-dot"></div></div>
+        <div class="c7-spine" style="--c: #c71585"><div class="c7-spine-text">Rubidium</div><div class="c7-dot"></div></div>
+        <div class="c7-spine" style="--c: #afa0ef"><div class="c7-spine-text">Caesium</div><div class="c7-dot"></div></div>
+        <div class="c7-spine" style="--c: #c1c1c1"><div class="c7-spine-text">Francium</div><div class="c7-dot"></div></div>
+      </div></div>
+    </div>
+
+    <!-- CONCEPT 7: BIOLUMINESCENT (7 Tracks) -->
+    <div class="concept-wrapper">
+      <div class="concept-header"><div class="concept-title">07. BIOLUMINESCENT</div><div class="concept-desc">Organic / Deep Sea / Glow</div></div>
+      <div class="c8-list-frame">
+        <div class="c8-content">
+          <div class="c8-gallery">
+            <div class="c8-organism" style="--c: #25daf0">
+              <div class="c8-tentacle-track"><div class="c8-tentacle-fill" style="height: 75%"></div><div class="c8-node" style="bottom: 75%">H</div></div>
+              <div class="c8-spore"></div>
+              <div class="c8-info"><div class="c8-name">HYDROGEN</div><div class="c8-meta">12 CH</div></div>
+            </div>
+            <div class="c8-organism" style="--c: #cf2739">
+              <div class="c8-tentacle-track"><div class="c8-tentacle-fill" style="height: 95%"></div><div class="c8-node" style="bottom: 95%">Li</div></div>
+              <div class="c8-spore"></div>
+              <div class="c8-info"><div class="c8-name">LITHIUM</div><div class="c8-meta">38 CH</div></div>
+            </div>
+            <div class="c8-organism" style="--c: #f7ca47">
+              <div class="c8-tentacle-track"><div class="c8-tentacle-fill" style="height: 85%"></div><div class="c8-node" style="bottom: 85%">Na</div></div>
+              <div class="c8-spore"></div>
+              <div class="c8-info"><div class="c8-name">SODIUM</div><div class="c8-meta">28 CH</div></div>
+            </div>
+            <div class="c8-organism" style="--c: #8f01ff">
+              <div class="c8-tentacle-track"><div class="c8-tentacle-fill" style="height: 65%"></div><div class="c8-node" style="bottom: 65%">K</div></div>
+              <div class="c8-spore"></div>
+              <div class="c8-info"><div class="c8-name">POTASSIUM</div><div class="c8-meta">19 CH</div></div>
+            </div>
+            <div class="c8-organism" style="--c: #c71585">
+              <div class="c8-tentacle-track"><div class="c8-tentacle-fill" style="height: 45%"></div><div class="c8-node" style="bottom: 45%">Rb</div></div>
+              <div class="c8-spore"></div>
+              <div class="c8-info"><div class="c8-name">RUBIDIUM</div><div class="c8-meta">9 CH</div></div>
+            </div>
+            <div class="c8-organism" style="--c: #afa0ef">
+              <div class="c8-tentacle-track"><div class="c8-tentacle-fill" style="height: 60%"></div><div class="c8-node" style="bottom: 60%">Cs</div></div>
+              <div class="c8-spore"></div>
+              <div class="c8-info"><div class="c8-name">CAESIUM</div><div class="c8-meta">16 CH</div></div>
+            </div>
+            <div class="c8-organism" style="--c: #c1c1c1">
+              <div class="c8-tentacle-track"><div class="c8-tentacle-fill" style="height: 80%"></div><div class="c8-node" style="bottom: 80%">Fr</div></div>
+              <div class="c8-spore"></div>
+              <div class="c8-info"><div class="c8-name">FRANCIUM</div><div class="c8-meta">26 CH</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

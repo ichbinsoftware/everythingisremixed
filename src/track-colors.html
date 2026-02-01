@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Colors - Everything is Remixed</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000;
+      color: #fff;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #25daf0, #cf2739, #f7ca47, #8f01ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #888;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .color-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .color-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--track-color);
+    }
+
+    .color-swatch {
+      height: 200px;
+      background: var(--track-color);
+      position: relative;
+    }
+
+    .track-number {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .color-info {
+      padding: 24px;
+    }
+
+    .track-name {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--track-color);
+    }
+
+    .track-details {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 16px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .color-values {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .color-value {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      background: #0a0a0a;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+    }
+
+    .color-label {
+      color: #666;
+    }
+
+    .color-code {
+      color: var(--track-color);
+      font-weight: 600;
+      user-select: all;
+      cursor: pointer;
+    }
+
+    .color-code:hover {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+
+    .palette-strip {
+      display: flex;
+      height: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .palette-color {
+      flex: 1;
+      transition: flex 0.3s;
+    }
+
+    .palette-color:hover {
+      flex: 1.5;
+    }
+
+    code {
+      display: block;
+      background: #111;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #222;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .note {
+      background: #0a0a0a;
+      border-left: 4px solid #25daf0;
+      padding: 16px 20px;
+      margin-top: 40px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Everything is Free</h1>
+    <h2>Track Color Palette</h2>
+
+    <div class="palette-strip">
+      <div class="palette-color" style="background: #25daf0;" title="Hydrogen"></div>
+      <div class="palette-color" style="background: #cf2739;" title="Lithium"></div>
+      <div class="palette-color" style="background: #f7ca47;" title="Sodium"></div>
+      <div class="palette-color" style="background: #8f01ff;" title="Potassium"></div>
+      <div class="palette-color" style="background: #c71585;" title="Rubidium"></div>
+      <div class="palette-color" style="background: #afa0ef;" title="Caesium"></div>
+      <div class="palette-color" style="background: #c1c1c1;" title="Francium"></div>
+    </div>
+
+    <div class="color-grid">
+      <!-- Hydrogen -->
+      <div class="color-card" style="--track-color: #25daf0;">
+        <div class="color-swatch">
+          <div class="track-number">1</div>
+        </div>
+        <div class="color-info">
+          <div class="track-name">Hydrogen</div>
+          <div class="track-details">132 BPM · D Major · 13 stems</div>
+          <div class="color-values">
+            <div class="color-value">
+              <span class="color-label">HEX</span>
+              <span class="color-code">#25daf0</span>
+            </div>
+            <div class="color-value">
+              <span class="color-label">RGB</span>
+              <span class="color-code">rgb(37, 218, 240)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lithium -->
+      <div class="color-card" style="--track-color: #cf2739;">
+        <div class="color-swatch">
+          <div class="track-number">2</div>
+        </div>
+        <div class="color-info">
+          <div class="track-name">Lithium</div>
+          <div class="track-details">124 BPM · G minor · 39 stems</div>
+          <div class="color-values">
+            <div class="color-value">
+              <span class="color-label">HEX</span>
+              <span class="color-code">#cf2739</span>
+            </div>
+            <div class="color-value">
+              <span class="color-label">RGB</span>
+              <span class="color-code">rgb(207, 39, 57)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sodium -->
+      <div class="color-card" style="--track-color: #f7ca47;">
+        <div class="color-swatch">
+          <div class="track-number">3</div>
+        </div>
+        <div class="color-info">
+          <div class="track-name">Sodium</div>
+          <div class="track-details">140 BPM · G minor · 28 stems</div>
+          <div class="color-values">
+            <div class="color-value">
+              <span class="color-label">HEX</span>
+              <span class="color-code">#f7ca47</span>
+            </div>
+            <div class="color-value">
+              <span class="color-label">RGB</span>
+              <span class="color-code">rgb(247, 202, 71)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Potassium -->
+      <div class="color-card" style="--track-color: #8f01ff;">
+        <div class="color-swatch">
+          <div class="track-number">4</div>
+        </div>
+        <div class="color-info">
+          <div class="track-name">Potassium</div>
+          <div class="track-details">90 BPM · C Major · 20 stems</div>
+          <div class="color-values">
+            <div class="color-value">
+              <span class="color-label">HEX</span>
+              <span class="color-code">#8f01ff</span>
+            </div>
+            <div class="color-value">
+              <span class="color-label">RGB</span>
+              <span class="color-code">rgb(143, 1, 255)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rubidium -->
+      <div class="color-card" style="--track-color: #c71585;">
+        <div class="color-swatch">
+          <div class="track-number">5</div>
+        </div>
+        <div class="color-info">
+          <div class="track-name">Rubidium</div>
+          <div class="track-details">132 BPM · G Major · 10 stems</div>
+          <div class="color-values">
+            <div class="color-value">
+              <span class="color-label">HEX</span>
+              <span class="color-code">#c71585</span>
+            </div>
+            <div class="color-value">
+              <span class="color-label">RGB</span>
+              <span class="color-code">rgb(199, 21, 133)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Caesium -->
+      <div class="color-card" style="--track-color: #afa0ef;">
+        <div class="color-swatch">
+          <div class="track-number">6</div>
+        </div>
+        <div class="color-info">
+          <div class="track-name">Caesium</div>
+          <div class="track-details">130 BPM · C Major · 17 stems</div>
+          <div class="color-values">
+            <div class="color-value">
+              <span class="color-label">HEX</span>
+              <span class="color-code">#afa0ef</span>
+            </div>
+            <div class="color-value">
+              <span class="color-label">RGB</span>
+              <span class="color-code">rgb(175, 160, 239)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Francium -->
+      <div class="color-card" style="--track-color: #c1c1c1;">
+        <div class="color-swatch">
+          <div class="track-number">7</div>
+        </div>
+        <div class="color-info">
+          <div class="track-name">Francium</div>
+          <div class="track-details">128 BPM · B♭ Major · 27 stems</div>
+          <div class="color-values">
+            <div class="color-value">
+              <span class="color-label">HEX</span>
+              <span class="color-code">#c1c1c1</span>
+            </div>
+            <div class="color-value">
+              <span class="color-label">RGB</span>
+              <span class="color-code">rgb(193, 193, 193)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="margin-top: 60px;">JavaScript Usage</h2>
+    <code>const TRACK_COLORS = {
+  'hydrogen': '#25daf0',   // Cyan
+  'lithium': '#cf2739',    // Red
+  'sodium': '#f7ca47',     // Yellow
+  'potassium': '#8f01ff',  // Purple
+  'rubidium': '#c71585',   // Magenta
+  'caesium': '#afa0ef',    // Lavender
+  'francium': '#c1c1c1',   // Gray
+};</code>
+
+    <div class="note">
+      🎨 <strong>Note:</strong> These colors were extracted from the dominant colors in each track's artwork using ImageMagick. Click any color code to select and copy.
+    </div>
+  </div>
+</body>
+</html>
