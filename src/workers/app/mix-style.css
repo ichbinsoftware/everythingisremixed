@@ -162,7 +162,9 @@ footer a:hover { color: var(--text-primary); }
 .unsupported-requirements ul { list-style: none; font-size: 13px; color: var(--text-secondary); }
 .unsupported-requirements li { padding: 4px 0; display: flex; justify-content: space-between; }
 .unsupported-requirements li span:last-child { color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; }
-.unsupported-missing { font-size: 12px; color: var(--accent-red); margin-top: 16px; padding: 12px; background: rgba(255, 68, 68, 0.1); border-radius: 6px; }
+.unsupported-missing { font-size: 12px; color: var(--accent-red); padding: 12px; background: rgba(255, 68, 68, 0.1); border-radius: 6px; margin-bottom: 20px; }
+.unsupported-back { padding: 12px 24px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+.unsupported-back:hover { border-color: var(--accent-cyan); background: rgba(78, 205, 196, 0.1); }
 /* Visualizer-style header */
 .mixer-header { display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; opacity: 0.8; margin-bottom: 12px; padding-bottom: 0; border-bottom: none; }
 .mixer-header > div { display: flex; align-items: center; gap: 0; }

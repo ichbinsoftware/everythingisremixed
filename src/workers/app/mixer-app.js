@@ -115,6 +115,14 @@ function showUnsupportedBrowser(missing) {
   }
 }
 
+// Back button handler for unsupported browser overlay
+const unsupportedBackBtn = document.getElementById('unsupportedBack');
+if (unsupportedBackBtn) {
+  unsupportedBackBtn.addEventListener('click', () => {
+    window.location.href = '/';
+  });
+}
+
 // ==========================================
 // Main Initialization
 // ==========================================

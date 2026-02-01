@@ -58,6 +58,7 @@
     /* Mixer Header */
     .mixer-header {
       display: flex;
+      flex-wrap: nowrap;
       justify-content: space-between;
       align-items: center;
       text-transform: uppercase;
@@ -71,7 +72,9 @@
       display: flex;
       align-items: center;
       gap: 0;
-      flex: 1;
+      white-space: nowrap;
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     .mixer-header > div:nth-child(2) {
@@ -906,7 +909,7 @@
         padding: 16px;
       }
 
-      header {
+      header:not(.mixer-header) {
         flex-direction: column;
         gap: 16px;
         text-align: center;
@@ -1080,9 +1083,25 @@
     .unsupported-missing {
       font-size: 12px;
       color: var(--accent-red);
-      margin-top: 16px;
       padding: 12px;
       background: rgba(255, 68, 68, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .unsupported-back {
+      padding: 12px 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .unsupported-back:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(78, 205, 196, 0.1);
       border-radius: 6px;
     }
 
@@ -2112,6 +2131,7 @@
         </ul>
       </div>
       <div class="unsupported-missing" id="unsupportedMissing"></div>
+      <button class="unsupported-back" id="unsupportedBack">← Go Back</button>
     </div>
   </div>
 
@@ -2264,6 +2284,13 @@
 
       backdrop.classList.add('active');
     }
+
+    function hideUnsupportedBrowser() {
+      $('unsupportedBackdrop').classList.remove('active');
+    }
+
+    // Back button handler
+    $('unsupportedBack').addEventListener('click', hideUnsupportedBrowser);
 
     // ========================================================================
     // FILE HANDLING

@@ -300,6 +300,7 @@ function serveApp(track, trackId, searchParams, allStems) {
           </ul>
         </div>
         <div class="unsupported-missing" id="unsupportedMissing"></div>
+        <button class="unsupported-back" id="unsupportedBack">← Go Back</button>
       </div>
     </div>` : ''}
 
