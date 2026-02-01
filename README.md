@@ -33,9 +33,9 @@ All stems, artwork, and code are **public domain** (CC0 1.0).
 - **Themes** — Light and dark mode
 
 
-## ⚙️ How It Works
+## 🎛️ Album Mixer
 
-### 🏗️ Architecture
+### 🏗️ Architecture 
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -105,7 +105,7 @@ Mix states are shareable via URL parameters:
 | 7 | Francium | <img src="src/7.Francium/artwork/Francium-Symbol-1000x1000.png" width="40" height="40" alt="Fr"> | 128 | B♭ Major | 26 | [Mix →](https://evr.ichbinsoftware.com/francium) |
 
 
-## 🎛️ Standalone Mixer
+## 🎚️ Standalone Mixer
 
 <div align="center">
   <img src="src/images/EVR-Standalone.png" width="640" alt="Standalone Mixer">
