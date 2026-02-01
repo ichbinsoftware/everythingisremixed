@@ -22,7 +22,7 @@ All stems, artwork, and code are **public domain** (CC0 1.0).
 > *"The mixer is not a playback device. It's a creative tool."*
 
 
-## Features
+## ✨ Features
 
 - **Real-time mixing** — Volume, pan, mute, solo per stem
 - **Effects chain** — 3-band EQ, highpass/lowpass filter, reverb, delay
@@ -32,9 +32,9 @@ All stems, artwork, and code are **public domain** (CC0 1.0).
 - **Themes** — Light and dark mode
 
 
-## How It Works
+## ⚙️ How It Works
 
-### Architecture
+### 🏗️ Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -56,7 +56,7 @@ All stems, artwork, and code are **public domain** (CC0 1.0).
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Audio Signal Chain
+### 🔊 Audio Signal Chain
 
 Each stem passes through a complete effects chain before reaching the master output:
 
@@ -75,7 +75,7 @@ Each stem passes through a complete effects chain before reaching the master out
                         └───────────┘   └─────────────┘   └─────────────┘
 ```
 
-### URL State Encoding
+### 🔗 URL State Encoding
 
 Mix states are shareable via URL parameters:
 
@@ -126,7 +126,7 @@ A self-contained mixer for your own audio files. No server required — runs ent
 Digital artwork by **Maubere**.
 
 
-## Documentation
+## 📚 Documentation
 
 Technical documentation in [`docs/`](docs/):
 
@@ -138,7 +138,7 @@ Technical documentation in [`docs/`](docs/):
 | [MIXER_SYSTEM.md](docs/MIXER_SYSTEM.md) | Effects reference, URL encoding |
 | [PERFORMANCE.md](docs/PERFORMANCE.md) | Optimizations, animation loop |
 
-## Contributing
+## 🤝 Contributing
 
 Contributions welcome.
 
@@ -149,13 +149,13 @@ Contributions welcome.
 5. Open a Pull Request
 
 
-## Credits
+## 👥 Credits
 
 - **Music & Production:** Software-Entwicklungskit · [@ichbinsoftware](https://www.instagram.com/ichbinsoftware/)
 - **Artwork:** Maubere
 
 
-## Manifesto
+## 📜 Manifesto
 
 When an artist releases stems, they're saying: *this is not finished. This is starting material.*
 
@@ -180,13 +180,12 @@ Stems expose the construction. They reveal the tricks. They make the magic legib
 — [Full Manifesto](MANIFESTO.md)
 
 
-## License
+## ⚖️ License
 
 **CC0 1.0 Universal** — Public Domain
 
 You may copy, modify, distribute, remix, and commercialize this work without permission, credit, or restriction.
 
-## Related
+## 🔗 Related
 
 - [ichbinsoftware/everythingisfree](https://github.com/ichbinsoftware/everythingisfree) — Album stems, artwork, npm package
-- [MANIFESTO.md](MANIFESTO.md) — Philosophy behind public domain release
