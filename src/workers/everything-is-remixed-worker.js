@@ -280,6 +280,29 @@ function serveApp(track, trackId, searchParams, allStems) {
 
     ${track ? `<div class="loading" id="loadingIndicator" style="display:none;"><div class="loading-spinner"></div><p>Loading stems...</p><div style="width:200px;height:4px;background:#333;border-radius:2px;margin:12px auto;overflow:hidden;"><div id="loadingBar" style="width:0%;height:100%;background:var(--track-color);transition:width 0.1s linear;"></div></div></div>` : ''}
 
+    ${track ? `<div class="unsupported-backdrop" id="unsupportedBackdrop">
+      <div class="unsupported-modal">
+      <svg class="unsupported-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="13"/>
+        <circle cx="12" cy="16.5" r="0.5" fill="currentColor"/>
+      </svg>
+        <h3 class="unsupported-title">Browser Not Supported</h3>
+        <p class="unsupported-message">This mixer requires modern browser features that aren't available in your current browser.</p>
+        <div class="unsupported-requirements">
+          <h4>Minimum Requirements</h4>
+          <ul>
+            <li><span>Chrome</span><span>69+</span></li>
+            <li><span>Firefox</span><span>105+</span></li>
+            <li><span>Safari</span><span>16.4+</span></li>
+            <li><span>Edge</span><span>79+</span></li>
+            <li><span>iOS (all browsers)</span><span>16.4+</span></li>
+          </ul>
+        </div>
+        <div class="unsupported-missing" id="unsupportedMissing"></div>
+      </div>
+    </div>` : ''}
+
     <div class="mixer-panel" id="mixerPanel" style="--track-color: ${track ? track.color : '#4ecdc4'}; display: none;">
       <div class="master-waveform"><canvas id="masterWaveform"></canvas></div>
       <div class="progress-container">

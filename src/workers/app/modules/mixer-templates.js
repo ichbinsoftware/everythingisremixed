@@ -10,38 +10,38 @@ import { WAVEFORM_WIDTH, WAVEFORM_HEIGHT } from './mixer-constants.js';
 
 const HELP_CONTENT = {
   controls: [
-    { icon: 'fader', title: 'Volume Fader', description: 'Drag up/down to adjust the stem\'s volume in the mix' },
-    { icon: 'mute-solo', title: 'Mute & Solo', description: 'M silences stem, S plays only this stem (combine multiple solos)' },
-    { icon: 'pan', title: 'Pan Knob', description: 'Drag left/right to position the stem in the stereo field' },
-    { icon: 'fx', title: 'Effects (FX)', description: 'EQ (Low/Mid/High), Filter (LP/HP/BP with -12 or -24 dB slope), Reverb send, and Delay (time/feedback/mix)' },
-    { icon: 'led', title: 'Signal LED', description: 'Lights up when audio is detected on this stem' },
-    { icon: 'theme', title: 'Light/Dark Mode', description: 'Click the sun/moon icon in the header to switch between light and dark themes' },
-    { icon: 'share', title: 'Share', description: 'Copy a link that preserves your exact mix settings' },
-    { icon: 'reset', title: 'Reset', description: 'Restore all stems to default volume, pan, and effects' }
+    { icon: 'fader', title: 'Volume', description: 'Adjust stem volume.' },
+    { icon: 'mute-solo', title: 'Mute / Solo', description: 'M to silence, S to solo (multiselect supported).' },
+    { icon: 'pan', title: 'Pan', description: 'Position stem in stereo field.' },
+    { icon: 'fx', title: 'Effects', description: 'Access EQ, Filter, Reverb, and Delay controls.' },
+    { icon: 'led', title: 'Signal', description: 'Lights up when audio is active.' },
+    { icon: 'theme', title: 'Theme', description: 'Toggle light/dark mode in header.' },
+    { icon: 'share', title: 'Share', description: 'Copy link with current mix settings.' },
+    { icon: 'reset', title: 'Reset', description: 'Restore defaults.' }
   ],
   shortcuts: [
     { keys: ['Space'], description: 'Play / Pause' },
-    { keys: ['←'], description: 'Rewind 10 seconds' },
-    { keys: ['→'], description: 'Forward 10 seconds' },
-    { keys: ['Home'], description: 'Skip to beginning' },
-    { keys: ['R'], description: 'Reset mix to default' },
-    { keys: ['?'], description: 'Toggle this help' },
-    { keys: ['Esc'], description: 'Close modal' }
+    { keys: ['←'], description: 'Back 10s' },
+    { keys: ['→'], description: 'Forward 10s' },
+    { keys: ['Home'], description: 'Restart' },
+    { keys: ['R'], description: 'Reset Mix' },
+    { keys: ['?'], description: 'Toggle Help' },
+    { keys: ['Esc'], description: 'Close' }
   ],
   tips: [
-    'Solo multiple stems to isolate a group (e.g., all drums)',
-    'Use the pan controls to create width in your mix',
-    'Share your remix via URL - all settings are encoded in the link',
-    'Try muting the lead vocal to create an instrumental version',
-    'Use -24 dB/oct filter slope for sharper, more surgical cuts',
-    'Highpass filter on bass-heavy stems can clean up muddy mixes',
-    'Add subtle reverb (10-20%) to dry stems for cohesion',
-    'Sync delay time to the track BPM for rhythmic effects',
-    'Boost EQ highs on vocals to add presence and clarity',
-    'Cut EQ lows on non-bass stems to reduce frequency masking',
-    'Bandpass filter + high Q creates a "telephone" effect',
-    'Hard pan two similar stems for a wide stereo image',
-    'Experiment freely - hit Reset to start fresh anytime'
+    'Solo multiple stems to hear groups (e.g., drums).',
+    'Pan tracks to create a wider stereo image.',
+    'Share your mix URL – settings are saved in the link.',
+    'Mute vocals for an instrumental version.',
+    'Use -24dB filter slope for surgical cuts.',
+    'Highpass non-bass stems to clean up the mix.',
+    'Subtle reverb (10-20%) adds cohesion ("glue").',
+    'Sync delay to BPM for rhythmic texture.',
+    'Boost High EQ on vocals for clarity.',
+    'Cut Low EQ on everything but bass and kick.',
+    'Bandpass + High Q = "Telephone" effect.',
+    'Hard pan similar stems left/right for width.',
+    'Experiment freely – Reset is always there.'
   ]
 };
 

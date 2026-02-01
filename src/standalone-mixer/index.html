@@ -991,6 +991,101 @@
       display: none;
     }
 
+    /* Unsupported Browser Overlay */
+    .unsupported-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+
+    .unsupported-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .unsupported-modal {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .unsupported-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      color: var(--accent-orange);
+    }
+
+    .unsupported-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .unsupported-message {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .unsupported-requirements {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .unsupported-requirements h4 {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .unsupported-requirements ul {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .unsupported-requirements li {
+      padding: 4px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .unsupported-requirements li span:last-child {
+      color: var(--text-muted);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .unsupported-missing {
+      font-size: 12px;
+      color: var(--accent-red);
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(255, 68, 68, 0.1);
+      border-radius: 6px;
+    }
+
     /* FX Modal */
     .fx-modal-backdrop {
       position: fixed;
@@ -1667,29 +1762,18 @@
       color: var(--text-secondary);
     }
 
-    .help-tip {
-      padding: 12px;
-      background: var(--bg-tertiary);
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-
-    .help-tip:last-child {
-      margin-bottom: 0;
-    }
-
-    .help-tip-title {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--accent-yellow);
-      margin-bottom: 4px;
+    .help-tips {
       display: flex;
-      align-items: center;
-      gap: 6px;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .help-tip p {
-      font-size: 11px;
+    .help-tip {
+      padding: 12px 14px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent-cyan);
+      font-size: 12px;
       color: var(--text-secondary);
       line-height: 1.4;
     }
@@ -1907,8 +1991,8 @@
           <div class="help-item">
             <div class="help-icon"><div class="help-icon-fader"></div></div>
             <div class="help-text">
-              <h4>Volume Fader</h4>
-              <p>Drag up/down to adjust stem volume. Each channel has independent volume control.</p>
+              <h4>Volume</h4>
+              <p>Adjust stem volume.</p>
             </div>
           </div>
           <div class="help-item">
@@ -1919,36 +2003,36 @@
               </div>
             </div>
             <div class="help-text">
-              <h4>Mute & Solo</h4>
-              <p><strong>M</strong> silences a stem. <strong>S</strong> solos it (mutes all others). Multiple solos play together.</p>
+              <h4>Mute / Solo</h4>
+              <p>M to silence, S to solo (multiselect supported).</p>
             </div>
           </div>
           <div class="help-item">
             <div class="help-icon"><div class="help-icon-pan"></div></div>
             <div class="help-text">
-              <h4>Pan Knob</h4>
-              <p>Slide left/right to position the stem in the stereo field. Center is default.</p>
+              <h4>Pan</h4>
+              <p>Position stem in stereo field.</p>
             </div>
           </div>
           <div class="help-item">
             <div class="help-icon"><div class="help-icon-fx">FX</div></div>
             <div class="help-text">
-              <h4>Effects (FX)</h4>
-              <p>Opens EQ, Filter, Reverb, and Delay controls for that stem.</p>
+              <h4>Effects</h4>
+              <p>Access EQ, Filter, Reverb, and Delay controls.</p>
             </div>
           </div>
           <div class="help-item">
             <div class="help-icon"><div class="help-icon-led"></div></div>
             <div class="help-text">
-              <h4>Level Meter</h4>
-              <p>Shows real-time audio level. Green bar indicates signal strength.</p>
+              <h4>Signal</h4>
+              <p>Lights up when audio is active.</p>
             </div>
           </div>
           <div class="help-item">
             <div class="help-icon"><span class="help-icon-reset">↺</span></div>
             <div class="help-text">
               <h4>Reset</h4>
-              <p>Restore all stems to default volume, pan, and effects settings.</p>
+              <p>Restore defaults.</p>
             </div>
           </div>
         </div>
@@ -1959,45 +2043,75 @@
             <span class="help-shortcut-desc">Play / Pause</span>
           </div>
           <div class="help-shortcut">
-            <span class="help-shortcut-key">Enter</span>
-            <span class="help-shortcut-desc">Restart from beginning</span>
-          </div>
-          <div class="help-shortcut">
-            <span class="help-shortcut-key">Esc</span>
-            <span class="help-shortcut-desc">Stop playback</span>
-          </div>
-          <div class="help-shortcut">
             <span class="help-shortcut-key">←</span>
-            <span class="help-shortcut-desc">Skip back 5 seconds</span>
+            <span class="help-shortcut-desc">Back 10s</span>
           </div>
           <div class="help-shortcut">
             <span class="help-shortcut-key">→</span>
-            <span class="help-shortcut-desc">Skip forward 5 seconds</span>
+            <span class="help-shortcut-desc">Forward 10s</span>
+          </div>
+          <div class="help-shortcut">
+            <span class="help-shortcut-key">Home</span>
+            <span class="help-shortcut-desc">Restart</span>
+          </div>
+          <div class="help-shortcut">
+            <span class="help-shortcut-key">R</span>
+            <span class="help-shortcut-desc">Reset Mix</span>
           </div>
           <div class="help-shortcut">
             <span class="help-shortcut-key">?</span>
-            <span class="help-shortcut-desc">Toggle this help panel</span>
+            <span class="help-shortcut-desc">Toggle Help</span>
+          </div>
+          <div class="help-shortcut">
+            <span class="help-shortcut-key">Esc</span>
+            <span class="help-shortcut-desc">Close</span>
           </div>
         </div>
         <!-- Tips Tab -->
         <div class="help-tab-content" data-tab="tips">
-          <div class="help-tip">
-            <div class="help-tip-title">💡 Quick Solo</div>
-            <p>Solo multiple stems to hear them together without the rest of the mix.</p>
-          </div>
-          <div class="help-tip">
-            <div class="help-tip-title">💡 File Naming</div>
-            <p>Name your files like "drums.m4a" or "bass.wav" for automatic channel assignment.</p>
-          </div>
-          <div class="help-tip">
-            <div class="help-tip-title">💡 Master Control</div>
-            <p>The MASTER fader on the right controls overall output volume.</p>
+          <div class="help-tips">
+            <div class="help-tip">Solo multiple stems to hear groups (e.g., drums).</div>
+            <div class="help-tip">Pan tracks to create a wider stereo image.</div>
+            <div class="help-tip">Mute vocals for an instrumental version.</div>
+            <div class="help-tip">Use -24dB filter slope for surgical cuts.</div>
+            <div class="help-tip">Highpass non-bass stems to clean up the mix.</div>
+            <div class="help-tip">Subtle reverb (10-20%) adds cohesion ("glue").</div>
+            <div class="help-tip">Sync delay to BPM for rhythmic texture.</div>
+            <div class="help-tip">Boost High EQ on vocals for clarity.</div>
+            <div class="help-tip">Cut Low EQ on everything but bass and kick.</div>
+            <div class="help-tip">Bandpass + High Q = "Telephone" effect.</div>
+            <div class="help-tip">Hard pan similar stems left/right for width.</div>
+            <div class="help-tip">Experiment freely – Reset is always there.</div>
           </div>
         </div>
       </div>
       <div class="help-footer">
         <button class="help-dismiss" id="helpDismiss">Got it</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Unsupported Browser Overlay -->
+  <div class="unsupported-backdrop" id="unsupportedBackdrop">
+    <div class="unsupported-modal">
+      <svg class="unsupported-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="13"/>
+        <circle cx="12" cy="16.5" r="0.5" fill="currentColor"/>
+      </svg>
+      <h3 class="unsupported-title">Browser Not Supported</h3>
+      <p class="unsupported-message">This mixer requires modern browser features that aren't available in your current browser.</p>
+      <div class="unsupported-requirements">
+        <h4>Minimum Requirements</h4>
+        <ul>
+          <li><span>Chrome</span><span>69+</span></li>
+          <li><span>Firefox</span><span>105+</span></li>
+          <li><span>Safari</span><span>16.4+</span></li>
+          <li><span>Edge</span><span>79+</span></li>
+          <li><span>iOS (all browsers)</span><span>16.4+</span></li>
+        </ul>
+      </div>
+      <div class="unsupported-missing" id="unsupportedMissing"></div>
     </div>
   </div>
 
@@ -2121,6 +2235,37 @@
     const trackMeta = $('trackMeta');
 
     // ========================================================================
+    // BROWSER SUPPORT CHECK
+    // ========================================================================
+
+    function checkBrowserSupport() {
+      const missing = [];
+
+      // Check Web Audio API
+      if (!(window.AudioContext || window.webkitAudioContext)) {
+        missing.push('Web Audio API');
+      }
+
+      // Check OffscreenCanvas
+      if (typeof OffscreenCanvas === 'undefined') {
+        missing.push('OffscreenCanvas');
+      }
+
+      return missing;
+    }
+
+    function showUnsupportedBrowser(missing) {
+      const backdrop = $('unsupportedBackdrop');
+      const missingEl = $('unsupportedMissing');
+
+      if (missingEl && missing.length) {
+        missingEl.textContent = 'Missing: ' + missing.join(', ');
+      }
+
+      backdrop.classList.add('active');
+    }
+
+    // ========================================================================
     // FILE HANDLING
     // ========================================================================
 
@@ -2131,6 +2276,12 @@
     fileInput.addEventListener('change', e => handleFiles(e.target.files));
 
     function handleFiles(files) {
+      // Check browser support first
+      const missing = checkBrowserSupport();
+      if (missing.length) {
+        return showUnsupportedBrowser(missing);
+      }
+
       const audioFiles = Array.from(files).filter(f =>
         f.type.startsWith('audio/') || /\.(mp3|wav|flac|ogg|m4a|mp4|aac)$/i.test(f.name)
       );

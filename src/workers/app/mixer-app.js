@@ -84,6 +84,38 @@ const elements = {
 };
 
 // ==========================================
+// Browser Support Check
+// ==========================================
+function checkBrowserSupport() {
+  const missing = [];
+
+  // Check Web Audio API
+  if (!(window.AudioContext || window.webkitAudioContext)) {
+    missing.push('Web Audio API');
+  }
+
+  // Check OffscreenCanvas
+  if (typeof OffscreenCanvas === 'undefined') {
+    missing.push('OffscreenCanvas');
+  }
+
+  return missing;
+}
+
+function showUnsupportedBrowser(missing) {
+  const backdrop = document.getElementById('unsupportedBackdrop');
+  const missingEl = document.getElementById('unsupportedMissing');
+
+  if (missingEl && missing.length) {
+    missingEl.textContent = 'Missing: ' + missing.join(', ');
+  }
+
+  if (backdrop) {
+    backdrop.classList.add('active');
+  }
+}
+
+// ==========================================
 // Main Initialization
 // ==========================================
 async function initMixer() {
@@ -563,6 +595,12 @@ if (elements.shareBtn) {
 // Start button
 if (elements.startMixBtn && TRACK_CONFIG) {
   elements.startMixBtn.addEventListener('click', async () => {
+    // Check browser support first
+    const missing = checkBrowserSupport();
+    if (missing.length) {
+      return showUnsupportedBrowser(missing);
+    }
+
     elements.startMixBtn.textContent = 'INITIALIZING...';
     // Hide overlay early so loading indicator is visible
     elements.startOverlay.style.display = 'none';
