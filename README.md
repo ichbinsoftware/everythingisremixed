@@ -15,7 +15,7 @@ A web-based interactive stem mixer. Remix tracks by manipulating individual audi
 **Two ways to mix:**
 
 - **[🎛️ Album Mixer](https://evr.ichbinsoftware.com)** — Remix the 7 tracks and 148 stems of [Everything is Free](https://github.com/ichbinsoftware/everythingisfree) by Software-Entwicklungskit
-- **[🎚️ Standalone Mixer](https://mixer.ichbinsoftware.com)** — Upload and mix your own audio files
+- **[🎚️ Standalone Mixer](https://mixer.ichbinsoftware.com)** — Add and mix your own audio files
 
 All stems, artwork, and code are **public domain** (CC0 1.0).
 
@@ -116,7 +116,7 @@ Mix states are shareable via URL parameters:
 
 A self-contained mixer for your own audio files. No server required — runs entirely in the browser.
 
-- Drop or upload any audio files (M4A, MP3, MP4, WAV, FLAC, OGG)
+- Drop or add any audio files (M4A, MP3, MP4, WAV, FLAC, OGG)
 - Same effects chain and visualizer as the album mixer
 - Works offline once loaded
 
