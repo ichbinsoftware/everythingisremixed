@@ -23,12 +23,6 @@ Each track has a primary color extracted from its artwork, used for theming and 
 | `src/scripts/extract_colors.py` | Python script to extract dominant colors from artwork |
 | `src/scripts/extract_colors.sh` | Shell script alternative using ImageMagick |
 
-### Preview Tools
-
-| File | Description |
-|------|-------------|
-| `src/track-colors.html` | Visual preview of all track colors |
-
 ### Configuration Files
 
 | File | Description |
@@ -154,17 +148,6 @@ The palette provides good variety for UI differentiation:
 - Pastel colors (Caesium) may need darker text or backgrounds
 - Neutral gray (Francium) provides universal compatibility
 
-## Preview Tool Features
-
-The `track-colors.html` preview provides:
-
-- **Color swatches**: Large visual display of each color
-- **Track metadata**: BPM, key, stem count
-- **Color values**: HEX and RGB formats
-- **Click-to-copy**: Select any color code
-- **Palette strip**: All colors side-by-side comparison
-- **JavaScript snippet**: Ready-to-use code
-
 ## Updating Colors
 
 If artwork changes or colors need adjustment:
@@ -181,6 +164,3 @@ python3 src/scripts/extract_colors.py
 # 4. Regenerate stem palettes (uses track colors as base)
 python3 src/scripts/generate_stem_palettes.py
 
-# 5. Preview changes
-open src/track-colors.html
-```
