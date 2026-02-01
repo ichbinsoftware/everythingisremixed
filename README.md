@@ -10,17 +10,16 @@
 
 <br/>
 
-A web-based stem mixer for the [Everything is Free](https://github.com/ichbinsoftware/everythingisfree) album by Software-Entwicklungskit. Remix tracks by manipulating individual audio stems directly in the browser.
+A web-based interactive stem mixer. Remix tracks by manipulating individual audio stems (drums, vocals, synths, etc.) directly in the browser using the Web Audio API.
+
+**Two ways to mix:**
+
+- **[🎛️ Album Mixer](https://evr.ichbinsoftware.com)** — Remix the 7 tracks and 148 stems of [Everything is Free](https://github.com/ichbinsoftware/everythingisfree) by Software-Entwicklungskit
+- **[🎚️ Standalone Mixer](https://mixer.ichbinsoftware.com)** — Upload and mix your own audio files
 
 All stems, artwork, and code are **public domain** (CC0 1.0).
 
 > *"The mixer is not a playback device. It's a creative tool."*
-
-<div align="center">
-
-**[🎛️ Album Mixer](https://evr.ichbinsoftware.com)** · **[🎚️ Standalone Mixer](https://mixer.ichbinsoftware.com)**
-
-</div>
 
 
 ## Features
