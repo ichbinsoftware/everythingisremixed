@@ -22,7 +22,6 @@ All stems, artwork, and code are **public domain** (CC0 1.0).
 
 </div>
 
----
 
 ## Features
 
@@ -33,7 +32,6 @@ All stems, artwork, and code are **public domain** (CC0 1.0).
 - **Responsive** — Desktop and mobile support
 - **Themes** — Light and dark mode
 
----
 
 ## How It Works
 
@@ -92,8 +90,6 @@ Mix states are shareable via URL parameters:
       └─────────── stem index
 ```
 
----
-
 ## 🎵 Tracks
 
 7 tracks, 148 stems total. Named after alkali metals.
@@ -108,7 +104,6 @@ Mix states are shareable via URL parameters:
 | 6 | Caesium | <img src="src/6.Caesium/artwork/Caesium-Symbol-1000x1000.png" width="40" height="40" alt="Cs"> | 130 | C Major | 16 | [Mix →](https://evr.ichbinsoftware.com/caesium) |
 | 7 | Francium | <img src="src/7.Francium/artwork/Francium-Symbol-1000x1000.png" width="40" height="40" alt="Fr"> | 128 | B♭ Major | 26 | [Mix →](https://evr.ichbinsoftware.com/francium) |
 
----
 
 ## 🎛️ Standalone Mixer
 
@@ -126,13 +121,11 @@ A self-contained mixer for your own audio files. No server required — runs ent
 - Same effects chain and visualizer as the album mixer
 - Works offline once loaded
 
----
 
 ## 🎨 Artwork
 
 Digital artwork by **Maubere**.
 
----
 
 ## Documentation
 
@@ -146,8 +139,6 @@ Technical documentation in [`docs/`](docs/):
 | [MIXER_SYSTEM.md](docs/MIXER_SYSTEM.md) | Effects reference, URL encoding |
 | [PERFORMANCE.md](docs/PERFORMANCE.md) | Optimizations, animation loop |
 
----
-
 ## Contributing
 
 Contributions welcome.
@@ -158,22 +149,43 @@ Contributions welcome.
 4. Push (`git push origin feature/name`)
 5. Open a Pull Request
 
----
 
 ## Credits
 
 - **Music & Production:** Software-Entwicklungskit · [@ichbinsoftware](https://www.instagram.com/ichbinsoftware/)
 - **Artwork:** Maubere
 
----
+
+## Manifesto
+
+When an artist releases stems, they're saying: *this is not finished. This is starting material.*
+
+The "final" mix is just one arrangement. The stems contain infinite others.
+
+A remix is not a cover. It's not karaoke. It's not a lesser version of the original. It's a new work made from shared material — with its own intentions, decisions, and validity.
+
+Traditional music release is one-directional: artist to listener, master recording to passive consumption. Copyright enforces this direction. The listener cannot legally extract, modify, or redistribute. The recording is final. The relationship is fixed.
+
+**This serves commerce. It does not serve culture.**
+
+Public domain removes the barrier. The listener becomes collaborator. The relationship becomes bidirectional.
+
+When you adjust a fader, you're not consuming — you're producing. When you share your mix URL, you're sharing *your* arrangement of the song.
+
+The "official" mix is a snapshot. The stems are the source. Future listeners with different tools, tastes, and contexts will make different mixes. Releasing stems is releasing the future versions of the song.
+
+Stems expose the construction. They reveal the tricks. They make the magic legible.
+
+> *Music should circulate like electricity.*
+
+— [Full Manifesto](MANIFESTO.md)
+
 
 ## License
 
 **CC0 1.0 Universal** — Public Domain
 
 You may copy, modify, distribute, remix, and commercialize this work without permission, credit, or restriction.
-
----
 
 ## Related
 
