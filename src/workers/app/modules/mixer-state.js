@@ -9,7 +9,9 @@ import {
   FILTER_TYPES,
   FILTER_TYPE_MAP,
   DISTORTION_TONES,
-  DISTORTION_TONE_MAP
+  DISTORTION_TONE_MAP,
+  OSCILLATOR_SHAPES,
+  OSCILLATOR_SHAPE_MAP
 } from './mixer-constants.js';
 
 export class MixerState {
@@ -31,6 +33,8 @@ export class MixerState {
         eq: { ...DEFAULT_FX_STATE.eq },
         compressor: { ...DEFAULT_FX_STATE.compressor },
         distortion: { ...DEFAULT_FX_STATE.distortion },
+        tremolo: { ...DEFAULT_FX_STATE.tremolo },
+        ringmod: { ...DEFAULT_FX_STATE.ringmod },
         filter: { ...DEFAULT_FX_STATE.filter },
         reverb: { ...DEFAULT_FX_STATE.reverb },
         delay: { ...DEFAULT_FX_STATE.delay },
@@ -134,6 +138,14 @@ export class MixerState {
       if (values[21] !== undefined) stem.fx.distortion.drive = parseInt(values[21]);
       if (values[22] !== undefined) stem.fx.distortion.tone = DISTORTION_TONES[parseInt(values[22])] || 'warm';
       if (values[23] !== undefined) stem.fx.distortion.mix = parseInt(values[23]);
+
+      // Tremolo & Ring Modulator (v4 — backward compatible)
+      if (values[24] !== undefined) stem.fx.tremolo.rate = parseInt(values[24]) / 10;
+      if (values[25] !== undefined) stem.fx.tremolo.depth = parseInt(values[25]);
+      if (values[26] !== undefined) stem.fx.tremolo.shape = OSCILLATOR_SHAPES[parseInt(values[26])] || 'sine';
+      if (values[27] !== undefined) stem.fx.ringmod.frequency = parseInt(values[27]);
+      if (values[28] !== undefined) stem.fx.ringmod.shape = OSCILLATOR_SHAPES[parseInt(values[28])] || 'sine';
+      if (values[29] !== undefined) stem.fx.ringmod.mix = parseInt(values[29]);
     });
   }
 
@@ -164,7 +176,13 @@ export class MixerState {
         Math.round(fx.compressor.release * 1000),
         Math.round(fx.distortion.drive),
         DISTORTION_TONE_MAP[fx.distortion.tone] || 0,
-        Math.round(fx.distortion.mix)
+        Math.round(fx.distortion.mix),
+        Math.round(fx.tremolo.rate * 10),
+        Math.round(fx.tremolo.depth),
+        OSCILLATOR_SHAPE_MAP[fx.tremolo.shape] || 0,
+        Math.round(fx.ringmod.frequency),
+        OSCILLATOR_SHAPE_MAP[fx.ringmod.shape] || 0,
+        Math.round(fx.ringmod.mix)
       ].join(':');
     }).join(',');
 

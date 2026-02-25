@@ -306,7 +306,49 @@ export function renderFXModal(index, stemName, stemState, activeTab) {
 
     <div class="fx-tab-content ${activeTab === 'mod-fx' ? 'active' : ''}" data-tab="mod-fx">
       <div class="fx-section">
-        <label style="text-align: center; color: var(--text-muted); font-size: 10px; padding: 24px 0;">Coming soon</label>
+        <label>Tremolo</label>
+        <div class="fx-control">
+          <span class="fx-label">Rate</span>
+          <input type="range" min="0.1" max="20" step="0.1" value="${fx.tremolo.rate}" class="fx-slider" id="trem-rate-${index}">
+          <span class="fx-value" id="trem-rate-val-${index}">${fx.tremolo.rate.toFixed(1)}Hz</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Depth</span>
+          <input type="range" min="0" max="100" step="1" value="${fx.tremolo.depth}" class="fx-slider" id="trem-depth-${index}">
+          <span class="fx-value" id="trem-depth-val-${index}">${Math.round(fx.tremolo.depth)}%</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Shape</span>
+          <select class="fx-select" id="trem-shape-${index}">
+            <option value="sine" ${fx.tremolo.shape === 'sine' ? 'selected' : ''}>Sine</option>
+            <option value="square" ${fx.tremolo.shape === 'square' ? 'selected' : ''}>Square</option>
+            <option value="triangle" ${fx.tremolo.shape === 'triangle' ? 'selected' : ''}>Triangle</option>
+            <option value="sawtooth" ${fx.tremolo.shape === 'sawtooth' ? 'selected' : ''}>Sawtooth</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fx-section">
+        <label>Ring Modulator</label>
+        <div class="fx-control">
+          <span class="fx-label">Freq</span>
+          <input type="range" min="20" max="2000" step="1" value="${fx.ringmod.frequency}" class="fx-slider" id="rm-freq-${index}">
+          <span class="fx-value" id="rm-freq-val-${index}">${Math.round(fx.ringmod.frequency)}Hz</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Shape</span>
+          <select class="fx-select" id="rm-shape-${index}">
+            <option value="sine" ${fx.ringmod.shape === 'sine' ? 'selected' : ''}>Sine</option>
+            <option value="square" ${fx.ringmod.shape === 'square' ? 'selected' : ''}>Square</option>
+            <option value="triangle" ${fx.ringmod.shape === 'triangle' ? 'selected' : ''}>Triangle</option>
+            <option value="sawtooth" ${fx.ringmod.shape === 'sawtooth' ? 'selected' : ''}>Sawtooth</option>
+          </select>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Mix</span>
+          <input type="range" min="0" max="100" step="1" value="${fx.ringmod.mix}" class="fx-slider" id="rm-mix-${index}">
+          <span class="fx-value" id="rm-mix-val-${index}">${Math.round(fx.ringmod.mix)}%</span>
+        </div>
       </div>
     </div>
 

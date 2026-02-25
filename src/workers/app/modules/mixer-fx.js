@@ -190,6 +190,44 @@ export class FXController {
       dist.dry.gain.setTargetAtTime(1 - val / 100, currentTime(), 0.02);
     }, val => `${Math.round(val)}%`);
 
+    // Tremolo controls (lazy — node created on first interaction)
+    this._bindSlider(content, 'trem-rate', index, val => {
+      this.state.updateFX(index, 'tremolo', 'rate', val);
+      this._ensureTremolo(player).setRate(val);
+    }, val => `${val.toFixed(1)}Hz`);
+
+    this._bindSlider(content, 'trem-depth', index, val => {
+      this.state.updateFX(index, 'tremolo', 'depth', val);
+      this._ensureTremolo(player).setDepth(val / 100);
+    }, val => `${Math.round(val)}%`);
+
+    content.querySelector(`#trem-shape-${index}`).addEventListener('change', e => {
+      const value = e.target.value;
+      this.state.updateFX(index, 'tremolo', 'shape', value);
+      this._ensureTremolo(player).setShape(value);
+      if (this.onUpdate) this.onUpdate();
+    });
+
+    // Ring Modulator controls (lazy — node created on first interaction)
+    this._bindSlider(content, 'rm-freq', index, val => {
+      this.state.updateFX(index, 'ringmod', 'frequency', val);
+      this._ensureRingMod(player).setFrequency(val);
+    }, val => `${Math.round(val)}Hz`);
+
+    content.querySelector(`#rm-shape-${index}`).addEventListener('change', e => {
+      const value = e.target.value;
+      this.state.updateFX(index, 'ringmod', 'shape', value);
+      this._ensureRingMod(player).setShape(value);
+      if (this.onUpdate) this.onUpdate();
+    });
+
+    this._bindSlider(content, 'rm-mix', index, val => {
+      this.state.updateFX(index, 'ringmod', 'mix', val);
+      const rm = this._ensureRingMod(player);
+      rm.wet.gain.setTargetAtTime(val / 100, currentTime(), 0.02);
+      rm.dry.gain.setTargetAtTime(1 - val / 100, currentTime(), 0.02);
+    }, val => `${Math.round(val)}%`);
+
     // Reverb send
     this._bindSlider(content, 'reverb-send', index, val => {
       this.state.updateFX(index, 'reverb', 'send', val);
@@ -305,6 +343,36 @@ export class FXController {
     return distortion;
   }
 
+  // Lazily create ring modulator and splice into chain: Filter → [RingMod] → Delay
+  _ensureRingMod(player) {
+    if (player.effects.ringmod) return player.effects.ringmod;
+
+    const ringmod = this.audio.createRingMod();
+
+    // Splice into chain: disconnect filter.output→delay.input, insert ringmod
+    player.effects.filter.output.disconnect(player.effects.delay.input);
+    player.effects.filter.connect(ringmod.input);
+    ringmod.connect(player.effects.delay.input);
+
+    player.effects.ringmod = ringmod;
+    return ringmod;
+  }
+
+  // Lazily create tremolo and splice into chain: Delay → [Tremolo] → Panner
+  _ensureTremolo(player) {
+    if (player.effects.tremolo) return player.effects.tremolo;
+
+    const tremolo = this.audio.createTremolo();
+
+    // Splice into chain: disconnect delay.output→panner, insert tremolo
+    player.effects.delay.output.disconnect(player.effects.panner);
+    player.effects.delay.connect(tremolo.input);
+    tremolo.connect(player.effects.panner);
+
+    player.effects.tremolo = tremolo;
+    return tremolo;
+  }
+
   // Returns the node that feeds into the filter
   _filterPrevNode(player) {
     if (player.effects.distortion) return player.effects.distortion.output;
@@ -314,10 +382,13 @@ export class FXController {
 
   _changeFilterRolloff(index, player, newRolloff) {
     const filter = player.effects.filter;
+    const nextNode = player.effects.ringmod
+      ? player.effects.ringmod.input
+      : player.effects.delay.input;
     const changed = filter.setRolloff(
       newRolloff,
       this._filterPrevNode(player),
-      player.effects.delay.input,
+      nextNode,
       this.audio.currentTime
     );
     if (changed) {
@@ -368,6 +439,29 @@ export class FXController {
       dist.setCurve(fx.distortion.drive, fx.distortion.tone);
       dist.wet.gain.setTargetAtTime(fx.distortion.mix / 100, currentTime, 0.02);
       dist.dry.gain.setTargetAtTime(1 - fx.distortion.mix / 100, currentTime, 0.02);
+    }
+
+    // Ring Modulator — only instantiate if mix > 0
+    const rd = DEFAULT_FX_STATE.ringmod;
+    const hasRingMod = player.effects.ringmod || fx.ringmod.mix !== rd.mix;
+
+    if (hasRingMod) {
+      const rm = this._ensureRingMod(player);
+      rm.setFrequency(fx.ringmod.frequency);
+      rm.setShape(fx.ringmod.shape);
+      rm.wet.gain.setTargetAtTime(fx.ringmod.mix / 100, currentTime, 0.02);
+      rm.dry.gain.setTargetAtTime(1 - fx.ringmod.mix / 100, currentTime, 0.02);
+    }
+
+    // Tremolo — only instantiate if depth > 0
+    const td = DEFAULT_FX_STATE.tremolo;
+    const hasTremolo = player.effects.tremolo || fx.tremolo.depth !== td.depth;
+
+    if (hasTremolo) {
+      const trem = this._ensureTremolo(player);
+      trem.setRate(fx.tremolo.rate);
+      trem.setDepth(fx.tremolo.depth / 100);
+      trem.setShape(fx.tremolo.shape);
     }
 
     // Filter - check for rolloff change
@@ -429,6 +523,23 @@ export class FXController {
       dist.setCurve(0, 'warm');
       dist.wet.gain.setTargetAtTime(0, currentTime, 0.02);
       dist.dry.gain.setTargetAtTime(1, currentTime, 0.02);
+    }
+
+    // Reset ring modulator (only if it was instantiated)
+    if (player.effects.ringmod) {
+      const rm = player.effects.ringmod;
+      rm.setFrequency(440);
+      rm.setShape('sine');
+      rm.wet.gain.setTargetAtTime(0, currentTime, 0.02);
+      rm.dry.gain.setTargetAtTime(1, currentTime, 0.02);
+    }
+
+    // Reset tremolo (only if it was instantiated)
+    if (player.effects.tremolo) {
+      const trem = player.effects.tremolo;
+      trem.setRate(4);
+      trem.setDepth(0);
+      trem.setShape('sine');
     }
 
     // Reset filter (handle cascaded filters)

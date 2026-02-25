@@ -8,6 +8,8 @@ export const DEFAULT_FX_STATE = {
   reverb: { send: 0 },
   compressor: { threshold: -24, knee: 30, ratio: 12, attack: 0.003, release: 0.25 },
   distortion: { drive: 0, tone: 'warm', mix: 0 },
+  tremolo: { rate: 4, depth: 0, shape: 'sine' },
+  ringmod: { frequency: 440, shape: 'sine', mix: 0 },
   delay: { time: 0.375, feedback: 0.3, mix: 0 },
   pan: 0
 };
@@ -54,6 +56,10 @@ export const FILTER_TYPE_MAP = { lowpass: 0, highpass: 1, bandpass: 2 };
 // Distortion tone presets
 export const DISTORTION_TONES = ['warm', 'crunch', 'fuzz', 'hard-clip'];
 export const DISTORTION_TONE_MAP = { warm: 0, crunch: 1, fuzz: 2, 'hard-clip': 3 };
+
+// Oscillator shape options (for tremolo / ring mod)
+export const OSCILLATOR_SHAPES = ['sine', 'square', 'triangle', 'sawtooth'];
+export const OSCILLATOR_SHAPE_MAP = { sine: 0, square: 1, triangle: 2, sawtooth: 3 };
 
 // EQ frequency values
 export const EQ_FREQUENCIES = {
