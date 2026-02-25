@@ -2144,6 +2144,7 @@
       </div>
       <div class="fx-tabs">
         <button class="fx-tab-btn active" data-tab="eq-filter">EQ / FILTER</button>
+        <button class="fx-tab-btn" data-tab="mod-fx">MOD / FX</button>
         <button class="fx-tab-btn" data-tab="reverb-delay">REVERB / DELAY</button>
       </div>
       <div class="fx-modal-content" id="fxModalContent">
@@ -2183,6 +2184,8 @@
     const DEFAULT_FX = {
       eq: { low: 0, mid: 0, high: 0 },
       filter: { type: 'lowpass', freq: 20000, q: 1, rolloff: -12 },
+      tremolo: { rate: 4, depth: 0, shape: 'sine' },
+      ringmod: { frequency: 440, shape: 'sine', mix: 0 },
       reverb: 0,
       delay: { time: 0.25, feedback: 0.3, mix: 0 },
       pan: 0
@@ -2382,6 +2385,69 @@
         setQ(v, time) { filters.forEach(f => f.Q.setTargetAtTime(v, time, 0.01)); },
         connect(dest) { filters[filters.length - 1].connect(dest); },
         disconnect() { filters.forEach(f => f.disconnect()); }
+      };
+    }
+
+    function createTremolo() {
+      const signalGain = audioContext.createGain();
+      signalGain.gain.value = 0;
+
+      const bias = audioContext.createConstantSource();
+      bias.offset.value = 1;
+      bias.connect(signalGain.gain);
+      bias.start();
+
+      const osc = audioContext.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = 4;
+      const depthGain = audioContext.createGain();
+      depthGain.gain.value = 0;
+      osc.connect(depthGain);
+      depthGain.connect(signalGain.gain);
+      osc.start();
+
+      return {
+        input: signalGain,
+        output: signalGain,
+        setRate(v) { osc.frequency.value = v; },
+        setDepth(v) { depthGain.gain.value = v * 0.5; },
+        setShape(v) { osc.type = v; },
+        connect(dest) { signalGain.connect(dest); }
+      };
+    }
+
+    function createRingMod() {
+      const input = audioContext.createGain();
+      const dry = audioContext.createGain();
+      const wet = audioContext.createGain();
+      const output = audioContext.createGain();
+
+      dry.gain.value = 1;
+      wet.gain.value = 0;
+
+      input.connect(dry);
+      dry.connect(output);
+
+      const modGain = audioContext.createGain();
+      modGain.gain.value = 0;
+      input.connect(modGain);
+      modGain.connect(wet);
+      wet.connect(output);
+
+      const osc = audioContext.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = 440;
+      osc.connect(modGain.gain);
+      osc.start();
+
+      return {
+        input,
+        output,
+        dry,
+        wet,
+        setFrequency(v) { osc.frequency.value = v; },
+        setShape(v) { osc.type = v; },
+        connect(dest) { output.connect(dest); }
       };
     }
 
@@ -2862,6 +2928,54 @@
             </div>
           </div>
         </div>
+        <div class="fx-tab-content" data-tab="mod-fx">
+          <div class="fx-section">
+            <span class="fx-section-label">TREMOLO</span>
+            <div class="fx-control">
+              <span class="fx-label">Rate</span>
+              <input type="range" class="fx-slider" id="trem-rate-${index}" min="0.1" max="20" step="0.1" value="${fx.tremolo.rate}">
+              <span class="fx-value" id="trem-rate-val-${index}">${fx.tremolo.rate.toFixed(1)}Hz</span>
+            </div>
+            <div class="fx-control">
+              <span class="fx-label">Depth</span>
+              <input type="range" class="fx-slider" id="trem-depth-${index}" min="0" max="100" step="1" value="${fx.tremolo.depth}">
+              <span class="fx-value" id="trem-depth-val-${index}">${Math.round(fx.tremolo.depth)}%</span>
+            </div>
+            <div class="fx-control">
+              <span class="fx-label">Shape</span>
+              <select class="fx-select" id="trem-shape-${index}">
+                <option value="sine" ${fx.tremolo.shape === 'sine' ? 'selected' : ''}>Sine</option>
+                <option value="square" ${fx.tremolo.shape === 'square' ? 'selected' : ''}>Square</option>
+                <option value="triangle" ${fx.tremolo.shape === 'triangle' ? 'selected' : ''}>Triangle</option>
+                <option value="sawtooth" ${fx.tremolo.shape === 'sawtooth' ? 'selected' : ''}>Sawtooth</option>
+              </select>
+              <span></span>
+            </div>
+          </div>
+          <div class="fx-section">
+            <span class="fx-section-label">RING MODULATOR</span>
+            <div class="fx-control">
+              <span class="fx-label">Freq</span>
+              <input type="range" class="fx-slider" id="rm-freq-${index}" min="20" max="2000" step="1" value="${fx.ringmod.frequency}">
+              <span class="fx-value" id="rm-freq-val-${index}">${Math.round(fx.ringmod.frequency)}Hz</span>
+            </div>
+            <div class="fx-control">
+              <span class="fx-label">Shape</span>
+              <select class="fx-select" id="rm-shape-${index}">
+                <option value="sine" ${fx.ringmod.shape === 'sine' ? 'selected' : ''}>Sine</option>
+                <option value="square" ${fx.ringmod.shape === 'square' ? 'selected' : ''}>Square</option>
+                <option value="triangle" ${fx.ringmod.shape === 'triangle' ? 'selected' : ''}>Triangle</option>
+                <option value="sawtooth" ${fx.ringmod.shape === 'sawtooth' ? 'selected' : ''}>Sawtooth</option>
+              </select>
+              <span></span>
+            </div>
+            <div class="fx-control">
+              <span class="fx-label">Mix</span>
+              <input type="range" class="fx-slider" id="rm-mix-${index}" min="0" max="100" step="1" value="${fx.ringmod.mix}">
+              <span class="fx-value" id="rm-mix-val-${index}">${Math.round(fx.ringmod.mix)}%</span>
+            </div>
+          </div>
+        </div>
         <div class="fx-tab-content" data-tab="reverb-delay">
           <div class="fx-section">
             <span class="fx-section-label">REVERB</span>
@@ -2939,10 +3053,14 @@
           newFilter.setFrequency(freq, t());
           newFilter.setQ(q, t());
 
-          // Reconnect: EQ → Filter → Delay
+          // Reconnect: EQ → Filter → [RingMod or Delay]
           nodes.eq.high.connect(newFilter.input);
-          newFilter.output.connect(nodes.delay.dry);
-          newFilter.output.connect(nodes.delay.node);
+          if (nodes.ringmod) {
+            newFilter.connect(nodes.ringmod.input);
+          } else {
+            newFilter.output.connect(nodes.delay.dry);
+            newFilter.output.connect(nodes.delay.node);
+          }
 
           // Update references
           nodes.filter = newFilter;
@@ -3010,6 +3128,100 @@
           $(`dly-mix-val-${index}`).textContent = `${Math.round(v)}%`;
         };
       }
+
+      // Tremolo controls (lazy instantiation)
+      const tremRate = $(`trem-rate-${index}`);
+      if (tremRate) {
+        tremRate.oninput = e => {
+          const v = parseFloat(e.target.value);
+          state.fx.tremolo.rate = v;
+          ensureTremolo(nodes).setRate(v);
+          $(`trem-rate-val-${index}`).textContent = `${v.toFixed(1)}Hz`;
+        };
+      }
+
+      const tremDepth = $(`trem-depth-${index}`);
+      if (tremDepth) {
+        tremDepth.oninput = e => {
+          const v = parseFloat(e.target.value);
+          state.fx.tremolo.depth = v;
+          ensureTremolo(nodes).setDepth(v / 100);
+          $(`trem-depth-val-${index}`).textContent = `${Math.round(v)}%`;
+        };
+      }
+
+      const tremShape = $(`trem-shape-${index}`);
+      if (tremShape) {
+        tremShape.onchange = e => {
+          state.fx.tremolo.shape = e.target.value;
+          ensureTremolo(nodes).setShape(e.target.value);
+        };
+      }
+
+      // Ring Modulator controls (lazy instantiation)
+      const rmFreq = $(`rm-freq-${index}`);
+      if (rmFreq) {
+        rmFreq.oninput = e => {
+          const v = parseFloat(e.target.value);
+          state.fx.ringmod.frequency = v;
+          ensureRingMod(nodes).setFrequency(v);
+          $(`rm-freq-val-${index}`).textContent = `${Math.round(v)}Hz`;
+        };
+      }
+
+      const rmShape = $(`rm-shape-${index}`);
+      if (rmShape) {
+        rmShape.onchange = e => {
+          state.fx.ringmod.shape = e.target.value;
+          ensureRingMod(nodes).setShape(e.target.value);
+        };
+      }
+
+      const rmMix = $(`rm-mix-${index}`);
+      if (rmMix) {
+        rmMix.oninput = e => {
+          const v = parseFloat(e.target.value);
+          state.fx.ringmod.mix = v;
+          const rm = ensureRingMod(nodes);
+          rm.wet.gain.setTargetAtTime(v / 100, t(), 0.01);
+          rm.dry.gain.setTargetAtTime(1 - v / 100, t(), 0.01);
+          $(`rm-mix-val-${index}`).textContent = `${Math.round(v)}%`;
+        };
+      }
+    }
+
+    // Lazy instantiation: splice ring mod between filter and delay
+    function ensureRingMod(nodes) {
+      if (nodes.ringmod) return nodes.ringmod;
+
+      const ringmod = createRingMod();
+
+      // Disconnect filter → delay, insert ringmod
+      nodes.filter.output.disconnect(nodes.delay.dry);
+      nodes.filter.output.disconnect(nodes.delay.node);
+      nodes.filter.connect(ringmod.input);
+      ringmod.output.connect(nodes.delay.dry);
+      ringmod.output.connect(nodes.delay.node);
+
+      nodes.ringmod = ringmod;
+      return ringmod;
+    }
+
+    // Lazy instantiation: splice tremolo between delay and panner
+    function ensureTremolo(nodes) {
+      if (nodes.tremolo) return nodes.tremolo;
+
+      const tremolo = createTremolo();
+
+      // Disconnect delay → panner, insert tremolo
+      nodes.delay.dry.disconnect(nodes.panner);
+      nodes.delay.wet.disconnect(nodes.panner);
+      nodes.delay.dry.connect(tremolo.input);
+      nodes.delay.wet.connect(tremolo.input);
+      tremolo.connect(nodes.panner);
+
+      nodes.tremolo = tremolo;
+      return tremolo;
     }
 
     function openFxModal(index) {
@@ -3511,14 +3723,33 @@
         nodes.eq.mid.gain.setTargetAtTime(0, t, 0.01);
         nodes.eq.high.gain.setTargetAtTime(0, t, 0.01);
 
+        // Reset ring modulator (only if instantiated)
+        if (nodes.ringmod) {
+          nodes.ringmod.setFrequency(440);
+          nodes.ringmod.setShape('sine');
+          nodes.ringmod.wet.gain.setTargetAtTime(0, t, 0.01);
+          nodes.ringmod.dry.gain.setTargetAtTime(1, t, 0.01);
+        }
+
+        // Reset tremolo (only if instantiated)
+        if (nodes.tremolo) {
+          nodes.tremolo.setRate(4);
+          nodes.tremolo.setDepth(0);
+          nodes.tremolo.setShape('sine');
+        }
+
         // Reset filter (including rolloff if changed)
         if (nodes.filter.rolloff !== -12) {
           nodes.eq.high.disconnect();
           nodes.filter.disconnect();
           const newFilter = createFilter(-12);
           nodes.eq.high.connect(newFilter.input);
-          newFilter.output.connect(nodes.delay.dry);
-          newFilter.output.connect(nodes.delay.node);
+          if (nodes.ringmod) {
+            newFilter.connect(nodes.ringmod.input);
+          } else {
+            newFilter.output.connect(nodes.delay.dry);
+            newFilter.output.connect(nodes.delay.node);
+          }
           nodes.filter = newFilter;
         }
         nodes.filter.setType('lowpass');
