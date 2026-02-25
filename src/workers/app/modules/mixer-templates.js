@@ -13,7 +13,7 @@ const HELP_CONTENT = {
     { icon: 'fader', title: 'Volume', description: 'Adjust stem volume.' },
     { icon: 'mute-solo', title: 'Mute / Solo', description: 'M to silence, S to solo (multiselect supported).' },
     { icon: 'pan', title: 'Pan', description: 'Position stem in stereo field.' },
-    { icon: 'fx', title: 'Effects', description: 'Access EQ, Filter, Reverb, and Delay controls.' },
+    { icon: 'fx', title: 'Effects', description: 'Access EQ, Filter, Compressor, Reverb, and Delay controls.' },
     { icon: 'led', title: 'Signal', description: 'Lights up when audio is active.' },
     { icon: 'theme', title: 'Theme', description: 'Toggle light/dark mode in header.' },
     { icon: 'share', title: 'Share', description: 'Copy link with current mix settings.' },
@@ -195,7 +195,9 @@ export function renderFXModal(index, stemName, stemState, activeTab) {
 
     <div class="fx-tabs">
       <button class="fx-tab-btn ${activeTab === 'eq-filter' ? 'active' : ''}" data-tab="eq-filter">EQ / FILTER</button>
-      <button class="fx-tab-btn ${activeTab === 'reverb-delay' ? 'active' : ''}" data-tab="reverb-delay">REVERB / DELAY</button>
+      <button class="fx-tab-btn ${activeTab === 'dynamics' ? 'active' : ''}" data-tab="dynamics">DYNAMICS</button>
+      <button class="fx-tab-btn ${activeTab === 'mod-fx' ? 'active' : ''}" data-tab="mod-fx">MOD / FX</button>
+      <button class="fx-tab-btn ${activeTab === 'send-delay' ? 'active' : ''}" data-tab="send-delay">SEND / DELAY</button>
     </div>
 
     <div class="fx-tab-content ${activeTab === 'eq-filter' ? 'active' : ''}" data-tab="eq-filter">
@@ -248,7 +250,44 @@ export function renderFXModal(index, stemName, stemState, activeTab) {
       </div>
     </div>
 
-    <div class="fx-tab-content ${activeTab === 'reverb-delay' ? 'active' : ''}" data-tab="reverb-delay">
+    <div class="fx-tab-content ${activeTab === 'dynamics' ? 'active' : ''}" data-tab="dynamics">
+      <div class="fx-section">
+        <label>Compressor</label>
+        <div class="fx-control">
+          <span class="fx-label">Thresh</span>
+          <input type="range" min="-100" max="0" step="1" value="${fx.compressor.threshold}" class="fx-slider" id="comp-thresh-${index}">
+          <span class="fx-value" id="comp-thresh-val-${index}">${Math.round(fx.compressor.threshold)}dB</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Knee</span>
+          <input type="range" min="0" max="40" step="1" value="${fx.compressor.knee}" class="fx-slider" id="comp-knee-${index}">
+          <span class="fx-value" id="comp-knee-val-${index}">${Math.round(fx.compressor.knee)}dB</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Ratio</span>
+          <input type="range" min="1" max="20" step="0.5" value="${fx.compressor.ratio}" class="fx-slider" id="comp-ratio-${index}">
+          <span class="fx-value" id="comp-ratio-val-${index}">${fx.compressor.ratio.toFixed(1)}</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Attack</span>
+          <input type="range" min="0.001" max="1" step="0.001" value="${fx.compressor.attack}" class="fx-slider" id="comp-attack-${index}">
+          <span class="fx-value" id="comp-attack-val-${index}">${fx.compressor.attack.toFixed(3)}s</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Release</span>
+          <input type="range" min="0.01" max="1" step="0.01" value="${fx.compressor.release}" class="fx-slider" id="comp-release-${index}">
+          <span class="fx-value" id="comp-release-val-${index}">${fx.compressor.release.toFixed(2)}s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fx-tab-content ${activeTab === 'mod-fx' ? 'active' : ''}" data-tab="mod-fx">
+      <div class="fx-section">
+        <label style="text-align: center; color: var(--text-muted); font-size: 10px; padding: 24px 0;">Coming soon</label>
+      </div>
+    </div>
+
+    <div class="fx-tab-content ${activeTab === 'send-delay' ? 'active' : ''}" data-tab="send-delay">
       <div class="fx-section">
         <label>Reverb</label>
         <div class="fx-control">

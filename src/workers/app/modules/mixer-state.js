@@ -27,6 +27,7 @@ export class MixerState {
       solo: DEFAULT_STEM_STATE.solo,
       fx: {
         eq: { ...DEFAULT_FX_STATE.eq },
+        compressor: { ...DEFAULT_FX_STATE.compressor },
         filter: { ...DEFAULT_FX_STATE.filter },
         reverb: { ...DEFAULT_FX_STATE.reverb },
         delay: { ...DEFAULT_FX_STATE.delay },
@@ -118,6 +119,13 @@ export class MixerState {
       if (values[13] !== undefined) stem.fx.delay.feedback = parseFloat(values[13]) / 100;
       if (values[14] !== undefined) stem.fx.delay.mix = parseFloat(values[14]);
       if (values[15] !== undefined) stem.fx.filter.rolloff = parseInt(values[15]);
+
+      // Compressor (v2 — backward compatible, defaults from DEFAULT_FX_STATE)
+      if (values[16] !== undefined) stem.fx.compressor.threshold = parseInt(values[16]);
+      if (values[17] !== undefined) stem.fx.compressor.knee = parseInt(values[17]);
+      if (values[18] !== undefined) stem.fx.compressor.ratio = parseFloat(values[18]) / 10;
+      if (values[19] !== undefined) stem.fx.compressor.attack = parseFloat(values[19]) / 1000;
+      if (values[20] !== undefined) stem.fx.compressor.release = parseFloat(values[20]) / 1000;
     });
   }
 
@@ -140,7 +148,12 @@ export class MixerState {
         Math.round(fx.delay.time * 100),
         Math.round(fx.delay.feedback * 100),
         Math.round(fx.delay.mix),
-        fx.filter.rolloff || -12
+        fx.filter.rolloff || -12,
+        Math.round(fx.compressor.threshold),
+        Math.round(fx.compressor.knee),
+        Math.round(fx.compressor.ratio * 10),
+        Math.round(fx.compressor.attack * 1000),
+        Math.round(fx.compressor.release * 1000)
       ].join(':');
     }).join(',');
 

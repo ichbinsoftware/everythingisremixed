@@ -169,6 +169,22 @@ export class AudioEngine {
     return wrapper;
   }
 
+  createCompressor() {
+    const comp = this.context.createDynamicsCompressor();
+    comp.threshold.value = -24;
+    comp.knee.value = 30;
+    comp.ratio.value = 12;
+    comp.attack.value = 0.003;
+    comp.release.value = 0.25;
+
+    return {
+      node: comp,
+      input: comp,
+      output: comp,
+      connect: (dest) => comp.connect(dest)
+    };
+  }
+
   createDelay() {
     const delayNode = this.context.createDelay(5);
     const feedback = this.context.createGain();

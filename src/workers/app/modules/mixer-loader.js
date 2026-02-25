@@ -116,7 +116,7 @@ export class StemLoader {
           const reverbSend = { gain: reverbSendGain };
 
           source.connect(eq.input);
-          eq.connect(filter.input);
+          eq.connect(filter.input); // Compressor spliced in lazily when needed
           filter.connect(delay.input);
           delay.connect(panner);
           panner.connect(gainNode);
@@ -134,7 +134,7 @@ export class StemLoader {
             blobUrl: blobUrl,
             source: source,
             gainNode: gainNode,
-            effects: { eq, filter, delay, panner, reverbSend },
+            effects: { eq, compressor: null, filter, delay, panner, reverbSend },
             loaded: true,
             name: stem.name,
             color: stem.color

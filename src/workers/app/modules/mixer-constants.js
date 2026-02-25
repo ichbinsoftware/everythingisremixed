@@ -6,6 +6,7 @@ export const DEFAULT_FX_STATE = {
   eq: { low: 0, mid: 0, high: 0 },
   filter: { freq: 20000, resonance: 1, type: 'lowpass', rolloff: -12 },
   reverb: { send: 0 },
+  compressor: { threshold: -24, knee: 30, ratio: 12, attack: 0.003, release: 0.25 },
   delay: { time: 0.375, feedback: 0.3, mix: 0 },
   pan: 0
 };

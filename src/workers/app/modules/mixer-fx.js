@@ -2,6 +2,7 @@
 // Mixer FX Controller (Modal)
 // ==========================================
 
+import { DEFAULT_FX_STATE } from './mixer-constants.js';
 import { renderFXModal } from './mixer-templates.js';
 
 export class FXController {
@@ -139,6 +140,32 @@ export class FXController {
       if (this.onUpdate) this.onUpdate();
     });
 
+    // Compressor controls (lazy — node created on first interaction)
+    this._bindSlider(content, 'comp-thresh', index, val => {
+      this.state.updateFX(index, 'compressor', 'threshold', val);
+      this._ensureCompressor(player).node.threshold.setTargetAtTime(val, currentTime(), 0.02);
+    }, val => `${Math.round(val)}dB`);
+
+    this._bindSlider(content, 'comp-knee', index, val => {
+      this.state.updateFX(index, 'compressor', 'knee', val);
+      this._ensureCompressor(player).node.knee.setTargetAtTime(val, currentTime(), 0.02);
+    }, val => `${Math.round(val)}dB`);
+
+    this._bindSlider(content, 'comp-ratio', index, val => {
+      this.state.updateFX(index, 'compressor', 'ratio', val);
+      this._ensureCompressor(player).node.ratio.setTargetAtTime(val, currentTime(), 0.02);
+    }, val => val.toFixed(1));
+
+    this._bindSlider(content, 'comp-attack', index, val => {
+      this.state.updateFX(index, 'compressor', 'attack', val);
+      this._ensureCompressor(player).node.attack.setTargetAtTime(val, currentTime(), 0.02);
+    }, val => `${val.toFixed(3)}s`);
+
+    this._bindSlider(content, 'comp-release', index, val => {
+      this.state.updateFX(index, 'compressor', 'release', val);
+      this._ensureCompressor(player).node.release.setTargetAtTime(val, currentTime(), 0.02);
+    }, val => `${val.toFixed(2)}s`);
+
     // Reverb send
     this._bindSlider(content, 'reverb-send', index, val => {
       this.state.updateFX(index, 'reverb', 'send', val);
@@ -218,11 +245,31 @@ export class FXController {
     document.body.style.overflow = '';
   }
 
+  // Lazily create compressor and splice into chain: EQ → [Compressor] → Filter
+  _ensureCompressor(player) {
+    if (player.effects.compressor) return player.effects.compressor;
+
+    const compressor = this.audio.createCompressor();
+
+    // Splice into chain: disconnect EQ→Filter, insert compressor between
+    player.effects.eq.output.disconnect(player.effects.filter.input);
+    player.effects.eq.connect(compressor.input);
+    compressor.connect(player.effects.filter.input);
+
+    player.effects.compressor = compressor;
+    return compressor;
+  }
+
+  // Returns the node that feeds into the filter (compressor if active, else EQ)
+  _filterPrevNode(player) {
+    return player.effects.compressor ? player.effects.compressor.output : player.effects.eq.output;
+  }
+
   _changeFilterRolloff(index, player, newRolloff) {
     const filter = player.effects.filter;
     const changed = filter.setRolloff(
       newRolloff,
-      player.effects.eq.output,
+      this._filterPrevNode(player),
       player.effects.delay.input,
       this.audio.currentTime
     );
@@ -244,6 +291,24 @@ export class FXController {
     player.effects.eq.lowShelf.gain.setTargetAtTime(fx.eq.low, currentTime, 0.02);
     player.effects.eq.mid.gain.setTargetAtTime(fx.eq.mid, currentTime, 0.02);
     player.effects.eq.highShelf.gain.setTargetAtTime(fx.eq.high, currentTime, 0.02);
+
+    // Compressor — only instantiate if state differs from defaults
+    const cd = DEFAULT_FX_STATE.compressor;
+    const hasCompressor = player.effects.compressor ||
+      fx.compressor.threshold !== cd.threshold ||
+      fx.compressor.knee !== cd.knee ||
+      fx.compressor.ratio !== cd.ratio ||
+      fx.compressor.attack !== cd.attack ||
+      fx.compressor.release !== cd.release;
+
+    if (hasCompressor) {
+      const comp = this._ensureCompressor(player).node;
+      comp.threshold.setTargetAtTime(fx.compressor.threshold, currentTime, 0.02);
+      comp.knee.setTargetAtTime(fx.compressor.knee, currentTime, 0.02);
+      comp.ratio.setTargetAtTime(fx.compressor.ratio, currentTime, 0.02);
+      comp.attack.setTargetAtTime(fx.compressor.attack, currentTime, 0.02);
+      comp.release.setTargetAtTime(fx.compressor.release, currentTime, 0.02);
+    }
 
     // Filter - check for rolloff change
     if (fx.filter.rolloff && player.effects.filter.rolloff !== fx.filter.rolloff) {
@@ -287,6 +352,16 @@ export class FXController {
     player.effects.eq.lowShelf.gain.setTargetAtTime(0, currentTime, 0.02);
     player.effects.eq.mid.gain.setTargetAtTime(0, currentTime, 0.02);
     player.effects.eq.highShelf.gain.setTargetAtTime(0, currentTime, 0.02);
+
+    // Reset compressor (only if it was instantiated)
+    if (player.effects.compressor) {
+      const comp = player.effects.compressor.node;
+      comp.threshold.setTargetAtTime(-24, currentTime, 0.02);
+      comp.knee.setTargetAtTime(30, currentTime, 0.02);
+      comp.ratio.setTargetAtTime(12, currentTime, 0.02);
+      comp.attack.setTargetAtTime(0.003, currentTime, 0.02);
+      comp.release.setTargetAtTime(0.25, currentTime, 0.02);
+    }
 
     // Reset filter (handle cascaded filters)
     const filter = player.effects.filter;
