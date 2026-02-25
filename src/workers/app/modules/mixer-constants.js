@@ -7,6 +7,7 @@ export const DEFAULT_FX_STATE = {
   filter: { freq: 20000, resonance: 1, type: 'lowpass', rolloff: -12 },
   reverb: { send: 0 },
   compressor: { threshold: -24, knee: 30, ratio: 12, attack: 0.003, release: 0.25 },
+  distortion: { drive: 0, tone: 'warm', mix: 0 },
   delay: { time: 0.375, feedback: 0.3, mix: 0 },
   pan: 0
 };
@@ -49,6 +50,10 @@ export const WAVEFORM_HEIGHT = 56;
 // Filter type mapping for share URL encoding/decoding
 export const FILTER_TYPES = ['lowpass', 'highpass', 'bandpass'];
 export const FILTER_TYPE_MAP = { lowpass: 0, highpass: 1, bandpass: 2 };
+
+// Distortion tone presets
+export const DISTORTION_TONES = ['warm', 'crunch', 'fuzz', 'hard-clip'];
+export const DISTORTION_TONE_MAP = { warm: 0, crunch: 1, fuzz: 2, 'hard-clip': 3 };
 
 // EQ frequency values
 export const EQ_FREQUENCIES = {

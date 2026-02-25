@@ -7,7 +7,9 @@ import {
   DEFAULT_STEM_STATE,
   DEFAULT_MASTER_VOLUME,
   FILTER_TYPES,
-  FILTER_TYPE_MAP
+  FILTER_TYPE_MAP,
+  DISTORTION_TONES,
+  DISTORTION_TONE_MAP
 } from './mixer-constants.js';
 
 export class MixerState {
@@ -28,6 +30,7 @@ export class MixerState {
       fx: {
         eq: { ...DEFAULT_FX_STATE.eq },
         compressor: { ...DEFAULT_FX_STATE.compressor },
+        distortion: { ...DEFAULT_FX_STATE.distortion },
         filter: { ...DEFAULT_FX_STATE.filter },
         reverb: { ...DEFAULT_FX_STATE.reverb },
         delay: { ...DEFAULT_FX_STATE.delay },
@@ -126,6 +129,11 @@ export class MixerState {
       if (values[18] !== undefined) stem.fx.compressor.ratio = parseFloat(values[18]) / 10;
       if (values[19] !== undefined) stem.fx.compressor.attack = parseFloat(values[19]) / 1000;
       if (values[20] !== undefined) stem.fx.compressor.release = parseFloat(values[20]) / 1000;
+
+      // Distortion (v3 — backward compatible)
+      if (values[21] !== undefined) stem.fx.distortion.drive = parseInt(values[21]);
+      if (values[22] !== undefined) stem.fx.distortion.tone = DISTORTION_TONES[parseInt(values[22])] || 'warm';
+      if (values[23] !== undefined) stem.fx.distortion.mix = parseInt(values[23]);
     });
   }
 
@@ -153,7 +161,10 @@ export class MixerState {
         Math.round(fx.compressor.knee),
         Math.round(fx.compressor.ratio * 10),
         Math.round(fx.compressor.attack * 1000),
-        Math.round(fx.compressor.release * 1000)
+        Math.round(fx.compressor.release * 1000),
+        Math.round(fx.distortion.drive),
+        DISTORTION_TONE_MAP[fx.distortion.tone] || 0,
+        Math.round(fx.distortion.mix)
       ].join(':');
     }).join(',');
 

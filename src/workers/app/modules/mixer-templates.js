@@ -279,6 +279,29 @@ export function renderFXModal(index, stemName, stemState, activeTab) {
           <span class="fx-value" id="comp-release-val-${index}">${fx.compressor.release.toFixed(2)}s</span>
         </div>
       </div>
+
+      <div class="fx-section">
+        <label>Distortion</label>
+        <div class="fx-control">
+          <span class="fx-label">Drive</span>
+          <input type="range" min="0" max="100" step="1" value="${fx.distortion.drive}" class="fx-slider" id="dist-drive-${index}">
+          <span class="fx-value" id="dist-drive-val-${index}">${Math.round(fx.distortion.drive)}</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Tone</span>
+          <select class="fx-select" id="dist-tone-${index}">
+            <option value="warm" ${fx.distortion.tone === 'warm' ? 'selected' : ''}>Warm</option>
+            <option value="crunch" ${fx.distortion.tone === 'crunch' ? 'selected' : ''}>Crunch</option>
+            <option value="fuzz" ${fx.distortion.tone === 'fuzz' ? 'selected' : ''}>Fuzz</option>
+            <option value="hard-clip" ${fx.distortion.tone === 'hard-clip' ? 'selected' : ''}>Hard Clip</option>
+          </select>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Mix</span>
+          <input type="range" min="0" max="100" step="1" value="${fx.distortion.mix}" class="fx-slider" id="dist-mix-${index}">
+          <span class="fx-value" id="dist-mix-val-${index}">${Math.round(fx.distortion.mix)}%</span>
+        </div>
+      </div>
     </div>
 
     <div class="fx-tab-content ${activeTab === 'mod-fx' ? 'active' : ''}" data-tab="mod-fx">

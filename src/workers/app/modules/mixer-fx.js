@@ -166,6 +166,30 @@ export class FXController {
       this._ensureCompressor(player).node.release.setTargetAtTime(val, currentTime(), 0.02);
     }, val => `${val.toFixed(2)}s`);
 
+    // Distortion controls (lazy — node created on first interaction)
+    this._bindSlider(content, 'dist-drive', index, val => {
+      this.state.updateFX(index, 'distortion', 'drive', val);
+      const stemState = this.state.getStem(index);
+      const dist = this._ensureDistortion(player);
+      dist.setCurve(val, stemState.fx.distortion.tone);
+    }, val => `${Math.round(val)}`);
+
+    content.querySelector(`#dist-tone-${index}`).addEventListener('change', e => {
+      const value = e.target.value;
+      this.state.updateFX(index, 'distortion', 'tone', value);
+      const stemState = this.state.getStem(index);
+      const dist = this._ensureDistortion(player);
+      dist.setCurve(stemState.fx.distortion.drive, value);
+      if (this.onUpdate) this.onUpdate();
+    });
+
+    this._bindSlider(content, 'dist-mix', index, val => {
+      this.state.updateFX(index, 'distortion', 'mix', val);
+      const dist = this._ensureDistortion(player);
+      dist.wet.gain.setTargetAtTime(val / 100, currentTime(), 0.02);
+      dist.dry.gain.setTargetAtTime(1 - val / 100, currentTime(), 0.02);
+    }, val => `${Math.round(val)}%`);
+
     // Reverb send
     this._bindSlider(content, 'reverb-send', index, val => {
       this.state.updateFX(index, 'reverb', 'send', val);
@@ -245,24 +269,47 @@ export class FXController {
     document.body.style.overflow = '';
   }
 
-  // Lazily create compressor and splice into chain: EQ → [Compressor] → Filter
+  // Lazily create compressor and splice into chain: EQ → [Compressor] → [Distortion] → Filter
   _ensureCompressor(player) {
     if (player.effects.compressor) return player.effects.compressor;
 
     const compressor = this.audio.createCompressor();
+    const nextNode = player.effects.distortion
+      ? player.effects.distortion.input
+      : player.effects.filter.input;
 
-    // Splice into chain: disconnect EQ→Filter, insert compressor between
-    player.effects.eq.output.disconnect(player.effects.filter.input);
+    // Splice into chain: disconnect EQ→next, insert compressor between
+    player.effects.eq.output.disconnect(nextNode);
     player.effects.eq.connect(compressor.input);
-    compressor.connect(player.effects.filter.input);
+    compressor.connect(nextNode);
 
     player.effects.compressor = compressor;
     return compressor;
   }
 
-  // Returns the node that feeds into the filter (compressor if active, else EQ)
+  // Lazily create distortion and splice into chain: (Compressor||EQ) → [Distortion] → Filter
+  _ensureDistortion(player) {
+    if (player.effects.distortion) return player.effects.distortion;
+
+    const distortion = this.audio.createDistortion();
+    const prevNode = player.effects.compressor
+      ? player.effects.compressor.output
+      : player.effects.eq.output;
+
+    // Splice into chain: disconnect prev→filter, insert distortion between
+    prevNode.disconnect(player.effects.filter.input);
+    prevNode.connect(distortion.input);
+    distortion.connect(player.effects.filter.input);
+
+    player.effects.distortion = distortion;
+    return distortion;
+  }
+
+  // Returns the node that feeds into the filter
   _filterPrevNode(player) {
-    return player.effects.compressor ? player.effects.compressor.output : player.effects.eq.output;
+    if (player.effects.distortion) return player.effects.distortion.output;
+    if (player.effects.compressor) return player.effects.compressor.output;
+    return player.effects.eq.output;
   }
 
   _changeFilterRolloff(index, player, newRolloff) {
@@ -308,6 +355,19 @@ export class FXController {
       comp.ratio.setTargetAtTime(fx.compressor.ratio, currentTime, 0.02);
       comp.attack.setTargetAtTime(fx.compressor.attack, currentTime, 0.02);
       comp.release.setTargetAtTime(fx.compressor.release, currentTime, 0.02);
+    }
+
+    // Distortion — only instantiate if state differs from defaults
+    const dd = DEFAULT_FX_STATE.distortion;
+    const hasDistortion = player.effects.distortion ||
+      fx.distortion.drive !== dd.drive ||
+      fx.distortion.mix !== dd.mix;
+
+    if (hasDistortion) {
+      const dist = this._ensureDistortion(player);
+      dist.setCurve(fx.distortion.drive, fx.distortion.tone);
+      dist.wet.gain.setTargetAtTime(fx.distortion.mix / 100, currentTime, 0.02);
+      dist.dry.gain.setTargetAtTime(1 - fx.distortion.mix / 100, currentTime, 0.02);
     }
 
     // Filter - check for rolloff change
@@ -361,6 +421,14 @@ export class FXController {
       comp.ratio.setTargetAtTime(12, currentTime, 0.02);
       comp.attack.setTargetAtTime(0.003, currentTime, 0.02);
       comp.release.setTargetAtTime(0.25, currentTime, 0.02);
+    }
+
+    // Reset distortion (only if it was instantiated)
+    if (player.effects.distortion) {
+      const dist = player.effects.distortion;
+      dist.setCurve(0, 'warm');
+      dist.wet.gain.setTargetAtTime(0, currentTime, 0.02);
+      dist.dry.gain.setTargetAtTime(1, currentTime, 0.02);
     }
 
     // Reset filter (handle cascaded filters)
