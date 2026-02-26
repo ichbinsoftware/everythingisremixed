@@ -146,11 +146,15 @@ await loader.loadStems(STEM_CONFIG, trackId, (progress, message) => {
 Each stem gets its own effects chain built by `createAudioGraph()`:
 
 ```javascript
-// Per-stem signal chain
+// Per-stem signal chain (nodes marked [lazy] only created on demand)
 MediaElementSource
     → EQ (lowShelf → mid → highShelf)
-    → Filter (BiquadFilterNode)
+    → [Compressor] (lazy)
+    → [Distortion] (lazy)
+    → Filter (BiquadFilterNode, -12/-24 dB/oct)
+    → [Ring Mod] (lazy)
     → Delay (with feedback loop)
+    → [Tremolo] (lazy)
     → Panner (StereoPannerNode)
     → Gain (volume control)
     → Analyser (meter data)
@@ -173,7 +177,11 @@ Manages all stem state including volume, mute/solo, and FX parameters.
   solo: false,
   fx: {
     eq: { low: 0, mid: 0, high: 0 },       // -12 to 12 dB
+    compressor: { threshold: -24, knee: 30, ratio: 12, attack: 0.003, release: 0.25 },
+    distortion: { drive: 0, tone: 'warm', mix: 0 },
     filter: { freq: 20000, resonance: 1, type: 'lowpass', rolloff: -12 },
+    tremolo: { rate: 4, depth: 0, shape: 'sine' },
+    ringmod: { frequency: 440, shape: 'sine', mix: 0 },
     reverb: { send: 0 },                    // 0-100 %
     delay: { time: 0.375, feedback: 0.3, mix: 0 },
     pan: 0                                  // -1 to 1
@@ -207,9 +215,9 @@ const shareUrl = state.toShareUrl();
 // Returns: "0:80:0:0:0:0:0:0:0:20000:10:0:38:30:0,1:100:1:0..."
 ```
 
-**Format per stem:**
+**Format per stem (values[0-29]):**
 ```
-index:volume:muted:solo:pan:eqLow:eqMid:eqHigh:filterType:filterFreq:filterRes:reverb:delayTime:delayFB:delayMix:filterRolloff
+index:volume:muted:solo:pan:eqLow:eqMid:eqHigh:filterType:filterFreq:filterRes:reverb:delayTime:delayFB:delayMix:filterRolloff:compThresh:compKnee:compRatio:compAttack:compRelease:distDrive:distTone:distMix:tremRate:tremDepth:tremShape:rmFreq:rmShape:rmMix
 ```
 
 **Value scaling:**
@@ -220,6 +228,11 @@ index:volume:muted:solo:pan:eqLow:eqMid:eqHigh:filterType:filterFreq:filterRes:r
 - Filter Resonance: 1-100 (actual 0.1-10 × 10)
 - Delay Time: 1-200 (actual 0.01-2s × 100)
 - Delay Feedback: 0-90 (actual 0-0.9 × 100)
+- Comp Ratio: 10-200 (actual 1-20 × 10)
+- Comp Attack/Release: ms (÷1000 for seconds)
+- Dist Tone: 0=warm, 1=crunch, 2=fuzz, 3=hard-clip
+- Trem Rate: 1-200 (actual 0.1-20 × 10)
+- Trem/RM Shape: 0=sine, 1=square, 2=triangle, 3=sawtooth
 
 ## Transport Control (mixer-transport.js)
 
@@ -518,13 +531,26 @@ function updateMeters() {
 
 ### FXController Class
 
-Manages the FX modal and applies effects to audio nodes (~266 lines). Uses a centered modal overlay with a tabbed interface.
+Manages the FX modal and applies effects to audio nodes. Uses a centered modal overlay with a tabbed interface and lazy effect instantiation.
 
 #### FX Modal Structure
 
-The modal contains two tabs:
-- **EQ / FILTER**: 3-band EQ (Low, Mid, High) and filter (Type, Frequency, Q)
-- **REVERB / DELAY**: Reverb send and delay (Time, Feedback, Mix)
+The modal contains four tabs:
+- **EQ / FILTER**: 3-band EQ (Low, Mid, High) and filter (Type, Slope, Frequency, Q)
+- **DYNAMICS**: Compressor (Threshold, Knee, Ratio, Attack, Release) and Distortion (Drive, Tone, Mix)
+- **MOD / FX**: Tremolo (Rate, Depth, Shape) and Ring Modulator (Freq, Shape, Mix)
+- **SEND / DELAY**: Reverb send and delay (Time, Feedback, Mix)
+
+#### Lazy Effect Instantiation
+
+Compressor, Distortion, Tremolo, and Ring Modulator are only created when the user first interacts with their controls. Each `_ensure*()` method disconnects adjacent nodes in the chain and splices in the new effect:
+
+```javascript
+_ensureCompressor(player)  // EQ → [Comp] → Distortion/Filter
+_ensureDistortion(player)  // Comp/EQ → [Dist] → Filter
+_ensureRingMod(player)     // Filter → [RingMod] → Delay
+_ensureTremolo(player)     // Delay → [Tremolo] → Panner
+```
 
 #### Modal Behavior
 

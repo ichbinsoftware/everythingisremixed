@@ -181,39 +181,23 @@ In `app/modules/mixer-state.js`, extend `toShareUrl()` and `applyFromUrl()` to i
 
 ### Current Chain
 ```
-Source → EQ → Filter → Delay → Panner → Gain → Analyser → Master
+Source → EQ → [Compressor] → [Distortion] → Filter → [Ring Mod] → Delay → [Tremolo] → Panner → Gain → Analyser → Master
 ```
+Nodes in brackets are lazily instantiated — only created when the user first interacts with their controls.
 
 ### Adding a Node
 
-To insert a new node (e.g., compressor after EQ):
+New effects follow the lazy instantiation pattern used by existing effects:
 
-1. **Create the node** in `app/modules/mixer-audio.js`:
-```javascript
-createCompressor() {
-  const comp = this.ctx.createDynamicsCompressor();
-  comp.threshold.value = -24;
-  comp.knee.value = 30;
-  comp.ratio.value = 4;
-  comp.attack.value = 0.003;
-  comp.release.value = 0.25;
-  return comp;
-}
-```
+1. **Create the factory** in `app/modules/mixer-audio.js` (returns an object with `input`, `output`, `connect`, and parameter setters)
+2. **Add an `_ensure*()` method** in `app/modules/mixer-fx.js` that disconnects adjacent nodes and splices the new effect into the chain
+3. **Add defaults** to `DEFAULT_FX_STATE` in `mixer-constants.js`
+4. **Add controls** in `mixer-templates.js`
+5. **Wire up listeners** in `mixer-fx.js` `_setupModalListeners()`
+6. **Add apply/reset logic** in `applyToNode()` and `resetNode()`
+7. **Extend URL encoding** in `mixer-state.js` `toShareUrl()` and `applyFromUrl()`
 
-2. **Update the chain** in `app/mixer-app.js` stem creation:
-```javascript
-// Current:
-source → eq.lowShelf → eq.mid → eq.highShelf → filter → ...
-
-// With compressor:
-source → eq.lowShelf → eq.mid → eq.highShelf → compressor → filter → ...
-```
-
-3. **Store reference** in the player object:
-```javascript
-player.effects.compressor = compressor;
-```
+**Example:** See `_ensureCompressor()`, `_ensureDistortion()`, `_ensureTremolo()`, or `_ensureRingMod()` for the splice pattern.
 
 ---
 
@@ -405,8 +389,13 @@ Before deploying, verify:
 - [ ] Restart button works
 - [ ] Mute/solo toggle correctly
 - [ ] FX modal opens/closes (click FX button)
-- [ ] FX modal tabs switch correctly
+- [ ] FX modal all 4 tabs switch correctly (EQ/FILTER, DYNAMICS, MOD/FX, SEND/DELAY)
 - [ ] FX sliders affect audio
+- [ ] Compressor controls affect audio (lazy instantiation)
+- [ ] Distortion drive/tone/mix work (lazy instantiation)
+- [ ] Tremolo rate/depth/shape work (lazy instantiation)
+- [ ] Ring Modulator freq/shape/mix work (lazy instantiation)
+- [ ] Filter rolloff swap works with ring mod in chain
 - [ ] Pan control works
 - [ ] Share URL generates
 - [ ] Share URL loads correctly
