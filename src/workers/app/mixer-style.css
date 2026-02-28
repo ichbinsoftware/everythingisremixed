@@ -124,7 +124,7 @@ header { display: flex; justify-content: center; align-items: center; margin-bot
 .fx-select:hover { border-color: #333; }
 .fx-select:focus { border-color: var(--accent-cyan); }
 .fx-tabs { display: flex; gap: 4px; margin-bottom: 16px; }
-.fx-tab-btn { flex: 1; padding: 8px 12px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 4px; color: var(--text-muted); font-size: 9px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px; cursor: pointer; transition: all 0.15s; }
+.fx-tab-btn { flex: 1; padding: 6px 4px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 4px; color: var(--text-muted); font-size: 8px; font-weight: 600; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.3px; cursor: pointer; transition: all 0.15s; }
 .fx-tab-btn:hover { border-color: #444; color: var(--text-secondary); }
 .fx-tab-btn.active { background: var(--accent-cyan); border-color: var(--accent-cyan); color: #000; }
 .fx-tab-content { display: none; }

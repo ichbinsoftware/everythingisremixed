@@ -110,16 +110,81 @@ The filter wrapper handles rolloff changes internally via `setRolloff()`:
 ```javascript
 _changeFilterRolloff(index, player, newRolloff) {
   const filter = player.effects.filter;
+  const nextNode = player.effects.ringmod
+    ? player.effects.ringmod.input
+    : player.effects.delay.input;
   const changed = filter.setRolloff(
     newRolloff,
-    player.effects.eq.output,
-    player.effects.delay.input,
+    this._filterPrevNode(player),  // distortion.output || compressor.output || eq.output
+    nextNode,
     this.audio.currentTime
   );
   if (changed) {
     this.state.updateFX(index, 'filter', 'rolloff', newRolloff);
   }
 }
+```
+
+### Compressor (Lazy)
+
+| Parameter | Range | Default |
+|-----------|-------|---------|
+| **Threshold** | -100 to 0 dB | -24 dB |
+| **Knee** | 0 - 40 dB | 30 dB |
+| **Ratio** | 1 - 20 | 12 |
+| **Attack** | 0.001 - 1 s | 0.003s |
+| **Release** | 0.01 - 1 s | 0.25s |
+
+**Implementation:** Uses native `DynamicsCompressorNode`. Lazily instantiated — only created when user first interacts. Splices into chain between EQ output and Distortion/Filter input.
+
+### Distortion (Lazy)
+
+| Parameter | Range | Default |
+|-----------|-------|---------|
+| **Drive** | 0 - 100 | 0 |
+| **Tone** | warm, crunch, fuzz, hard-clip | warm |
+| **Mix** | 0 - 100% | 0% |
+
+**Implementation:** Uses `WaveShaperNode` with dry/wet mix. Four tone presets generate different transfer curves (tanh, soft-knee, exponential, hard-clip). Lazily instantiated — splices between Compressor/EQ and Filter.
+
+**Signal Flow:**
+```
+Input ─┬─► Dry (GainNode) ──────────────┬─► Output
+       └─► WaveShaper → Wet (GainNode) ─┘
+```
+
+### Tremolo (Lazy)
+
+| Parameter | Range | Default |
+|-----------|-------|---------|
+| **Rate** | 0.1 - 20 Hz | 4 Hz |
+| **Depth** | 0 - 100% | 0% |
+| **Shape** | sine, square, triangle, sawtooth | sine |
+
+**Implementation:** LFO (OscillatorNode) modulates a signal GainNode. A ConstantSource bias of 1.0 keeps the gain centered. Depth controls modulation amount (0 = no effect). Lazily instantiated — splices between Delay output and Panner.
+
+**Signal Flow:**
+```
+Signal in → signalGain → out
+LFO (osc) → depthGain → signalGain.gain
+bias (constant 1) → signalGain.gain
+```
+
+### Ring Modulator (Lazy)
+
+| Parameter | Range | Default |
+|-----------|-------|---------|
+| **Frequency** | 20 - 2000 Hz | 440 Hz |
+| **Shape** | sine, square, triangle, sawtooth | sine |
+| **Mix** | 0 - 100% | 0% |
+
+**Implementation:** Carrier OscillatorNode multiplied with input signal via GainNode modulation, with dry/wet crossfade. Lazily instantiated — splices between Filter output and Delay input.
+
+**Signal Flow:**
+```
+Input ─┬─► Dry (GainNode) ──────────────────┬─► Output
+       └─► modGain → Wet (GainNode) ────────┘
+Carrier Osc → modGain.gain
 ```
 
 ### Reverb
@@ -187,30 +252,45 @@ Mix state is encoded as URL query parameters:
 ?mix=<stem1>,<stem2>,...&master=<volume>
 ```
 
-**Per-Stem Format:**
+**Per-Stem Format (values[0-29]):**
 ```
-index:volume:muted:solo:pan:eqLow:eqMid:eqHigh:filterType:filterFreq:filterRes:reverbSend:delayTime:delayFB:delayMix:filterRolloff
+index:volume:muted:solo:pan:eqLow:eqMid:eqHigh:filterType:filterFreq:filterRes:reverbSend:delayTime:delayFB:delayMix:filterRolloff:compThresh:compKnee:compRatio:compAttack:compRelease:distDrive:distTone:distMix:tremRate:tremDepth:tremShape:rmFreq:rmShape:rmMix
 ```
 
 ### Parameter Encoding
 
-| Parameter | URL Value | Actual Value | Conversion |
-|-----------|-----------|--------------|------------|
-| volume | 0-100 | 0-1 | ÷100 |
-| muted | 0 or 1 | boolean | ===1 |
-| solo | 0 or 1 | boolean | ===1 |
-| pan | -100 to 100 | -1 to 1 | ÷100 |
-| eqLow | -120 to 120 | -12 to 12 dB | ÷10 |
-| eqMid | -120 to 120 | -12 to 12 dB | ÷10 |
-| eqHigh | -120 to 120 | -12 to 12 dB | ÷10 |
-| filterType | 0, 1, 2 | lowpass, highpass, bandpass | lookup |
-| filterFreq | 20-20000 | 20-20000 Hz | direct |
-| filterRes | 1-100 | 0.1-10 | ÷10 |
-| reverbSend | 0-100 | 0-100% | direct |
-| delayTime | 1-200 | 0.01-2s | ÷100 |
-| delayFB | 0-90 | 0-0.9 | ÷100 |
-| delayMix | 0-100 | 0-100% | direct |
-| filterRolloff | -12, -24 | -12, -24 dB/oct | direct |
+| Index | Parameter | URL Value | Actual Value | Conversion |
+|-------|-----------|-----------|--------------|------------|
+| 0 | index | stem index | stem index | direct |
+| 1 | volume | 0-100 | 0-1 | ÷100 |
+| 2 | muted | 0 or 1 | boolean | ===1 |
+| 3 | solo | 0 or 1 | boolean | ===1 |
+| 4 | pan | -100 to 100 | -1 to 1 | ÷100 |
+| 5 | eqLow | -120 to 120 | -12 to 12 dB | ÷10 |
+| 6 | eqMid | -120 to 120 | -12 to 12 dB | ÷10 |
+| 7 | eqHigh | -120 to 120 | -12 to 12 dB | ÷10 |
+| 8 | filterType | 0, 1, 2 | lowpass, highpass, bandpass | lookup |
+| 9 | filterFreq | 20-20000 | 20-20000 Hz | direct |
+| 10 | filterRes | 1-100 | 0.1-10 | ÷10 |
+| 11 | reverbSend | 0-100 | 0-100% | direct |
+| 12 | delayTime | 1-200 | 0.01-2s | ÷100 |
+| 13 | delayFB | 0-90 | 0-0.9 | ÷100 |
+| 14 | delayMix | 0-100 | 0-100% | direct |
+| 15 | filterRolloff | -12, -24 | -12, -24 dB/oct | direct |
+| 16 | compThresh | -100 to 0 | -100 to 0 dB | direct |
+| 17 | compKnee | 0-40 | 0-40 dB | direct |
+| 18 | compRatio | 10-200 | 1-20 | ÷10 |
+| 19 | compAttack | 1-1000 | 0.001-1s | ÷1000 |
+| 20 | compRelease | 10-1000 | 0.01-1s | ÷1000 |
+| 21 | distDrive | 0-100 | 0-100 | direct |
+| 22 | distTone | 0-3 | warm, crunch, fuzz, hard-clip | lookup |
+| 23 | distMix | 0-100 | 0-100% | direct |
+| 24 | tremRate | 1-200 | 0.1-20 Hz | ÷10 |
+| 25 | tremDepth | 0-100 | 0-100% | direct |
+| 26 | tremShape | 0-3 | sine, square, triangle, sawtooth | lookup |
+| 27 | rmFreq | 20-2000 | 20-2000 Hz | direct |
+| 28 | rmShape | 0-3 | sine, square, triangle, sawtooth | lookup |
+| 29 | rmMix | 0-100 | 0-100% | direct |
 
 ### Example URL
 
@@ -277,15 +357,15 @@ When a channel is muted/inactive, most elements dim to 30% opacity, but active M
 The FX panel opens as a centered modal overlay with a tabbed interface.
 
 ```
-┌─────────────────────────────────────┐
-│  STEM NAME EFFECTS              [×] │
-├─────────────────────────────────────┤
-│  [EQ / FILTER]  [REVERB / DELAY]    │  ← Tab buttons
-├─────────────────────────────────────┤
-│                                     │
-│  (Tab content shown below)          │
-│                                     │
-└─────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│  STEM NAME EFFECTS                                   [×] │
+├──────────────────────────────────────────────────────────┤
+│  [EQ / FILTER]  [DYNAMICS]  [MOD / FX]  [SEND / DELAY]  │
+├──────────────────────────────────────────────────────────┤
+│                                                          │
+│  (Tab content shown below)                               │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
 ```
 
 **Tab 1: EQ / FILTER**
@@ -302,7 +382,35 @@ The FX panel opens as a centered modal overlay with a tabbed interface.
 │  Q     ◄━━━●━━━━━━━━━━►    1.0     │
 ```
 
-**Tab 2: REVERB / DELAY**
+**Tab 2: DYNAMICS**
+```
+│  Compressor                         │
+│  Thresh ◄━━━━●━━━━━━━━►   -24dB    │
+│  Knee   ◄━━━━━━━●━━━━━►    30dB    │
+│  Ratio  ◄━━━━━━━━━●━━━►    12.0    │
+│  Attack ◄●━━━━━━━━━━━━►   0.003s   │
+│  Release◄━━●━━━━━━━━━━►    0.25s   │
+├─────────────────────────────────────┤
+│  Distortion                         │
+│  Drive  ◄●━━━━━━━━━━━━►      0     │
+│  Tone   [▼ Warm            ]        │
+│  Mix    ◄●━━━━━━━━━━━━►      0%    │
+```
+
+**Tab 3: MOD / FX**
+```
+│  Tremolo                            │
+│  Rate   ◄━━━●━━━━━━━━━►   4.0Hz    │
+│  Depth  ◄●━━━━━━━━━━━━►      0%    │
+│  Shape  [▼ Sine            ]        │
+├─────────────────────────────────────┤
+│  Ring Modulator                     │
+│  Freq   ◄━━━━━━━●━━━━━►   440Hz    │
+│  Shape  [▼ Sine            ]        │
+│  Mix    ◄●━━━━━━━━━━━━►      0%    │
+```
+
+**Tab 4: SEND / DELAY**
 ```
 │  Reverb                             │
 │  Send      ◄●━━━━━━━━━━━►     0%   │
@@ -487,6 +595,10 @@ Meters update at ~30fps via the AnimationManager throttling system. Only visible
 DEFAULT_FX_STATE = {
   eq: { low: 0, mid: 0, high: 0 },
   filter: { freq: 20000, resonance: 1, type: 'lowpass', rolloff: -12 },
+  compressor: { threshold: -24, knee: 30, ratio: 12, attack: 0.003, release: 0.25 },
+  distortion: { drive: 0, tone: 'warm', mix: 0 },
+  tremolo: { rate: 4, depth: 0, shape: 'sine' },
+  ringmod: { frequency: 440, shape: 'sine', mix: 0 },
   reverb: { send: 0 },
   delay: { time: 0.375, feedback: 0.3, mix: 0 },
   pan: 0

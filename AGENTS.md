@@ -23,7 +23,7 @@ src/
     ├── {trackId}_peaks.json             # Pre-generated waveform peaks
     └── app/                             # Frontend/UI (served as assets)
         ├── mixer-app.js                 # Client orchestrator (~565 lines)
-        ├── mix-style.css                # Application styles
+        ├── mixer-style.css              # Application styles
         └── modules/                     # ES6 modules (13 total)
             ├── mixer-constants.js       # Config, defaults
             ├── mixer-audio.js           # AudioEngine class
@@ -46,7 +46,8 @@ Self-contained stem mixer for user-provided audio files. No external dependencie
 
 **Features:**
 - Drag-and-drop audio files (M4A, MP3, MP4, WAV, FLAC, OGG)
-- Full FX chain with filter rolloff (-12/-24 dB/oct)
+- Full FX chain: EQ, Filter (rolloff -12/-24 dB/oct), Tremolo, Ring Modulator, Delay, Reverb
+- 3-tab FX modal (EQ/FILTER, MOD/FX, REVERB/DELAY)
 - Holograph visualizer
 - Help system
 - Performance optimizations (visibility tracking, time slicing, dirty checks)
@@ -55,8 +56,8 @@ Self-contained stem mixer for user-provided audio files. No external dependencie
 
 - **Tracks**: Named after alkali metals (Hydrogen, Lithium, Sodium, Potassium, Rubidium, Caesium, Francium)
 - **Stems**: Individual audio tracks that make up a song (9-38 per track)
-- **FX Chain**: EQ → Filter (-12/-24 dB/oct) → Delay → Panner → Gain → Master (+ Reverb Send)
-- **FX Modal**: Tabbed modal interface (EQ/FILTER tab with Slope dropdown, REVERB/DELAY tab)
+- **FX Chain**: EQ → [Compressor] → [Distortion] → Filter (-12/-24 dB/oct) → [Ring Mod] → Delay → [Tremolo] → Panner → Gain → Master (+ Reverb Send)
+- **FX Modal**: Tabbed modal interface (EQ/FILTER, DYNAMICS, MOD/FX, SEND/DELAY)
 - **Progress Bar**: Display-only, no seeking (use skip buttons ±10s)
 - **Share URLs**: Mix state encoded in URL parameters for sharing
 - **Holograph**: 3D "City Landscape" visualizer using OffscreenCanvas + Web Worker
@@ -87,7 +88,7 @@ Self-contained stem mixer for user-provided audio files. No external dependencie
 
 - **Worker**: Serves HTML shell, routes audio/asset requests, handles R2 proxying
 - **Client**: ES6 modules loaded via `type="module"` script tag
-- **Audio**: Processing done in browser (gain, EQ, filter, reverb, delay, pan)
+- **Audio**: Processing done in browser (gain, EQ, compressor, distortion, filter, ring mod, delay, tremolo, reverb, pan)
 - **State**: Mix state shareable via URL parameters (`?mix=...&master=80`)
 - **Style**: Light/dark theme via `data-theme` attribute, track-specific accent colors (`--track-color`)
 
@@ -135,7 +136,11 @@ The filter supports two rolloff slopes selectable via the FX modal "Slope" dropd
 | **-12 dB/oct** | Single BiquadFilterNode | Gentle slope, default |
 | **-24 dB/oct** | 2 cascaded BiquadFilterNodes | Steeper, more surgical |
 
-Hot-swapping rolloff requires reconnecting the audio graph (disconnect old filter, create new, reconnect EQ → Filter → Delay).
+Hot-swapping rolloff requires reconnecting the audio graph (disconnect old filter, create new, reconnect prev → Filter → next node).
+
+## Lazy FX Instantiation
+
+Compressor, Distortion, Ring Modulator, and Tremolo use lazy instantiation — nodes are only created when the user first interacts with them. Each `_ensure*()` method splices the new node into the existing audio chain by disconnecting adjacent nodes and reconnecting through the new effect. This avoids unnecessary CPU overhead for unused effects.
 
 ## Persona
 

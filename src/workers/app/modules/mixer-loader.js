@@ -109,18 +109,16 @@ export class StemLoader {
           // Reverb send: Simple gain node to shared master reverb
           // Performance: Previous design had predelay + lowcut + highcut per stem
           // (4 nodes each). Simplified to 1 node for better CPU usage.
-          const reverbSendGain = this.audioEngine.context.createGain();
-          reverbSendGain.gain.value = 0; // Default: no reverb
-          reverbSendGain.connect(this.audioEngine.masterReverb.input);
-
-          const reverbSend = { gain: reverbSendGain };
+          const reverbSend = this.audioEngine.context.createGain();
+          reverbSend.gain.value = 0; // Default: no reverb
+          reverbSend.connect(this.audioEngine.masterReverb.input);
 
           source.connect(eq.input);
-          eq.connect(filter.input);
+          eq.connect(filter.input); // Lazy effects (compressor, distortion, ringmod, tremolo) spliced in on first use
           filter.connect(delay.input);
           delay.connect(panner);
           panner.connect(gainNode);
-          panner.connect(reverbSend.gain);
+          panner.connect(reverbSend);
           gainNode.connect(this.audioEngine.analyser);
 
           // Create meter
@@ -134,7 +132,7 @@ export class StemLoader {
             blobUrl: blobUrl,
             source: source,
             gainNode: gainNode,
-            effects: { eq, filter, delay, panner, reverbSend },
+            effects: { eq, compressor: null, distortion: null, tremolo: null, ringmod: null, filter, delay, panner, reverbSend },
             loaded: true,
             name: stem.name,
             color: stem.color

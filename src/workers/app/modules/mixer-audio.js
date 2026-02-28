@@ -169,6 +169,167 @@ export class AudioEngine {
     return wrapper;
   }
 
+  createCompressor() {
+    const comp = this.context.createDynamicsCompressor();
+    comp.threshold.value = -24;
+    comp.knee.value = 30;
+    comp.ratio.value = 12;
+    comp.attack.value = 0.003;
+    comp.release.value = 0.25;
+
+    return {
+      node: comp,
+      input: comp,
+      output: comp,
+      connect: (dest) => comp.connect(dest)
+    };
+  }
+
+  createDistortion() {
+    const ctx = this.context;
+    const input = ctx.createGain();
+    const shaper = ctx.createWaveShaper();
+    const dry = ctx.createGain();
+    const wet = ctx.createGain();
+    const output = ctx.createGain();
+
+    shaper.oversample = 'none';
+    dry.gain.value = 1;
+    wet.gain.value = 0;
+
+    // Clean path: input → dry → output
+    input.connect(dry);
+    dry.connect(output);
+
+    // Distorted path: input → shaper → wet → output
+    input.connect(shaper);
+    shaper.connect(wet);
+    wet.connect(output);
+
+    const setCurve = (drive, tone) => {
+      const samples = 44100;
+      const curve = new Float32Array(samples);
+      const amount = 1 + drive * 0.5;
+      const DEG = Math.PI / 180;
+
+      for (let i = 0; i < samples; i++) {
+        const x = (i * 2) / samples - 1;
+        switch (tone) {
+          case 'warm':
+            curve[i] = Math.tanh(x * amount);
+            break;
+          case 'crunch': {
+            const k = amount * 50;
+            curve[i] = ((3 + k) * x * DEG) / (Math.PI + k * Math.abs(x));
+            break;
+          }
+          case 'fuzz':
+            curve[i] = x > 0
+              ? 1 - Math.exp(-x * amount)
+              : -(1 - Math.exp(x * amount));
+            break;
+          case 'hard-clip':
+            curve[i] = Math.max(-1, Math.min(1, x * amount));
+            break;
+          default:
+            curve[i] = Math.tanh(x * amount);
+        }
+      }
+      shaper.curve = curve;
+    };
+
+    // Initialize with default curve
+    setCurve(0, 'warm');
+
+    return {
+      input,
+      shaper,
+      dry,
+      wet,
+      output,
+      setCurve,
+      connect: (dest) => output.connect(dest)
+    };
+  }
+
+  createTremolo() {
+    const ctx = this.context;
+
+    // Signal path: input → signalGain → output
+    // LFO modulates signalGain.gain around 1.0
+    const signalGain = ctx.createGain();
+    signalGain.gain.value = 0; // overridden by bias
+
+    // Bias: constant 1 → signalGain.gain (DC offset)
+    const bias = ctx.createConstantSource();
+    bias.offset.value = 1;
+    bias.connect(signalGain.gain);
+    bias.start();
+
+    // LFO: osc → depthGain → signalGain.gain
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = 4;
+    const depthGain = ctx.createGain();
+    depthGain.gain.value = 0; // depth 0 = no modulation
+    osc.connect(depthGain);
+    depthGain.connect(signalGain.gain);
+    osc.start();
+
+    return {
+      input: signalGain,
+      output: signalGain,
+      setRate(v) { osc.frequency.value = v; },
+      setDepth(v) {
+        // Keep peak gain at 1.0: bias = 1 - v/2, amplitude = v/2
+        // At full depth: gain oscillates [0, 1]; at zero depth: constant 1.0
+        bias.offset.value = 1 - v * 0.5;
+        depthGain.gain.value = v * 0.5;
+      },
+      setShape(v) { osc.type = v; },
+      connect(dest) { signalGain.connect(dest); }
+    };
+  }
+
+  createRingMod() {
+    const ctx = this.context;
+    const input = ctx.createGain();
+    const dry = ctx.createGain();
+    const wet = ctx.createGain();
+    const output = ctx.createGain();
+
+    dry.gain.value = 1;
+    wet.gain.value = 0;
+
+    // Clean path: input → dry → output
+    input.connect(dry);
+    dry.connect(output);
+
+    // Ring mod path: input → modGain → wet → output
+    const modGain = ctx.createGain();
+    modGain.gain.value = 0; // carrier osc drives this
+    input.connect(modGain);
+    modGain.connect(wet);
+    wet.connect(output);
+
+    // Carrier oscillator → modGain.gain
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = 440;
+    osc.connect(modGain.gain);
+    osc.start();
+
+    return {
+      input,
+      output,
+      dry,
+      wet,
+      setFrequency(v) { osc.frequency.value = v; },
+      setShape(v) { osc.type = v; },
+      connect(dest) { output.connect(dest); }
+    };
+  }
+
   createDelay() {
     const delayNode = this.context.createDelay(5);
     const feedback = this.context.createGain();

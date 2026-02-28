@@ -58,17 +58,37 @@ MediaElementSource
     │  EQ   │ (3-band: Low Shelf @ 250Hz, Peak @ 1kHz, High Shelf @ 4kHz)
     └───┬───┘
         │
-        ▼
+        ▼ (lazy)
+   ┌────────────┐
+   │ Compressor │ (DynamicsCompressorNode)
+   └─────┬──────┘
+         │
+         ▼ (lazy)
+   ┌────────────┐
+   │ Distortion │ (WaveShaperNode, dry/wet mix)
+   └─────┬──────┘
+         │
+         ▼
     ┌────────┐
-    │ Filter │ (Biquad: lowpass/highpass/bandpass)
+    │ Filter │ (Biquad: lowpass/highpass/bandpass, -12/-24 dB/oct)
     └───┬────┘
+        │
+        ▼ (lazy)
+   ┌──────────┐
+   │ Ring Mod │ (Carrier osc × signal, dry/wet mix)
+   └────┬─────┘
         │
         ▼
     ┌───────┐
     │ Delay │ (Dry/Wet mix with feedback loop)
     └───┬───┘
         │
-        ▼
+        ▼ (lazy)
+    ┌─────────┐
+    │ Tremolo │ (LFO → gain modulation)
+    └────┬────┘
+         │
+         ▼
     ┌────────┐       ┌───────────────┐
     │ Panner │──────►│  Reverb Send  │──────► Master Reverb (ConvolverNode)
     └───┬────┘       │   (GainNode)  │              │
@@ -158,9 +178,12 @@ class AudioEngine {
   constructor()                    // Creates AudioContext
   async init()                     // Initializes master nodes
   createEQ()                       // Returns 3-band EQ chain
-  createFilter()                   // Returns BiquadFilterNode
+  createFilter()                   // Returns BiquadFilterNode wrapper (supports rolloff)
+  createCompressor()               // Returns DynamicsCompressorNode wrapper
+  createDistortion()               // Returns WaveShaperNode with dry/wet mix
+  createTremolo()                  // Returns LFO-modulated gain (rate/depth/shape)
+  createRingMod()                  // Returns carrier osc × signal with dry/wet
   createDelay()                    // Returns delay with dry/wet/feedback
-  createReverbSend(impulseBuffer)  // Returns convolver with send
   createPanner()                   // Returns StereoPannerNode
   createMeter()                    // Returns AnalyserNode
   setMasterVolume(value)           // Sets master gain (0-1)
@@ -268,7 +291,7 @@ class AnimationManager {
 ```
 
 ### FXController (mixer-fx.js)
-Manages FX modal and applies effects to audio nodes (~266 lines). Uses a tabbed modal interface.
+Manages FX modal and applies effects to audio nodes. Uses a tabbed modal interface with lazy effect instantiation.
 
 ```javascript
 class FXController {
@@ -280,6 +303,10 @@ class FXController {
   closeModal()                     // Closes the modal
   setupModalListeners(index, player)
                                    // Wires up slider event handlers
+  _ensureCompressor(player)        // Lazy: splices compressor into chain
+  _ensureDistortion(player)        // Lazy: splices distortion into chain
+  _ensureTremolo(player)           // Lazy: splices tremolo into chain
+  _ensureRingMod(player)           // Lazy: splices ring mod into chain
   applyToNode(index, player)       // Applies state to audio nodes
   applyAll(players)                // Applies all stems' FX
   resetNode(index, player)         // Resets stem FX to defaults
@@ -287,7 +314,7 @@ class FXController {
 }
 ```
 
-**Modal UI:** The FX panel opens as a centered modal overlay with two tabs: EQ/FILTER and REVERB/DELAY. Click backdrop or press Escape to close.
+**Modal UI:** The FX panel opens as a centered modal overlay with four tabs: EQ/FILTER, DYNAMICS, MOD/FX, and SEND/DELAY. Click backdrop or press Escape to close.
 
 ## Performance Optimizations
 

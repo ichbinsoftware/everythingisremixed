@@ -13,7 +13,7 @@ const HELP_CONTENT = {
     { icon: 'fader', title: 'Volume', description: 'Adjust stem volume.' },
     { icon: 'mute-solo', title: 'Mute / Solo', description: 'M to silence, S to solo (multiselect supported).' },
     { icon: 'pan', title: 'Pan', description: 'Position stem in stereo field.' },
-    { icon: 'fx', title: 'Effects', description: 'Access EQ, Filter, Reverb, and Delay controls.' },
+    { icon: 'fx', title: 'Effects', description: 'Four tabs: EQ/Filter, Dynamics (Compressor, Distortion), Mod/FX (Tremolo, Ring Mod), Send/Delay (Reverb, Delay).' },
     { icon: 'led', title: 'Signal', description: 'Lights up when audio is active.' },
     { icon: 'theme', title: 'Theme', description: 'Toggle light/dark mode in header.' },
     { icon: 'share', title: 'Share', description: 'Copy link with current mix settings.' },
@@ -41,6 +41,9 @@ const HELP_CONTENT = {
     'Cut Low EQ on everything but bass and kick.',
     'Bandpass + High Q = "Telephone" effect.',
     'Hard pan similar stems left/right for width.',
+    'Low Distortion Drive adds warmth; higher settings add grit or crunch.',
+    'Tremolo at slow rates gives pads a breath — faster rates create tremolo guitar.',
+    'Ring Mod at low mix adds metallic shimmer; at high mix, robotic or bell-like tones.',
     'Experiment freely – Reset is always there.'
   ]
 };
@@ -195,7 +198,9 @@ export function renderFXModal(index, stemName, stemState, activeTab) {
 
     <div class="fx-tabs">
       <button class="fx-tab-btn ${activeTab === 'eq-filter' ? 'active' : ''}" data-tab="eq-filter">EQ / FILTER</button>
-      <button class="fx-tab-btn ${activeTab === 'reverb-delay' ? 'active' : ''}" data-tab="reverb-delay">REVERB / DELAY</button>
+      <button class="fx-tab-btn ${activeTab === 'dynamics' ? 'active' : ''}" data-tab="dynamics">DYNAMICS</button>
+      <button class="fx-tab-btn ${activeTab === 'mod-fx' ? 'active' : ''}" data-tab="mod-fx">MOD / FX</button>
+      <button class="fx-tab-btn ${activeTab === 'send-delay' ? 'active' : ''}" data-tab="send-delay">SEND / DELAY</button>
     </div>
 
     <div class="fx-tab-content ${activeTab === 'eq-filter' ? 'active' : ''}" data-tab="eq-filter">
@@ -248,7 +253,109 @@ export function renderFXModal(index, stemName, stemState, activeTab) {
       </div>
     </div>
 
-    <div class="fx-tab-content ${activeTab === 'reverb-delay' ? 'active' : ''}" data-tab="reverb-delay">
+    <div class="fx-tab-content ${activeTab === 'dynamics' ? 'active' : ''}" data-tab="dynamics">
+      <div class="fx-section">
+        <label>Compressor</label>
+        <div class="fx-control">
+          <span class="fx-label">Thresh</span>
+          <input type="range" min="-100" max="0" step="1" value="${fx.compressor.threshold}" class="fx-slider" id="comp-thresh-${index}">
+          <span class="fx-value" id="comp-thresh-val-${index}">${Math.round(fx.compressor.threshold)}dB</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Knee</span>
+          <input type="range" min="0" max="40" step="1" value="${fx.compressor.knee}" class="fx-slider" id="comp-knee-${index}">
+          <span class="fx-value" id="comp-knee-val-${index}">${Math.round(fx.compressor.knee)}dB</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Ratio</span>
+          <input type="range" min="1" max="20" step="0.5" value="${fx.compressor.ratio}" class="fx-slider" id="comp-ratio-${index}">
+          <span class="fx-value" id="comp-ratio-val-${index}">${fx.compressor.ratio.toFixed(1)}</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Attack</span>
+          <input type="range" min="0.001" max="1" step="0.001" value="${fx.compressor.attack}" class="fx-slider" id="comp-attack-${index}">
+          <span class="fx-value" id="comp-attack-val-${index}">${fx.compressor.attack.toFixed(3)}s</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Release</span>
+          <input type="range" min="0.01" max="1" step="0.01" value="${fx.compressor.release}" class="fx-slider" id="comp-release-${index}">
+          <span class="fx-value" id="comp-release-val-${index}">${fx.compressor.release.toFixed(2)}s</span>
+        </div>
+      </div>
+
+      <div class="fx-section">
+        <label>Distortion</label>
+        <div class="fx-control">
+          <span class="fx-label">Drive</span>
+          <input type="range" min="0" max="100" step="1" value="${fx.distortion.drive}" class="fx-slider" id="dist-drive-${index}">
+          <span class="fx-value" id="dist-drive-val-${index}">${Math.round(fx.distortion.drive)}</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Tone</span>
+          <select class="fx-select" id="dist-tone-${index}">
+            <option value="warm" ${fx.distortion.tone === 'warm' ? 'selected' : ''}>Warm</option>
+            <option value="crunch" ${fx.distortion.tone === 'crunch' ? 'selected' : ''}>Crunch</option>
+            <option value="fuzz" ${fx.distortion.tone === 'fuzz' ? 'selected' : ''}>Fuzz</option>
+            <option value="hard-clip" ${fx.distortion.tone === 'hard-clip' ? 'selected' : ''}>Hard Clip</option>
+          </select>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Mix</span>
+          <input type="range" min="0" max="100" step="1" value="${fx.distortion.mix}" class="fx-slider" id="dist-mix-${index}">
+          <span class="fx-value" id="dist-mix-val-${index}">${Math.round(fx.distortion.mix)}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fx-tab-content ${activeTab === 'mod-fx' ? 'active' : ''}" data-tab="mod-fx">
+      <div class="fx-section">
+        <label>Tremolo</label>
+        <div class="fx-control">
+          <span class="fx-label">Rate</span>
+          <input type="range" min="0.1" max="20" step="0.1" value="${fx.tremolo.rate}" class="fx-slider" id="trem-rate-${index}">
+          <span class="fx-value" id="trem-rate-val-${index}">${fx.tremolo.rate.toFixed(1)}Hz</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Depth</span>
+          <input type="range" min="0" max="100" step="1" value="${fx.tremolo.depth}" class="fx-slider" id="trem-depth-${index}">
+          <span class="fx-value" id="trem-depth-val-${index}">${Math.round(fx.tremolo.depth)}%</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Shape</span>
+          <select class="fx-select" id="trem-shape-${index}">
+            <option value="sine" ${fx.tremolo.shape === 'sine' ? 'selected' : ''}>Sine</option>
+            <option value="square" ${fx.tremolo.shape === 'square' ? 'selected' : ''}>Square</option>
+            <option value="triangle" ${fx.tremolo.shape === 'triangle' ? 'selected' : ''}>Triangle</option>
+            <option value="sawtooth" ${fx.tremolo.shape === 'sawtooth' ? 'selected' : ''}>Sawtooth</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fx-section">
+        <label>Ring Modulator</label>
+        <div class="fx-control">
+          <span class="fx-label">Freq</span>
+          <input type="range" min="20" max="2000" step="1" value="${fx.ringmod.frequency}" class="fx-slider" id="rm-freq-${index}">
+          <span class="fx-value" id="rm-freq-val-${index}">${Math.round(fx.ringmod.frequency)}Hz</span>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Shape</span>
+          <select class="fx-select" id="rm-shape-${index}">
+            <option value="sine" ${fx.ringmod.shape === 'sine' ? 'selected' : ''}>Sine</option>
+            <option value="square" ${fx.ringmod.shape === 'square' ? 'selected' : ''}>Square</option>
+            <option value="triangle" ${fx.ringmod.shape === 'triangle' ? 'selected' : ''}>Triangle</option>
+            <option value="sawtooth" ${fx.ringmod.shape === 'sawtooth' ? 'selected' : ''}>Sawtooth</option>
+          </select>
+        </div>
+        <div class="fx-control">
+          <span class="fx-label">Mix</span>
+          <input type="range" min="0" max="100" step="1" value="${fx.ringmod.mix}" class="fx-slider" id="rm-mix-${index}">
+          <span class="fx-value" id="rm-mix-val-${index}">${Math.round(fx.ringmod.mix)}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fx-tab-content ${activeTab === 'send-delay' ? 'active' : ''}" data-tab="send-delay">
       <div class="fx-section">
         <label>Reverb</label>
         <div class="fx-control">
