@@ -2,7 +2,6 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "WebFetch(domain:danielbarta.com)",
       "mcp__ide__getDiagnostics",
       "Bash(node:*)"
     ]
