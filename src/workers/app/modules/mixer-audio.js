@@ -280,7 +280,12 @@ export class AudioEngine {
       input: signalGain,
       output: signalGain,
       setRate(v) { osc.frequency.value = v; },
-      setDepth(v) { depthGain.gain.value = v * 0.5; }, // v in 0-1, maps to 0-0.5
+      setDepth(v) {
+        // Keep peak gain at 1.0: bias = 1 - v/2, amplitude = v/2
+        // At full depth: gain oscillates [0, 1]; at zero depth: constant 1.0
+        bias.offset.value = 1 - v * 0.5;
+        depthGain.gain.value = v * 0.5;
+      },
       setShape(v) { osc.type = v; },
       connect(dest) { signalGain.connect(dest); }
     };

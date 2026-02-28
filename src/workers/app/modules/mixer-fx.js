@@ -231,7 +231,7 @@ export class FXController {
     // Reverb send
     this._bindSlider(content, 'reverb-send', index, val => {
       this.state.updateFX(index, 'reverb', 'send', val);
-      player.effects.reverbSend.gain.gain.setTargetAtTime(val / 100, currentTime(), 0.02);
+      player.effects.reverbSend.gain.setTargetAtTime(val / 100, currentTime(), 0.02);
     }, val => `${Math.round(val)}%`);
 
     // Delay controls
@@ -481,7 +481,7 @@ export class FXController {
     }
 
     // Reverb
-    player.effects.reverbSend.gain.gain.setTargetAtTime(fx.reverb.send / 100, currentTime, 0.02);
+    player.effects.reverbSend.gain.setTargetAtTime(fx.reverb.send / 100, currentTime, 0.02);
 
     // Delay
     player.effects.delay.delayNode.delayTime.setTargetAtTime(fx.delay.time, currentTime, 0.02);
@@ -502,67 +502,67 @@ export class FXController {
     if (!player || !player.effects) return;
 
     const currentTime = this.audio.currentTime;
+    const { eq: ed, compressor: cd, distortion: dd, ringmod: rd, tremolo: td, filter: fd, reverb: rev, delay: dl, pan: defaultPan } = DEFAULT_FX_STATE;
 
-    player.effects.eq.lowShelf.gain.setTargetAtTime(0, currentTime, 0.02);
-    player.effects.eq.mid.gain.setTargetAtTime(0, currentTime, 0.02);
-    player.effects.eq.highShelf.gain.setTargetAtTime(0, currentTime, 0.02);
+    player.effects.eq.lowShelf.gain.setTargetAtTime(ed.low, currentTime, 0.02);
+    player.effects.eq.mid.gain.setTargetAtTime(ed.mid, currentTime, 0.02);
+    player.effects.eq.highShelf.gain.setTargetAtTime(ed.high, currentTime, 0.02);
 
     // Reset compressor (only if it was instantiated)
     if (player.effects.compressor) {
       const comp = player.effects.compressor.node;
-      comp.threshold.setTargetAtTime(-24, currentTime, 0.02);
-      comp.knee.setTargetAtTime(30, currentTime, 0.02);
-      comp.ratio.setTargetAtTime(12, currentTime, 0.02);
-      comp.attack.setTargetAtTime(0.003, currentTime, 0.02);
-      comp.release.setTargetAtTime(0.25, currentTime, 0.02);
+      comp.threshold.setTargetAtTime(cd.threshold, currentTime, 0.02);
+      comp.knee.setTargetAtTime(cd.knee, currentTime, 0.02);
+      comp.ratio.setTargetAtTime(cd.ratio, currentTime, 0.02);
+      comp.attack.setTargetAtTime(cd.attack, currentTime, 0.02);
+      comp.release.setTargetAtTime(cd.release, currentTime, 0.02);
     }
 
     // Reset distortion (only if it was instantiated)
     if (player.effects.distortion) {
       const dist = player.effects.distortion;
-      dist.setCurve(0, 'warm');
-      dist.wet.gain.setTargetAtTime(0, currentTime, 0.02);
-      dist.dry.gain.setTargetAtTime(1, currentTime, 0.02);
+      dist.setCurve(dd.drive, dd.tone);
+      dist.wet.gain.setTargetAtTime(dd.mix / 100, currentTime, 0.02);
+      dist.dry.gain.setTargetAtTime(1 - dd.mix / 100, currentTime, 0.02);
     }
 
     // Reset ring modulator (only if it was instantiated)
     if (player.effects.ringmod) {
       const rm = player.effects.ringmod;
-      rm.setFrequency(440);
-      rm.setShape('sine');
-      rm.wet.gain.setTargetAtTime(0, currentTime, 0.02);
-      rm.dry.gain.setTargetAtTime(1, currentTime, 0.02);
+      rm.setFrequency(rd.frequency);
+      rm.setShape(rd.shape);
+      rm.wet.gain.setTargetAtTime(rd.mix / 100, currentTime, 0.02);
+      rm.dry.gain.setTargetAtTime(1 - rd.mix / 100, currentTime, 0.02);
     }
 
     // Reset tremolo (only if it was instantiated)
     if (player.effects.tremolo) {
       const trem = player.effects.tremolo;
-      trem.setRate(4);
-      trem.setDepth(0);
-      trem.setShape('sine');
+      trem.setRate(td.rate);
+      trem.setDepth(td.depth / 100);
+      trem.setShape(td.shape);
     }
 
     // Reset filter (handle cascaded filters)
     const filter = player.effects.filter;
-    if (filter.rolloff !== -12) {
-      // Reset to default -12dB rolloff
-      this._changeFilterRolloff(index, player, -12);
+    if (filter.rolloff !== fd.rolloff) {
+      this._changeFilterRolloff(index, player, fd.rolloff);
     }
     if (filter.setType) {
-      filter.setType('lowpass');
-      filter.setFrequency(20000, currentTime);
-      filter.setQ(1, currentTime);
+      filter.setType(fd.type);
+      filter.setFrequency(fd.freq, currentTime);
+      filter.setQ(fd.resonance, currentTime);
     } else {
-      filter.type = 'lowpass';
-      filter.frequency.setTargetAtTime(20000, currentTime, 0.02);
-      filter.Q.setTargetAtTime(1, currentTime, 0.02);
+      filter.type = fd.type;
+      filter.frequency.setTargetAtTime(fd.freq, currentTime, 0.02);
+      filter.Q.setTargetAtTime(fd.resonance, currentTime, 0.02);
     }
 
-    player.effects.reverbSend.gain.gain.setTargetAtTime(0, currentTime, 0.02);
-    player.effects.delay.delayNode.delayTime.setTargetAtTime(0.375, currentTime, 0.02);
-    player.effects.delay.feedback.gain.setTargetAtTime(0.3, currentTime, 0.02);
-    player.effects.delay.wet.gain.setTargetAtTime(0, currentTime, 0.02);
-    player.effects.panner.pan.setTargetAtTime(0, currentTime, 0.02);
+    player.effects.reverbSend.gain.setTargetAtTime(rev.send / 100, currentTime, 0.02);
+    player.effects.delay.delayNode.delayTime.setTargetAtTime(dl.time, currentTime, 0.02);
+    player.effects.delay.feedback.gain.setTargetAtTime(dl.feedback, currentTime, 0.02);
+    player.effects.delay.wet.gain.setTargetAtTime(dl.mix / 100, currentTime, 0.02);
+    player.effects.panner.pan.setTargetAtTime(defaultPan, currentTime, 0.02);
   }
 
 }

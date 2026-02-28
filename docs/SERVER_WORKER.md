@@ -40,7 +40,7 @@ The worker relies on specific Cloudflare environment bindings:
 ### 1. ASSETS (Workers Assets binding)
 Contains static code and data:
 - `app/mixer-app.js` - Client application
-- `app/mix-style.css` - Styles
+- `app/mixer-style.css` - Styles
 - `app/modules/*.js` - ES6 modules
 - `stems.json` - Stem configurations
 - `{trackId}_peaks.json` - Pre-generated waveform data

@@ -205,7 +205,7 @@ New effects follow the lazy instantiation pattern used by existing effects:
 
 ### Channel Width
 
-In `app/mix-style.css`, modify the `.channel` class:
+In `app/mixer-style.css`, modify the `.channel` class:
 
 ```css
 .channel {

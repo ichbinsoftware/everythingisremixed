@@ -13,7 +13,7 @@ const HELP_CONTENT = {
     { icon: 'fader', title: 'Volume', description: 'Adjust stem volume.' },
     { icon: 'mute-solo', title: 'Mute / Solo', description: 'M to silence, S to solo (multiselect supported).' },
     { icon: 'pan', title: 'Pan', description: 'Position stem in stereo field.' },
-    { icon: 'fx', title: 'Effects', description: 'Access EQ, Filter, Compressor, Reverb, and Delay controls.' },
+    { icon: 'fx', title: 'Effects', description: 'Four tabs: EQ/Filter, Dynamics (Compressor, Distortion), Mod/FX (Tremolo, Ring Mod), Send/Delay (Reverb, Delay).' },
     { icon: 'led', title: 'Signal', description: 'Lights up when audio is active.' },
     { icon: 'theme', title: 'Theme', description: 'Toggle light/dark mode in header.' },
     { icon: 'share', title: 'Share', description: 'Copy link with current mix settings.' },
@@ -41,6 +41,9 @@ const HELP_CONTENT = {
     'Cut Low EQ on everything but bass and kick.',
     'Bandpass + High Q = "Telephone" effect.',
     'Hard pan similar stems left/right for width.',
+    'Low Distortion Drive adds warmth; higher settings add grit or crunch.',
+    'Tremolo at slow rates gives pads a breath — faster rates create tremolo guitar.',
+    'Ring Mod at low mix adds metallic shimmer; at high mix, robotic or bell-like tones.',
     'Experiment freely – Reset is always there.'
   ]
 };

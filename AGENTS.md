@@ -23,7 +23,7 @@ src/
     ├── {trackId}_peaks.json             # Pre-generated waveform peaks
     └── app/                             # Frontend/UI (served as assets)
         ├── mixer-app.js                 # Client orchestrator (~565 lines)
-        ├── mix-style.css                # Application styles
+        ├── mixer-style.css              # Application styles
         └── modules/                     # ES6 modules (13 total)
             ├── mixer-constants.js       # Config, defaults
             ├── mixer-audio.js           # AudioEngine class

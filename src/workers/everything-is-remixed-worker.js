@@ -222,7 +222,7 @@ function serveApp(track, trackId, searchParams, allStems) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/app/mix-style.css">
+  <link rel="stylesheet" href="/assets/app/mixer-style.css">
   <style>
     :root { --track-color: ${track ? track.color : '#fff'}; }
   </style>
