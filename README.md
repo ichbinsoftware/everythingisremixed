@@ -229,3 +229,4 @@ You may copy, modify, distribute, remix, and commercialize this work without per
 ## 🔗 Related
 
 - [ichbinsoftware/everythingisfree](https://github.com/ichbinsoftware/everythingisfree) — Album stems, artwork, npm package
+- [ichbinsoftware/everythingisvisualized](https://github.com/ichbinsoftware/everythingisvisualized) — 3D music visualizer
